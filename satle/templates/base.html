@@ -15,7 +15,7 @@
     <span class="navbar-brand mx-auto h1">Satle</span>
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a href="#">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#helpModal">
                 <svg class="icon-img" width="60" height="60" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" style="padding:6px 0 6px 0">
  <path d="m600 259.93c-187.55 0-340.07 152.52-340.07 340.07 0 187.55 152.52 340.07 340.07 340.07 187.55 0 340.07-152.52 340.07-340.07 0-187.55-152.52-340.07-340.07-340.07zm0 45.344c163.04 0 294.73 131.69 294.73 294.73 0 163.04-131.69 294.73-294.73 294.73-163.04 0-294.73-131.69-294.73-294.73 0-163.04 131.69-294.73 294.73-294.73zm0 105.8c-62.336 0-113.36 51.02-113.36 113.36-0.085937 6.0703 2.2656 11.918 6.5273 16.238 4.2578 4.3242 10.074 6.7578 16.145 6.7578 6.0703 0 11.883-2.4336 16.145-6.7578 4.2617-4.3203 6.6133-10.168 6.5273-16.238 0-37.832 30.18-68.016 68.012-68.016s68.016 30.184 68.016 68.016c0.26953 31.047-15.719 46.934-38.023 68.016-11.148 10.539-23.531 21.504-34.004 35.895-10.477 14.391-18.656 33.094-18.656 54.789-0.085937 6.0703 2.2617 11.918 6.5234 16.242 4.2617 4.3203 10.078 6.7539 16.145 6.7539 6.0703 0 11.887-2.4336 16.148-6.7539 4.2617-4.3242 6.6094-10.172 6.5234-16.242 0-11.203 3.2852-18.984 9.9219-28.102 6.6328-9.1172 16.965-18.785 28.574-29.758 23.172-21.906 52.508-52.547 52.191-100.84v-0.23438c-0.12891-62.23-51.102-113.12-113.36-113.12zm0 317.4c-16.691 0-30.227 13.535-30.227 30.23 0 16.691 13.535 30.227 30.227 30.227 16.695 0 30.23-13.535 30.23-30.227 0-16.695-13.535-30.23-30.23-30.23z"/>
 </svg>
@@ -50,6 +50,27 @@
     </header>
     {% block content %}{% endblock %}
 </section>
+</div>
+
+<!-- Help Modal -->
+<div class="modal fade" id="helpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h5 class="modal-title" id="helpModalLabel">How to play</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <p class="h6">Guess the <strong>CITY</strong> in 6 tries.</p>
+          <br/>
+          <p class="h6">You will be shown a satellite image of a city somewhere in the world. You try to guess which city is shown in the image.</p>
+          <p class="h6">Each incorrect guess will cause the satellite image to be zoomed out further.</p>
+      </div>
+      <div class="modal-footer">
+          <p class="h6"><strong>A new SATLE will be available each day!</strong></p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Bootstrap JS -->
