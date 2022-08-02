@@ -1,10 +1,10 @@
-// Initialize and add the map
+var zoom = 18;
+var map;
+
 function initMap() {
-    // The location of Uluru
     const city = { lat: 48.4195002, lng: -123.3701672 };
-    // The map, centered at Uluru
-    const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 18,
+    map = new google.maps.Map(document.getElementById("map"), {
+        zoom: zoom,
         center: city,
         disableDefaultUI: true,
         gestureHandling: "none",
@@ -18,5 +18,21 @@ function initMap() {
         mapTypeId: google.maps.MapTypeId.SATELLITE
     });
 }
+
+function zoomOutMap() {
+    zoom -= 2;
+    map.setZoom(zoom);
+}
+
+function submit(guess) {
+    zoomOutMap();
+    console.log(guess);
+}
+
+$("#guessForm").submit(function(event) {
+    submit($("#guessBox").val());
+    $("#guessBox").val(null);
+    event.preventDefault();
+});
 
 window.initMap = initMap;
