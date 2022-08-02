@@ -3,7 +3,20 @@
 {% block title %}Guess cities from sattelite images{% endblock %}
 
 {% block content %}
-<div id="map" style="width: 100%; min-height: calc(100vh - 5rem);">
+<div id="map"></div>
+<div id="guessArea" class="row position-absolute">
+    <div class="col-md-2 col-sm-0"></div>
+    <div class="col-md-8 col-sm-12">
+        <form class="row align-items-center">
+            <div class="col-10">
+                <input id="guessBox" class="form-control form-control-lg" type="text" placeholder="Guess a city" aria-label="Guess a city">
+            </div>
+            <div class="col-2 flex">
+                <button type="submit" class="btn btn-primary">Guess</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2 col-sm-0"></div>
 </div>
 <!--
 <form class="p-3" method="post">

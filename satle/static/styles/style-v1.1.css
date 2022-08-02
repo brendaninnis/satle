@@ -2,7 +2,35 @@
   fill: #fff;
 }
 
+.navbar {
+}
+
 .navbar-brand {
     font-size:2.50rem !important;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+input.form-control, input.form-control:focus {
+    color: white;
+    background-color: #000000CC;
+}
+
+input.form-control:focus {
+    border-color: #1B9AAA;
+    box-shadow: 0 0 0 0.25rem rgb(27 154 170 / 25%);
+}
+
+button.btn-primary {
+    background-color: #1B9AAA;
+}
+
+#map {
+    width: 100%;
+    min-height: calc(100vh - 5rem);
+}
+
+#guessArea {
+    width: 100%;
+    bottom: 24px;
+    margin: 0 !important;
 }
