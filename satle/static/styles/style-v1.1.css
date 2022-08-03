@@ -20,9 +20,21 @@
 }
 
 #guesses {
+    position: relative;
     display: flex;
     flex-wrap: no-wrap;
     overflow-x: auto;
+}
+
+@keyframes append-animate {
+	from {
+		transform: scaleX(0);
+		opacity: 0;
+	}
+	to {
+		transform: scaleX(1);
+		opacity: 1;	
+	}
 }
 
 .guess {
@@ -35,14 +47,17 @@
     border-radius: 9999px;
     background: #000000BB;
     color: #fff;
+    animation: append-animate .3s linear;
 }
 
 .guess.wrong {
     background: #A31621BB;
+    transition: all .3s;
 }
 
 .guess.right {
     background: #06D6A0BB;
+    transition: all .3s;
 }
 
 #guesses .guess:first-child {
