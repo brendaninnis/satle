@@ -18,6 +18,37 @@
     bottom: 16px;
     margin: 0 !important;
 }
+
+#guesses {
+    display: flex;
+    flex-wrap: no-wrap;
+    overflow-x: auto;
+}
+
+.guess {
+    flex: 0 0 auto;
+    margin-left: 20px;
+    padding: 10px 20px 10px 20px;
+    border: solid;
+    border-color: #ffffffBB;
+    border-width: 1px;
+    border-radius: 9999px;
+    background: #000000BB;
+    color: #fff;
+}
+
+.guess.wrong {
+    background: #A31621BB;
+}
+
+.guess.right {
+    background: #06D6A0BB;
+}
+
+#guesses .guess:first-child {
+    margin-left: 0;
+}
+
 .icon-img path {
     fill: #fff;
 }
@@ -58,5 +89,3 @@ input.form-control:focus {
     border-color: #1B9AAA;
     box-shadow: 0 0 0 0.25rem rgb(27 154 170 / 25%);
 }
-
-

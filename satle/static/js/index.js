@@ -1,3 +1,4 @@
+var guesses = 6;
 var zoom = 18;
 var map;
 
@@ -25,6 +26,7 @@ function zoomOutMap() {
 }
 
 function submit(guess) {
+    guesses -= 1;
     zoomOutMap();
     console.log(guess);
 }
