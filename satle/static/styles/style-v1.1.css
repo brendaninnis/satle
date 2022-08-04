@@ -15,7 +15,7 @@
 
 #guessArea {
     width: 100%;
-    bottom: 16px;
+    bottom: 20px;
     margin: 0 !important;
 }
 
@@ -27,14 +27,14 @@
 }
 
 @keyframes append-animate {
-	from {
-		transform: scaleX(0);
-		opacity: 0;
-	}
-	to {
-		transform: scaleX(1);
-		opacity: 1;	
-	}
+    from {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+    to {
+        transform: scaleX(1);
+        opacity: 1;	
+    }
 }
 
 .guess {
@@ -103,4 +103,14 @@ input.form-control, input.form-control:focus {
 input.form-control:focus {
     border-color: #1B9AAA;
     box-shadow: 0 0 0 0.25rem rgb(27 154 170 / 25%);
+}
+
+#submitBtn {
+    width: 100%;
+}
+
+@media (min-width: 768px) { 
+    #submitBtn {
+        width: auto;
+    }
 }

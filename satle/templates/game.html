@@ -6,7 +6,7 @@
 <div id="map"></div>
 <div id="guessArea" class="row position-absolute">
     <div class="row">
-    <div id="guesses" class="col-md-auto pb-3 mx-auto" style="left: -200px;">
+    <div id="guesses" class="col-md-auto pb-3 mx-auto">
     </div>
     </div>
     <div class="col-md-2 col-sm-0"></div>
@@ -15,18 +15,11 @@
             <div class="col-md-10 col-sm-12">
                 <input id="guessBox" class="form-control form-control-lg" type="text" placeholder="Guess a city" aria-label="Guess a city">
             </div>
-            <div class="col-md-2 col-sm-12 p-1 flex">
-                <button type="submit" class="btn btn-primary">Guess</button>
+            <div class="col-md-2 col-sm-12 pb-1 pt-1 pl-1 pr-1 flex">
+                <button id="submitBtn" type="submit" class="btn btn-primary">Guess</button>
             </div>
         </form>
     </div>
     <div class="col-md-2 col-sm-0"></div>
 </div>
-<!--
-<form class="p-3" method="post">
-    <label for="guess">Guess a city:</label>
-    <input type="text" id="guess" name="guess" required>
-    <input type="submit" value="Submit">
-</form>
--->
 {% endblock %}
