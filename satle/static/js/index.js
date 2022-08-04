@@ -1,12 +1,33 @@
+/*
+ * CONSTS AND VARS
+ */
+const satellite = "\u{1F6F0}";
+const greenBox  = "\u{1F7E9}";
+const blackBox  = "\u{2B1B}";
+const redBox    = "\u{1F7E5}";
+const whiteBox  = "\u{2B1C}";
+
+const id = 1
 const correct = "Victoria"
 const loc = { lat: 48.4195002, lng: -123.3701672 };
 
 var isGameOver = false;
-var guesses = 0;
+var guesses = Array();
 var zoom = 18;
 var map;
 const skipStr = "Skip"
 
+/*
+ * BOOTSTRAP
+ */
+
+// Initialize popovers
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
+/*
+ * GOOGLE MAPS
+ */
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         zoom: zoom,
@@ -31,12 +52,54 @@ function zoomOutMap() {
 
 window.initMap = initMap;
 
+/*
+ * CLIPBOARD
+ */
+function fallbackCopyTextToClipboard(text) {
+  let textArea = document.createElement("textarea");
+  textArea.value = text;
+
+  // Avoid scrolling to bottom
+  textArea.style.top = "0";
+  textArea.style.left = "0";
+  textArea.style.position = "fixed";
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    let successful = document.execCommand('copy');
+    let msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Fallback: Copying text command was ' + msg);
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err);
+  }
+
+  document.body.removeChild(textArea);
+}
+
+function copyTextToClipboard(text) {
+  if (!navigator.clipboard) {
+    fallbackCopyTextToClipboard(text);
+    return;
+  }
+  navigator.clipboard.writeText(text).then(function() {
+    console.log('Async: Copying to clipboard was successful!');
+  }, function(err) {
+    console.error('Async: Could not copy text: ', err);
+  });
+}
+
+/*
+ * GAME LOGIC
+ */
 $(document).ready(function() {
     $.fn.getHiddenWidth = function () {
         // save a reference to a cloned element that can be measured
-        var $hiddenElement = $(this).clone().appendTo('body');
+        let $hiddenElement = $(this).clone().appendTo('body');
         // calculate the width of the clone
-        var width = $hiddenElement.width();
+        let width = $hiddenElement.width();
         // remove the clone from the DOM
         $hiddenElement.remove();
         return width;
@@ -45,8 +108,8 @@ $(document).ready(function() {
     function gameOver(win) {
         if (win) {
             $("#gameEndTitle").text("Correct!")
-            var winText = "You got it in " + guesses + " guess";
-            if (guesses > 1) {
+            let winText = "You got it in " + guesses.length + " guess";
+            if (guesses.length > 1) {
                 winText += "es"
             }
             winText += "!"
@@ -78,14 +141,14 @@ $(document).ready(function() {
         if (!guess.replace(/\s/g, '').length) {
             guess = skipStr;
         }
-        guesses += 1;
-        var guessSpan = $("<span class=\"guess\">" + guess + "</span>");
-        var guessesDiv = $("#guesses");
-        var duration = 0
-        if (guesses > 1) {
+        guesses.push(guess);
+        let guessSpan = $("<span class=\"guess\">" + guess + "</span>");
+        let guessesDiv = $("#guesses");
+        let duration = 0
+        if (guesses.length > 1) {
             duration = 300
         }
-        var dist = (guessSpan.getHiddenWidth() + 20) * 0.5
+        let dist = (guessSpan.getHiddenWidth() + 20) * 0.5
         guessesDiv.animate({
             'left': dist + 'px'
         }, duration, "swing", function() {
@@ -95,7 +158,7 @@ $(document).ready(function() {
             setTimeout(function() {
                 if (guess == "Skip") {
                     setTimeout(function() {
-                        if (guesses > 5) {
+                        if (guesses.length > 5) {
                             gameOver(false);
                         } else {
                             zoomOutMap();
@@ -109,7 +172,7 @@ $(document).ready(function() {
                 } else {
                     guessSpan.toggleClass("wrong")
                     setTimeout(function() {
-                        if (guesses > 5) {
+                        if (guesses.length > 5) {
                             gameOver(false);
                         } else {
                             zoomOutMap();
@@ -127,13 +190,32 @@ $(document).ready(function() {
         $("#guessBox").val(null);
     });
 
+    // Share button
+    $("#shareButton").click(function() {
+        let shareText = satellite + "Satle #" + id + " " + guesses.length + "/6\n";
+        for (let i = 0; i < 6; i++) {
+            if (i < guesses.length) {
+                if (guesses[i] == correct) {
+                    shareText += greenBox;
+                } else if (guesses[i] == skipStr) {
+                    shareText += blackBox;
+                } else {
+                    shareText += redBox;
+                }
+            } else {
+                shareText += whiteBox;
+            }
+        }
+        shareText += "\nsatle.brendaninnis.ca"
+        copyTextToClipboard(shareText);
+    });
+
     // Previous guesses show previous zoom levels
     $(document).on("click", ".guess", function() {
         offset = 1;
         if (isGameOver) {
             offset = 0;
         }
-        console.log("offset = " + offset);
         map.setZoom(zoom + 2 * ($(this).index() + offset));
     });
 
