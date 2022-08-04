@@ -1,6 +1,7 @@
 const correct = "Victoria"
 const loc = { lat: 48.4195002, lng: -123.3701672 };
 
+var isGameOver = false;
 var guesses = 0;
 var zoom = 18;
 var map;
@@ -68,6 +69,8 @@ $(document).ready(function() {
 
         $("#gameEndModal").modal("show");
         $("#submitBtn").prop("disabled", true);
+
+        isGameOver = true;
     }
 
     function submit(guess) {
@@ -127,9 +130,10 @@ $(document).ready(function() {
     // Previous guesses show previous zoom levels
     $(document).on("click", ".guess", function() {
         offset = 1;
-        if (gameOver) {
+        if (isGameOver) {
             offset = 0;
         }
+        console.log("offset = " + offset);
         map.setZoom(zoom + 2 * ($(this).index() + offset));
     });
 
