@@ -7,15 +7,23 @@ const blackBox  = "\u{2B1B}";
 const redBox    = "\u{1F7E5}";
 const whiteBox  = "\u{2B1C}";
 
+const skipStr = "Skip"
+
 const id = 1
 const correct = "Victoria"
 const loc = { lat: 48.4195002, lng: -123.3701672 };
 
-var isGameOver = false;
-var guesses = Array();
-var zoom = 18;
+if (localStorage.guesses) {
+    var guesses = JSON.parse(localStorage.guesses);
+} else {
+    var guesses = Array();
+}
+
+var zoom = 18 - (guesses.length * 2);
+if (zoom < 8) {
+    zoom = 8;
+}
 var map;
-const skipStr = "Skip"
 
 /*
  * BOOTSTRAP
@@ -95,6 +103,25 @@ function copyTextToClipboard(text) {
  * GAME LOGIC
  */
 $(document).ready(function() {
+    // Initialize game state
+    var isGameOver = guesses.length > 5;
+    if (isGameOver) {
+        $("#submitBtn").prop("disabled", true);
+    }
+
+    for (const index in guesses) {
+        let guess = guesses[index];
+        let guessSpan = $("<span class=\"guess\">" + guess + "</span>");
+        let guessesDiv = $("#guesses");
+        guessesDiv.prepend(guessSpan);
+        if (guess.toLowerCase() == correct.toLowerCase()) {
+            guessSpan.toggleClass("right");
+        } else if (guess != skipStr) {
+            guessSpan.toggleClass("wrong");
+        }
+    }
+
+
     $.fn.getHiddenWidth = function () {
         // save a reference to a cloned element that can be measured
         let $hiddenElement = $(this).clone().appendTo('body');
@@ -142,6 +169,7 @@ $(document).ready(function() {
             guess = skipStr;
         }
         guesses.push(guess);
+        localStorage.guesses = JSON.stringify(guesses);
         let guessSpan = $("<span class=\"guess\">" + guess + "</span>");
         let guessesDiv = $("#guesses");
         let duration = 0
@@ -156,7 +184,7 @@ $(document).ready(function() {
             guessesDiv.prepend(guessSpan);
             // Allow time for the span to be appended with animation
             setTimeout(function() {
-                if (guess == "Skip") {
+                if (guess == skipStr) {
                     setTimeout(function() {
                         if (guesses.length > 5) {
                             gameOver(false);
@@ -223,4 +251,10 @@ $(document).ready(function() {
     $("#guessBox").focus(function() {
         map.setZoom(zoom);
     });
+
+    // Show instructions if the player has not seen them
+    if (!localStorage.instructionsShown) {
+        $("#helpModal").modal("show");
+    }
+    localStorage.instructionsShown = true;
 });
