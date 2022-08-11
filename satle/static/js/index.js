@@ -7,11 +7,19 @@ const blackBox  = "\u{2B1B}";
 const redBox    = "\u{1F7E5}";
 const whiteBox  = "\u{2B1C}";
 
-const skipStr = "Skip"
+const skipStr       = "Skip";
+const zoomDefault   = 18;
+const zoomFactor    = 2;
+const maxGuesses    = 6;
+const animDuration  = 300;
 
-const id = 1
-const correct = "Victoria"
-const loc = { lat: 48.4195002, lng: -123.3701672 };
+const id = 1;
+// const correct = "Victoria";
+// const loc = { lat: 48.4195002, lng: -123.3701672 };
+// const correct = "London";
+// const loc = { lat: 51.5008283, lng: -0.1429443 };
+const correct = "Mecca";
+const loc = { lat: 21.422474, lng: 39.826096 };
 
 if (localStorage.guesses) {
     var guesses = JSON.parse(localStorage.guesses);
@@ -19,7 +27,7 @@ if (localStorage.guesses) {
     var guesses = Array();
 }
 
-var zoom = 18 - (guesses.length * 2);
+var zoom = zoomDefault - (guesses.length * zoomFactor);
 if (zoom < 8) {
     zoom = 8;
 }
@@ -54,7 +62,7 @@ function initMap() {
 }
 
 function zoomOutMap() {
-    zoom -= 2;
+    zoom -= zoomFactor;
     map.setZoom(zoom);
 }
 
@@ -104,10 +112,7 @@ function copyTextToClipboard(text) {
  */
 $(document).ready(function() {
     // Initialize game state
-    var isGameOver = guesses.length > 5;
-    if (isGameOver) {
-        $("#submitBtn").prop("disabled", true);
-    }
+    var isGameOver = guesses.length >= maxGuesses;
 
     for (const index in guesses) {
         let guess = guesses[index];
@@ -116,11 +121,15 @@ $(document).ready(function() {
         guessesDiv.prepend(guessSpan);
         if (guess.toLowerCase() == correct.toLowerCase()) {
             guessSpan.toggleClass("right");
+            isGameOver = true;
         } else if (guess != skipStr) {
             guessSpan.toggleClass("wrong");
         }
     }
 
+    if (isGameOver) {
+        $("#submitBtn").prop("disabled", true);
+    }
 
     $.fn.getHiddenWidth = function () {
         // save a reference to a cloned element that can be measured
@@ -172,11 +181,11 @@ $(document).ready(function() {
         localStorage.guesses = JSON.stringify(guesses);
         let guessSpan = $("<span class=\"guess\">" + guess + "</span>");
         let guessesDiv = $("#guesses");
-        let duration = 0
+        let duration = 0;
         if (guesses.length > 1) {
-            duration = 300
+            duration = animDuration;
         }
-        let dist = (guessSpan.getHiddenWidth() + 20) * 0.5
+        let dist = (guessSpan.getHiddenWidth() + 20) * 0.5;
         guessesDiv.animate({
             'left': dist + 'px'
         }, duration, "swing", function() {
@@ -186,28 +195,28 @@ $(document).ready(function() {
             setTimeout(function() {
                 if (guess == skipStr) {
                     setTimeout(function() {
-                        if (guesses.length > 5) {
+                        if (guesses.length >= maxGuesses) {
                             gameOver(false);
                         } else {
                             zoomOutMap();
                         }
-                    }, 300);
+                    }, animDuration);
                 } else if (guess.toLowerCase() == correct.toLowerCase()) {
                     guessSpan.toggleClass("right");
                     setTimeout(function() {
                         gameOver(true);
-                    }, 300);
+                    }, animDuration);
                 } else {
                     guessSpan.toggleClass("wrong")
                     setTimeout(function() {
-                        if (guesses.length > 5) {
+                        if (guesses.length >= maxGuesses) {
                             gameOver(false);
                         } else {
                             zoomOutMap();
                         }
-                    }, 300);
+                    }, animDuration);
                 }
-            }, 300);
+            }, animDuration);
         });
     }
 
@@ -221,9 +230,9 @@ $(document).ready(function() {
     // Share button
     $("#shareButton").click(function() {
         let shareText = satellite + "Satle #" + id + " " + guesses.length + "/6\n";
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < maxGuesses; i++) {
             if (i < guesses.length) {
-                if (guesses[i] == correct) {
+                if (guesses[i].toLowerCase() == correct.toLowerCase()) {
                     shareText += greenBox;
                 } else if (guesses[i] == skipStr) {
                     shareText += blackBox;
@@ -244,7 +253,7 @@ $(document).ready(function() {
         if (isGameOver) {
             offset = 0;
         }
-        map.setZoom(zoom + 2 * ($(this).index() + offset));
+        map.setZoom(zoom + zoomFactor * ($(this).index() + offset));
     });
 
     // Focusing the guess box shows the current zoom level
