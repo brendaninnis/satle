@@ -56,7 +56,7 @@
 }
 
 .guess.right {
-    background: #06D6A0BB;
+    background: #06d6a0BB;
     transition: all .3s;
 }
 
@@ -77,6 +77,10 @@
     display: inline-block;
     background: #666;
     height: 100%;
+}
+
+.guess-number {
+    background: #06d6a0 !important;
 }
 
 .btn-primary {
