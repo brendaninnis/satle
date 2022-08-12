@@ -1,3 +1,11 @@
+// TODO: Remove this
+// Populate some statistics in localStorage
+localStorage.guessDistributions = JSON.stringify([1, 3, 5, 5, 4, 1]);
+localStorage.gamesPlayed = 24;
+localStorage.winPercent = 0.8;
+localStorage.currentStreak = 8;
+localStorage.longestStreak = 11;
+
 /*
  * CONSTS AND VARS
  */
@@ -13,13 +21,28 @@ const zoomFactor    = 2;
 const maxGuesses    = 6;
 const animDuration  = 300;
 
-const id = 1;
-// const correct = "Victoria";
-// const loc = { lat: 48.4195002, lng: -123.3701672 };
-// const correct = "London";
-// const loc = { lat: 51.5008283, lng: -0.1429443 };
-const correct = "Mecca";
-const loc = { lat: 21.422474, lng: 39.826096 };
+const answers = [
+    {
+        id: 1,
+        city: "Victoria",
+        loc: { lat: 48.4195002, lng: -123.3701672 }
+    },
+    {
+        id: 2,
+        city: "London",
+        loc: { lat: 51.5008283, lng: -0.1429443 }
+    },
+    {
+        id: 3,
+        city: "Mecca",
+        loc: { lat: 21.422474, lng: 39.826096 }
+    }
+]
+
+const answer = answers[0];
+const id = answer.id;
+const correct = answer.city;
+const loc = answer.loc;
 
 if (localStorage.guesses) {
     var guesses = JSON.parse(localStorage.guesses);
@@ -111,26 +134,6 @@ function copyTextToClipboard(text) {
  * GAME LOGIC
  */
 $(document).ready(function() {
-    // Initialize game state
-    var isGameOver = guesses.length >= maxGuesses;
-
-    for (const index in guesses) {
-        let guess = guesses[index];
-        let guessSpan = $("<span class=\"guess\">" + guess + "</span>");
-        let guessesDiv = $("#guesses");
-        guessesDiv.prepend(guessSpan);
-        if (guess.toLowerCase() == correct.toLowerCase()) {
-            guessSpan.toggleClass("right");
-            isGameOver = true;
-        } else if (guess != skipStr) {
-            guessSpan.toggleClass("wrong");
-        }
-    }
-
-    if (isGameOver) {
-        $("#submitBtn").prop("disabled", true);
-    }
-
     $.fn.getHiddenWidth = function () {
         // save a reference to a cloned element that can be measured
         let $hiddenElement = $(this).clone().appendTo('body');
@@ -203,6 +206,8 @@ $(document).ready(function() {
                     }, animDuration);
                 } else if (guess.toLowerCase() == correct.toLowerCase()) {
                     guessSpan.toggleClass("right");
+                    guessSpan.attr("data-bs-toggle", "modal");
+                    guessSpan.attr("data-bs-target", "#gameEndModal");
                     setTimeout(function() {
                         gameOver(true);
                     }, animDuration);
@@ -261,9 +266,55 @@ $(document).ready(function() {
         map.setZoom(zoom);
     });
 
+    // Initialize game state
+    var isGameOver = guesses.length >= maxGuesses;
+
+    for (const index in guesses) {
+        let guess = guesses[index];
+        let guessSpan = $("<span class=\"guess\">" + guess + "</span>");
+        let guessesDiv = $("#guesses");
+        guessesDiv.prepend(guessSpan);
+        if (guess.toLowerCase() == correct.toLowerCase()) {
+            guessSpan.toggleClass("right");
+            guessSpan.attr("data-bs-toggle", "modal");
+            guessSpan.attr("data-bs-target", "#gameEndModal");
+            gameOver(true);
+        } else if (guess != skipStr) {
+            guessSpan.toggleClass("wrong");
+        }
+    }
+
+    if (isGameOver) {
+        $("#submitBtn").prop("disabled", true);
+    }
+
     // Show instructions if the player has not seen them
     if (!localStorage.instructionsShown) {
         $("#helpModal").modal("show");
     }
     localStorage.instructionsShown = true;
+
+    // Populate statistics
+    $("#playedValue").text(localStorage.gamesPlayed);
+    $("#winPercentValue").text(parseInt(localStorage.winPercent * 100));
+    $("#currentStreakValue").text(localStorage.currentStreak);
+    $("#longestStreakValue").text(localStorage.longestStreak);
+    let guessDistributions = JSON.parse(localStorage.guessDistributions);
+    let largestDistribution = 1;
+    for (const index in guessDistributions) {
+        let value = guessDistributions[index];
+        if (value > largestDistribution) {
+            largestDistribution = value;
+        }
+    }
+    for (const index in guessDistributions) {
+        let guessNumber = parseInt(index) + 1;
+        let value = guessDistributions[index];
+        let widthString = "auto";
+        if (value > 0) {
+            widthString = parseInt((value / largestDistribution) * 100) + "%";
+        }
+        let distributionDiv = $("<div class=\"row align-items-center\"><div class=\"col-1\"><p class=\"my-auto\">" + guessNumber + "</p></div><div class=\"col-11\"><div class=\"p-1 guess-distribution\" style=\"width: " + widthString + ";\"><span style=\"margin-right: 8px; float: right;\">" + value + "</span></div></div></div>");
+        $("#distributions").append(distributionDiv);
+    }
 });

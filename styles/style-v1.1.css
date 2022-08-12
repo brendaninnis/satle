@@ -68,6 +68,17 @@
     fill: #fff;
 }
 
+#statsModal #stats p {
+    margin-bottom: 0;
+    line-height: 1.1;
+}
+
+.guess-distribution {
+    display: inline-block;
+    background: #666;
+    height: 100%;
+}
+
 .btn-primary {
     min-height: calc(1.5em + 1rem + 2px);
     min-width: calc((1.5em + 1rem + 2px) * 2.4);
