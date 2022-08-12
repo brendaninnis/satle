@@ -42,6 +42,10 @@ class Storage {
         }
     }
 
+    /**
+     *
+     * @param win True if the game was won and false otherwise.
+     */
     updateStatistics(win) {
         // Update values
         this.gamesPlayed += 1;
@@ -56,13 +60,17 @@ class Storage {
             this.currentStreak = 0;
         }
         // Persist to localStorage
-        localStorage.gamesPlayed = parseInt(this.gamesPlayed);
-        localStorage.gamesWon = parseInt(this.gamesWon);
-        localStorage.currentStreak = parseInt(this.currentStreak);
-        localStorage.longestStreak = parseInt(this.longestStreak);
+        localStorage.gamesPlayed        = parseInt(this.gamesPlayed);
+        localStorage.gamesWon           = parseInt(this.gamesWon);
+        localStorage.currentStreak      = parseInt(this.currentStreak);
+        localStorage.longestStreak      = parseInt(this.longestStreak);
         localStorage.guessDistributions = JSON.stringify(this.guessDistributions);
     }
 
+    /**
+     *
+     * @param guess The guess the player made.
+     */
     addGuess(guess) {
         this.guesses.push(guess);
         localStorage.guesses = JSON.stringify(this.guesses);

@@ -31,10 +31,10 @@ const answers = [
     }
 ]
 
-const answer = answers[0];
-const id = answer.id;
-const correct = answer.city;
-const loc = answer.loc;
+const answer    = answers[2];
+const id        = answer.id;
+const correct   = answer.city;
+const loc       = answer.loc;
 
 const storage = new Storage(id);
 
@@ -56,7 +56,6 @@ window.initMap = initMap;
 /**
  * BOOTSTRAP
  */
-
 // Initialize popovers
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
@@ -254,5 +253,4 @@ $(document).ready(function() {
         $("#helpModal").modal("show");
     }
     localStorage.instructionsShown = true;
-
 });
