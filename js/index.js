@@ -31,7 +31,7 @@ const answers = [
     }
 ]
 
-const answer    = answers[2];
+const answer    = answers[0];
 const id        = answer.id;
 const correct   = answer.city;
 const loc       = answer.loc;
@@ -93,7 +93,7 @@ $(document).ready(function() {
             if (guessNumber == correctGuessNumber) {
                 guessNumberClass = "guess-number ";
             }
-            let distributionDiv = $("<div class=\"row align-items-center\"><div class=\"col-1\"><p class=\"my-auto\">" + guessNumber + "</p></div><div class=\"col-11\"><div class=\"p-1 " + guessNumberClass + "guess-distribution\" style=\"width: " + widthString + ";\"><span style=\"margin-right: 8px; float: right;\">" + value + "</span></div></div></div>");
+            let distributionDiv = $("<div class=\"row align-items-center\"><div class=\"col-1\"><p class=\"my-auto\">" + guessNumber + "</p></div><div class=\"col-11\"><div class=\"p-1 " + guessNumberClass + "guess-distribution\" style=\"min-width: " + widthString + ";\"><span style=\"margin-right: 8px; float: right;\">" + value + "</span></div></div></div>");
             distributionsDiv.append(distributionDiv);
         }
     }
@@ -222,6 +222,15 @@ $(document).ready(function() {
     // Focusing the guess box shows the current zoom level
     $("#guessBox").focus(function() {
         map.resetZoom();
+    });
+
+    // Email feedback button
+    function buildFeedbackBody() {
+        return "%0A%0A---%0ADevice Details:%0A" + window.navigator.userAgent;
+    }
+
+    $("#emailButton").click(function() {
+        window.open('mailto:brendaninnis@icloud.com?subject=Satle%20Feedback&body=' + buildFeedbackBody());
     });
 
     // Initialize game state
