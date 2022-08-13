@@ -31,7 +31,7 @@ const answers = [
     }
 ]
 
-const answer    = answers[0];
+const answer    = answers[todaysSatle() % answers.length];
 const id        = answer.id;
 const correct   = answer.city;
 const loc       = answer.loc;
