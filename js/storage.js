@@ -33,12 +33,19 @@ class Storage {
         }
         this.guessDistributions = JSON.parse(localStorage.guessDistributions);
 
+        if (localStorage.getItem("isGameOver") === null) {
+            localStorage.isGameOver = JSON.stringify(true);
+        }
+        this.isGameOver = JSON.parse(localStorage.isGameOver);
+
         if (localStorage.getItem("currentSatleId") == satleId && localStorage.getItem("guesses") !== null) {
             this.guesses = JSON.parse(localStorage.guesses);
         } else {
             localStorage.currentSatleId = satleId;
+            this.isGameOver = false;
             this.guesses = Array();
             localStorage.guesses = JSON.stringify(this.guesses);
+            localStorage.isGameOver = JSON.stringify(this.isGameOver);
         }
     }
 
@@ -48,6 +55,7 @@ class Storage {
      */
     updateStatistics(win) {
         // Update values
+        this.isGameOver = true;
         this.gamesPlayed += 1;
         if (win) {
             this.gamesWon += 1;
@@ -60,6 +68,7 @@ class Storage {
             this.currentStreak = 0;
         }
         // Persist to localStorage
+        localStorage.isGameOver         = JSON.stringify(this.isGameOver);
         localStorage.gamesPlayed        = parseInt(this.gamesPlayed);
         localStorage.gamesWon           = parseInt(this.gamesWon);
         localStorage.currentStreak      = parseInt(this.currentStreak);

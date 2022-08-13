@@ -42,6 +42,9 @@ const storage = new Storage(id);
  * GOOGLE MAP
  */
 let initialZoom = zoomDefault - (storage.guesses.length * zoomFactor);
+if (storage.isGameOver) {
+    initialZoom += zoomFactor;
+}
 if (initialZoom < 8) {
     initialZoom = 8;
 }
@@ -134,7 +137,7 @@ $(document).ready(function() {
 
     function updateGameOverState(win) {
         $("#submitBtn").prop("disabled", true);
-        isGameOver = true;
+        storage.isGameOver = true;
         if (win) {
             populateStatistics(storage.guesses.length);
         } else {
@@ -213,7 +216,7 @@ $(document).ready(function() {
     // Previous guesses show previous zoom levels
     $(document).on("click", ".guess", function() {
         offset = 1;
-        if (isGameOver) {
+        if (storage.isGameOver) {
             offset = 0;
         }
         map.setZoomToIndex($(this).index() + offset);
@@ -234,8 +237,7 @@ $(document).ready(function() {
     });
 
     // Initialize game state
-    var isGameOver = storage.guesses.length >= maxGuesses;
-    if (isGameOver) {
+    if (storage.isGameOver) {
         $("#submitBtn").prop("disabled", true);
     }
 
