@@ -24,6 +24,15 @@
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
     </head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C6NJTT9HL4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-C6NJTT9HL4');
+    </script>
 
     <body>
         <nav class="navbar navbar-expand navbar-dark bg-dark">
@@ -130,24 +139,24 @@
                     </div>
                     <div class="modal-body">
                         <div id="stats" class="row text-center">
-                        <div class="col-2"></div>
-                        <div class="col-2">
-                            <p id="playedValue" class="display-6">0</p>
-                            <p>Played</p>
-                        </div>
-                        <div class="col-2">
-                            <p id="winPercentValue" class="display-6">0</p>
-                            <p>Win %</p>
-                        </div>
-                        <div class="col-2">
-                            <p id="currentStreakValue" class="display-6">0</p>
-                            <p>Current<br/>Streak</p>
-                        </div>
-                        <div class="col-2">
-                            <p id="longestStreakValue" class="display-6">0</p>
-                            <p>Longest<br/>Streak</p>
-                        </div>
-                        <div class="col-2"></div>
+                            <div class="col-2"></div>
+                            <div class="col-2">
+                                <p id="playedValue" class="display-6">0</p>
+                                <p>Played</p>
+                            </div>
+                            <div class="col-2">
+                                <p id="winPercentValue" class="display-6">0</p>
+                                <p>Win %</p>
+                            </div>
+                            <div class="col-2">
+                                <p id="currentStreakValue" class="display-6">0</p>
+                                <p>Current<br/>Streak</p>
+                            </div>
+                            <div class="col-2">
+                                <p id="longestStreakValue" class="display-6">0</p>
+                                <p>Longest<br/>Streak</p>
+                            </div>
+                            <div class="col-2"></div>
                         </div>
                         <div class="row mt-3 mb-2">
                             <div class="col-12 text-center">
@@ -208,7 +217,7 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsAJ8zq3tIH-ALCwimBjWxb5rrQETrwJ8&callback=initMap&v=weekly" defer></script>
-        
+
         <!-- Source scripts -->
         <script src="js/util.js"></script>
         <script src="js/clipboard.js"></script>
