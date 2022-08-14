@@ -538,6 +538,7 @@ $(document).ready(function() {
         });
     }
 
+    // Autocomplete guesses
     $(document).on("click", ".autocomplete-option", function() {
         $("#autocompleteList").empty();
         $("#guessBox").val($(this).text());
@@ -552,8 +553,9 @@ $(document).ready(function() {
         }
 
         let suggestions = Array();
-        let shuffled = shuffle(answers);
+        let shuffled = shuffle(answers.slice());
 
+        // Suggestions are shuffled. Text appearing at the beginning comes first
         for (let i = 0; i < shuffled.length; i++) {
             if (answers[i].city.toLowerCase().startsWith(guess)) {
                 suggestions.unshift(answers[i].city);
@@ -562,8 +564,11 @@ $(document).ready(function() {
             }
         }
 
+        // Limit to 5 suggestions
         for (let i = 0; i < suggestions.length && i < 5; i++) {
             let suggestion = suggestions[i];
+
+            // Wrap emphasis around the first occurance of the guess
             let firstIndex = 0,
                 lastIndex = 0,
                 checkIndex = 0;
@@ -583,6 +588,8 @@ $(document).ready(function() {
                 }
             }
             let suggestionText = suggestion.slice(0, firstIndex) + "<strong>" + suggestion.slice(firstIndex, lastIndex) + "</strong>" + suggestion.slice(lastIndex);
+
+            // Add the suggestion to the autocomplete list
             $("#autocompleteList").prepend("<li class=\"list-group-item autocomplete-option text-light\">" + suggestionText + "</li>");
         }
     });
