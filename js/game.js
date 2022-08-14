@@ -563,7 +563,27 @@ $(document).ready(function() {
         }
 
         for (let i = 0; i < suggestions.length && i < 5; i++) {
-            $("#autocompleteList").prepend("<li class=\"list-group-item autocomplete-option text-light\">" + suggestions[i] + "</li>");
+            let suggestion = suggestions[i];
+            let firstIndex = 0,
+                lastIndex = 0,
+                checkIndex = 0;
+            for (let j = 0; j < suggestion.length; j++) {
+                let charAt = suggestion.toLowerCase().charAt(j);
+                if (charAt == guess.charAt(checkIndex)) {
+                    if (checkIndex == 0) {
+                        firstIndex = j;
+                    }
+                    checkIndex += 1;
+                    if (checkIndex == guess.length) {
+                        lastIndex = j + 1;
+                        break;
+                    }
+                } else {
+                    checkIndex = 0;
+                }
+            }
+            let suggestionText = suggestion.slice(0, firstIndex) + "<strong>" + suggestion.slice(firstIndex, lastIndex) + "</strong>" + suggestion.slice(lastIndex);
+            $("#autocompleteList").prepend("<li class=\"list-group-item autocomplete-option text-light\">" + suggestionText + "</li>");
         }
     });
 
@@ -598,7 +618,6 @@ $(document).ready(function() {
     // Previous guesses show previous zoom levels
     $(document).on("click", ".guess", function() {
         let index = storage.guesses.length - $(this).index() - 1;
-        console.log("zoom to index " + index);
         map.setZoomToIndex(index);
     });
 
