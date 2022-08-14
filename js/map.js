@@ -5,17 +5,24 @@
 class GameMap {
     /**
      *
-     * @param zoom          The initial zoom level for the map.
-     * @param zoomFactor    The amount the map zooms out for each guess.
+     * @param storage       The storage object
      */
-    constructor(zoom, zoomFactor) {
-        this.zoom = zoom;
-        this.zoomFactor = zoomFactor;
+    constructor(storage) {
+        this.storage = storage;
+        this.zoomLevels = [19, 17, 15, 12, 9, 5];
+        this.zoomLevel = 0;
     }
 
     initMap() {
+        if (storage.isGameOver) {
+            this.zoomLevel = storage.guesses.length - 1;
+        } else {
+            this.zoomLevel = storage.guesses.length;
+        }
+
+        let zoom = this.zoomLevels[this.zoomLevel];
         this.map = new google.maps.Map(document.getElementById("map"), {
-            zoom: this.zoom,
+            zoom: zoom,
             center: loc,
             disableDefaultUI: true,
             gestureHandling: "none",
@@ -31,16 +38,16 @@ class GameMap {
     }
 
     resetZoom() {
-        this.map.setZoom(this.zoom);
+        this.map.setZoom(this.zoomLevels[this.zoomLevel]);
     }
 
     setZoomToIndex(index) {
-        this.map.setZoom(this.zoom + this.zoomFactor * index);
+        this.map.setZoom(this.zoomLevels[index]);
     }
 
     zoomOutMap() {
-        this.zoom -= this.zoomFactor;
-        this.map.setZoom(this.zoom);
+        this.zoomLevel += 1;
+        this.map.setZoom(this.zoomLevels[this.zoomLevel]);
     }
 
 }
