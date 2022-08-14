@@ -389,7 +389,7 @@ const answers = [
     }
 ]
 
-const answer    = answers[answers.length - 1]; // answers[todaysSatle() % answers.length];
+const answer    = answers[todaysSatle() % answers.length];
 const id        = answer.id;
 const correct   = answer.city;
 const loc       = answer.loc;
@@ -538,9 +538,39 @@ $(document).ready(function() {
         });
     }
 
+    $(document).on("click", ".autocomplete-option", function() {
+        $("#autocompleteList").empty();
+        $("#guessBox").val($(this).text());
+    });
+
+    $("#guessBox").on("input", function() {
+        $("#autocompleteList").empty();
+
+        let guess = $("#guessBox").val().toLowerCase();
+        if (guess == "" || storage.isGameOver) {
+            return;
+        }
+
+        let suggestions = Array();
+        let shuffled = shuffle(answers);
+
+        for (let i = 0; i < shuffled.length; i++) {
+            if (answers[i].city.toLowerCase().startsWith(guess)) {
+                suggestions.unshift(answers[i].city);
+            } else if (answers[i].city.toLowerCase().includes(guess)) {
+                suggestions.push(answers[i].city);
+            }
+        }
+
+        for (let i = 0; i < suggestions.length && i < 5; i++) {
+            $("#autocompleteList").prepend("<li class=\"list-group-item autocomplete-option text-light\">" + suggestions[i] + "</li>");
+        }
+    });
+
     // Submitting the guess form submits the guess and clears the form
     $("#guessForm").submit(function(event) {
         event.preventDefault();
+        $("#autocompleteList").empty();
         submit($("#guessBox").val());
         $("#guessBox").val(null);
     });

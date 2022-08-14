@@ -1,6 +1,6 @@
 function todaysSatle() {
     let startYear   = 2022;
-    let startDay    = 224;
+    let startDay    = 226;
     let today       = new Date();
 
     // satleId starts at 0

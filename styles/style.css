@@ -14,8 +14,12 @@
 }
 
 #guessArea {
-    width: 100%;
     bottom: 20px;
+    margin: 0 !important;
+}
+
+#autocompleteArea {
+    bottom: calc(3em + 2.5rem + 22px);
     margin: 0 !important;
 }
 
@@ -24,6 +28,23 @@
     display: flex;
     flex-wrap: no-wrap;
     overflow-x: auto;
+}
+
+#autocompleteList {
+    position: relative;
+}
+
+.autocomplete-option {
+    background-color: #000000CC;
+    border: 1px solid #ffffff88;
+}
+
+.autocomplete-option:hover {
+    background-color: #333333CC;
+}
+
+.autocomplete-option:active {
+    background-color: #666666CC;
 }
 
 @keyframes append-animate {
@@ -127,5 +148,9 @@ input.form-control:focus {
 @media (min-width: 768px) { 
     #submitBtn {
         width: auto;
+    }
+
+    #autocompleteArea {
+        bottom: calc(1.5em + 1.5rem + 21px);
     }
 }
