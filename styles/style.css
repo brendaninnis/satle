@@ -1,10 +1,14 @@
+body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+}
+
 .navbar {
     min-height: 4rem;
     padding: 0 !important;
 }
 
 #container {
-    min-height: calc(100vh - 4rem) !important;
     padding: 0 !important;
 }
 
