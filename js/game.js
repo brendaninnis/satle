@@ -843,7 +843,7 @@ $(document).ready(function() {
                 shareText += whiteBox;
             }
         }
-        shareText += "\nsatle.brendaninnis.ca"
+        shareText += "\nhttps://satle.brendaninnis.ca"
         copyTextToClipboard(shareText);
     });
 
