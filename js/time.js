@@ -1,6 +1,6 @@
 function todaysSatle() {
     let startYear   = 2022;
-    let startDay    = 226;
+    let startDay    = 227;
     let today       = new Date();
 
     // satleId starts at 0
@@ -16,6 +16,9 @@ function todaysSatle() {
 
     // add or subtract the days of year since the start day
     satleId += today.getDOY() - startDay;
+    if (satleId < 0) {
+        satleId = 0;
+    }
 
     return satleId;
 }
