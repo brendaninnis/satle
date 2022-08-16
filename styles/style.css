@@ -77,6 +77,12 @@ body {
     background: #000000BB;
     color: #fff;
     animation: append-animate .3s linear;
+    cursor:pointer;
+}
+
+.guess:hover {
+    background: #000;
+    transition: all .3s;
 }
 
 .guess.wrong {
@@ -84,8 +90,18 @@ body {
     transition: all .3s;
 }
 
+.guess.wrong:hover {
+    background: #A31621;
+    transition: all .3s;
+}
+
 .guess.right {
     background: #06d6a0BB;
+    transition: all .3s;
+}
+
+.guess.right:hover {
+    background: #06d6a0;
     transition: all .3s;
 }
 

@@ -847,6 +847,8 @@ $(document).ready(function() {
         copyTextToClipboard(shareText);
     });
 
+    $("#gameEndAnswer").text("Answer: " + correct);
+
     // Previous guesses show previous zoom levels
     $(document).on("click", ".guess", function() {
         let index = storage.guesses.length - $(this).index() - 1;
