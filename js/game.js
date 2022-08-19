@@ -645,6 +645,10 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
  */
 $(document).ready(function() {
 
+    function guessIsCorrect(guess) {
+        return guess.toLowerCase().trim() == correct.toLowerCase().trim();
+    }
+
     function populateStatistics(correctGuessNumber) {
         $("#playedValue").text(storage.gamesPlayed);
         if (storage.gamesPlayed > 0) {
@@ -742,7 +746,7 @@ $(document).ready(function() {
             guessesDiv.prepend(guessSpan);
             // Allow time for the span to be appended with animation
             setTimeout(function() {
-                let win = guess.toLowerCase() == correct.toLowerCase();
+                let win = guessIsCorrect(guess);
                 let ended = win || storage.guesses.length >= maxGuesses;
                 if (win) {
                     guessSpan.toggleClass("right");
@@ -832,7 +836,7 @@ $(document).ready(function() {
         let shareText = satellite + "Satle #" + id + " " + storage.guesses.length + "/6\n";
         for (let i = 0; i < maxGuesses; i++) {
             if (i < storage.guesses.length) {
-                if (storage.guesses[i].toLowerCase() == correct.toLowerCase()) {
+                if (guessIsCorrect(storage.guesses[i])) {
                     shareText += greenBox;
                 } else if (storage.guesses[i] == skipStr) {
                     shareText += blackBox;
@@ -862,7 +866,7 @@ $(document).ready(function() {
 
     // Email feedback button
     function buildFeedbackBody() {
-        return "%0A%0A---%0ADevice Details:%0A" + window.navigator.userAgent;
+        return "%0A%0A---%0AGame Details:%0A" + JSON.stringify(localStorage) + "%0A%0ADevice Details:%0A" + window.navigator.userAgent;
     }
 
     $("#emailButton").click(function() {
@@ -881,7 +885,7 @@ $(document).ready(function() {
         let guessSpan = $("<span class=\"guess\">" + guess + "</span>");
         let guessesDiv = $("#guesses");
         guessesDiv.prepend(guessSpan);
-        if (guess.toLowerCase() == correct.toLowerCase()) {
+        if (guessIsCorrect(guess)) {
             guessSpan.toggleClass("right");
             guessSpan.attr("data-bs-toggle", "modal");
             guessSpan.attr("data-bs-target", "#gameEndModal");
