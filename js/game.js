@@ -702,16 +702,8 @@ $(document).ready(function() {
             $("#gameEndText").text("Try again tomorrow.")
         }
 
-        endMap = new google.maps.Map(document.getElementById("gameEndMap"), {
-            zoom: 5,
-            center: loc,
-            disableDefaultUI: true,
-        });
-
-        const marker = new google.maps.Marker({
-            position: loc,
-            map: endMap,
-        });
+        let endMap = $("<iframe width=\"100%\" height=\"100%\" style=\"border:0;\" loading=\"lazy\" allowfullscreen referrerpolicy=\"no-referrer-when-downgrade\" src=\"https://www.google.com/maps/embed/v1/view?center=" + answer.loc.lat + "," + answer.loc.lng + "&zoom=5&maptype=satellite&key=AIzaSyBsAJ8zq3tIH-ALCwimBjWxb5rrQETrwJ8\"></iframe>")
+        $("#gameEndMap").html(endMap);
 
         $("#gameEndModal").modal("show");
     }
