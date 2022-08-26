@@ -1,5 +1,3 @@
-if (window.top !== window.self) window.top.location.replace(window.self.location.href);
-
 /**
  * CONSTS AND VARS
  */
@@ -817,8 +815,13 @@ $(document).ready(function() {
         }
     });
 
-    if (window.top !== window.self) {
-        $("body").html("<div class=\"container\" style=\"height: 100%;\"><div class=\"row pt-5\" style=\"height: 100%;\"><div class=\"col-12 pt-5\"><div class=\"alert alert-danger mt-5\" role=\"alert\"><h4 class=\"alert-heading\">⚠️ This game is stolen!</h4><p>I created Satle which has been stolen by this website. I work hard in my spare time to produce Satle out of love for the people who enjoy playing, and this website has stolen my code outright.</p><hr><p class=\"mb-0\">Please visit the official Satle <a href=\"" + atob("aHR0cHM6Ly9zYXRsZS5icmVuZGFuaW5uaXMuY2Ev") + "\">here</a>, on my website.</p></div></div></div></div>")
+    try {
+        if (window.top !== window.self) window.top.location.replace(window.self.location.href);
+    } catch(error) {
+        console.log(error);
+        if (window.top !== window.self) {
+            $("body").html("<div class=\"container\" style=\"height: 100%;\"><div class=\"row pt-5\" style=\"height: 100%;\"><div class=\"col-12 pt-5\"><div class=\"alert alert-danger mt-5\" role=\"alert\"><h4 class=\"alert-heading\">⚠️ This game is stolen!</h4><p>I created Satle which has been stolen by this website. I work hard in my spare time to produce Satle out of love for the people who enjoy playing, and this website has stolen my code outright.</p><hr><p class=\"mb-0\">Please visit the official Satle <a href=\"" + atob("aHR0cHM6Ly9zYXRsZS5icmVuZGFuaW5uaXMuY2Ev") + "\">here</a>, on my website.</p></div></div></div></div>")
+        }
     }
 
 
