@@ -723,6 +723,25 @@ $(document).ready(function() {
         if (!guess.replace(/\s/g, '').length) {
             guess = skipStr;
         }
+        if (guess !== skipStr) {
+            if (!answers.some(el => el.city.toLowerCase().trim() === guess.toLowerCase().trim())) {
+                if ($("#guessWarning").hasClass("show")) {
+                    if ($("#guessWarning").hasClass("big")) {
+                        return false;
+                    }
+                    $("#guessWarning").addClass("big");
+                    setTimeout(function() {
+                        $("#guessWarning").removeClass("big");
+                    }, 500);
+                    return false;
+                }
+                $("#guessWarning").addClass("show");
+                setTimeout(function() {
+                    $("#guessWarning").removeClass("show");
+                }, 3000);
+                return false;
+            }
+        }
         storage.addGuess(guess);
         let guessSpan = $("<span class=\"guess\">" + guess + "</span>");
         let guessesDiv = $("#guesses");
@@ -744,7 +763,7 @@ $(document).ready(function() {
                     guessSpan.toggleClass("right");
                     guessSpan.attr("data-bs-toggle", "modal");
                     guessSpan.attr("data-bs-target", "#gameEndModal");
-                } else if (guess != skipStr) {
+                } else if (guess !== skipStr) {
                     guessSpan.toggleClass("wrong")
                 }
 
@@ -757,6 +776,8 @@ $(document).ready(function() {
                 }, animDuration);
             }, animDuration);
         });
+
+        return true;
     }
 
     // Autocomplete guesses
@@ -824,13 +845,13 @@ $(document).ready(function() {
         }
     }
 
-
     // Submitting the guess form submits the guess and clears the form
     $("#guessForm").submit(function(event) {
         event.preventDefault();
         $("#autocompleteList").empty();
-        submit($("#guessBox").val());
-        $("#guessBox").val(null);
+        if (submit($("#guessBox").val())) {
+            $("#guessBox").val(null);
+        }
     });
 
     // Share button
