@@ -1,4 +1,25 @@
-function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+const rightArrow        = "\u{27A1}"
+const downRightArrow    = "\u{2198}"
+const downArrow         = "\u{2B07}"
+const downLeftArrow     = "\u{2199}"
+const leftArrow         = "\u{2B05}"
+const upLeftArrow       = "\u{2196}"
+const upArrow           = "\u{2B06}"
+const upRightArrow      = "\u{2197}"
+const rightCode         = "27A1"
+const downRightCode     = "2198"
+const downCode          = "2B07"
+const downLeftCode      = "2199"
+const leftCode          = "2B05"
+const upLeftCode        = "2196"
+const upCode            = "2B06"
+const upRightCode       = "2197"
+
+function getEmoji(unicode, alt) {
+    return "<span><img alt=\"" + alt + "\" src=\"https://twemoji.maxcdn.com/2/72x72/" + unicode + ".png\" style=\"width: 1em; height: 1em; margin: 0px 0.05em 0px 0.1em; vertical-align: -0.1em;\"></span>"
+}
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     let R = 6371; // Radius of the earth in km
     let dLat = toRad(lat2-lat1);  // deg2rad below
     let dLon = toRad(lon2-lon1);
@@ -9,48 +30,56 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
     ;
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     let d = R * c; // Distance in km
-    return d;
+    return Math.round(d);
 }
 
 function getDirectionEmoji(lat1, lon1, lat2, lon2) {
     let bearing = degreeBearing(lat1, lon1, lat2, lon2);
     if (bearing > 337.5 || bearing <= 22.5) {
-        return '⬆️';
+        return upArrow;
+        return getEmoji(upCode, upArrow);
     } else if (bearing > 22.5 && bearing <= 67.5) {
-        return '↗️';
+        return upRightArrow;
+        return getEmoji(upRightCode, upRightArrow);
     } else if (bearing > 67.5 && bearing <= 112.5) {
-        return '➡️';
+        return rightArrow;
+        return getEmoji(rightCode, rightArrow);
     } else if (bearing > 112.5 && bearing <= 157.5) {
-        return '↘️';
+        return downRightArrow;
+        return getEmoji(downRightCode, downRightArrow);
     } else if (bearing > 157.5 && bearing <= 202.5) {
-        return '⬇️';
+        return downArrow;
+        return getEmoji(downCode, downArrow);
     } else if (bearing > 202.5 && bearing <= 247.5) {
-        return '↙️';
+        return downLeftArrow;
+        return getEmoji(downLeftCode, downLeftArrow);
     } else if (bearing > 247.5 && bearing <= 292.5) {
-        return '⬅️';
+        return leftArrow;
+        return getEmoji(leftCode, leftArrow);
     } else if (beraing > 292.5 && bearing <= 337.5) {
-        return '↖️';
+        return upLeftArrow;
+        return getEmoji(upLeftCode, upLeftArrow);
     }
 }
 
 function degreeBearing(lat1, lon1, lat2, lon2) {
     let dLon = toRad(lon2-lon1);
-    let dPhi = Math.Log(
-        Math.Tan(toRad(lat2)/2+Math.PI/4)/Math.Tan(toRad(lat1)/2+Math.PI/4));
-    if (Math.Abs(dLon) > Math.PI)
+    let dPhi = Math.log(
+        Math.tan(toRad(lat2)/2+Math.PI/4)/Math.tan(toRad(lat1)/2+Math.PI/4));
+    if (Math.abs(dLon) > Math.PI)
         dLon = dLon > 0 ? -(2*Math.PI-dLon) : (2*Math.PI+dLon);
-    return toBearing(Math.Atan2(dLon, dPhi));
+    return toBearing(Math.atan2(dLon, dPhi));
 }
 
-function toRad(double degrees) {
+function toRad(degrees) {
     return degrees * (Math.PI / 180);
 }
 
-function toDegrees(double radians) {
+function toDegrees(radians) {
     return radians * 180 / Math.PI;
 }
 
-function toBearing(double radians) {
+function toBearing(radians) {
     return (toDegrees(radians) +360) % 360;
 }
 

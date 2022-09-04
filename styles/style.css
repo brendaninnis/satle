@@ -76,6 +76,13 @@ body {
     }
 }
 
+img.emoji {
+    width: 1em;
+    height: 1em;
+    margin: 0px 0.05em 0px 0.1em;
+    vertical-align: -0.1em;
+}
+
 .autocomplete-option {
     background-color: #000000CC;
     border: 1px solid #ffffff88;

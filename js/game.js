@@ -616,7 +616,6 @@ const answers = [
 
 const answer    = answers[todaysSatle() % answers.length];
 const id        = answer.id;
-const correct   = answer.city;
 const loc       = answer.loc;
 
 const storage = new Storage(id);
@@ -646,7 +645,7 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 $(document).ready(function() {
 
     function guessIsCorrect(guess) {
-        return guess.toLowerCase().trim() == correct.toLowerCase().trim();
+        return guess.toLowerCase().trim() == answer.city.toLowerCase().trim();
     }
 
     function populateStatistics(correctGuessNumber) {
@@ -692,7 +691,7 @@ $(document).ready(function() {
         if (win) {
             $("#gameEndTitle").text("Correct!")
             let winText = "You got it in " + storage.guesses.length + " guess";
-            if (storage.guesses.length > 1) {
+            if (answer.citystorage.guesses.length > 1) {
                 winText += "es"
             }
             winText += "!"
@@ -723,8 +722,9 @@ $(document).ready(function() {
         if (!guess.replace(/\s/g, '').length) {
             guess = skipStr;
         }
+        let candidate = findCandidateAnswer(guess);
         if (guess !== skipStr) {
-            if (!answers.some(el => el.city.toLowerCase().trim() === guess.toLowerCase().trim())) {
+            if (!candidate) {
                 if ($("#guessWarning").hasClass("show")) {
                     if ($("#guessWarning").hasClass("big")) {
                         return false;
@@ -743,7 +743,7 @@ $(document).ready(function() {
             }
         }
         storage.addGuess(guess);
-        let guessSpan = $("<span class=\"guess\">" + guess + "</span>");
+        let guessSpan = createGuessSpan();
         let guessesDiv = $("#guesses");
         let duration = 0;
         if (storage.guesses.length > 1) {
@@ -759,14 +759,7 @@ $(document).ready(function() {
             setTimeout(function() {
                 let win = guessIsCorrect(guess);
                 let ended = win || storage.guesses.length >= maxGuesses;
-                if (win) {
-                    guessSpan.toggleClass("right");
-                    guessSpan.attr("data-bs-toggle", "modal");
-                    guessSpan.attr("data-bs-target", "#gameEndModal");
-                } else if (guess !== skipStr) {
-                    guessSpan.toggleClass("wrong")
-                }
-
+                setupGuessSpan(guessSpan, guess, candidate);
                 setTimeout(function() {
                     if (ended) {
                         gameOver(win);
@@ -778,6 +771,29 @@ $(document).ready(function() {
         });
 
         return true;
+    }
+
+    function findCandidateAnswer(guess) {
+        return answers.find(el => el.city.toLowerCase().trim() === guess.toLowerCase().trim());
+    }
+
+    function createGuessSpan() {
+        return $("<span class=\"guess\"></span>");
+    }
+
+    function setupGuessSpan(guessSpan, guess, candidate) {
+        if (guessIsCorrect(guess)) {
+            guessSpan.html(guess);
+            guessSpan.toggleClass("right");
+            guessSpan.attr("data-bs-toggle", "modal");
+            guessSpan.attr("data-bs-target", "#gameEndModal");
+        } else if (guess !== skipStr) {
+            guessSpan.html(guess + " " + getDirectionEmoji(candidate.loc.lat, candidate.loc.lng, answer.loc.lat, answer.loc.lng) + " " + getDistanceFromLatLonInKm(candidate.loc.lat, candidate.loc.lng, answer.loc.lat, answer.loc.lng) + "km");
+            guessSpan.toggleClass("wrong");
+            twemoji.parse(document.body);
+        } else {
+            guessSpan.html(guess);
+        }
     }
 
     // Autocomplete guesses
@@ -874,7 +890,7 @@ $(document).ready(function() {
         copyTextToClipboard(shareText);
     });
 
-    $("#gameEndAnswer").text("Answer: " + correct);
+    $("#gameEndAnswer").text("Answer: " + answer.city);
 
     // Previous guesses show previous zoom levels
     $(document).on("click", ".guess", function() {
@@ -905,17 +921,14 @@ $(document).ready(function() {
 
     for (const index in storage.guesses) {
         let guess = storage.guesses[index];
-        let guessSpan = $("<span class=\"guess\">" + guess + "</span>");
+        let candidate = findCandidateAnswer(guess);
+        let guessSpan = createGuessSpan();
         let guessesDiv = $("#guesses");
         guessesDiv.prepend(guessSpan);
+        setupGuessSpan(guessSpan, guess, candidate);
         if (guessIsCorrect(guess)) {
-            guessSpan.toggleClass("right");
-            guessSpan.attr("data-bs-toggle", "modal");
-            guessSpan.attr("data-bs-target", "#gameEndModal");
             showGameOverModal(true);
             updateGameOverState(true);
-        } else if (guess != skipStr) {
-            guessSpan.toggleClass("wrong");
         }
     }
 
@@ -924,4 +937,6 @@ $(document).ready(function() {
         $("#helpModal").modal("show");
     }
     localStorage.instructionsShown = true;
+
+    twemoji.parse(document.body);
 });
