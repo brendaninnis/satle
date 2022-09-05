@@ -89,7 +89,7 @@ $(document).ready(function() {
         if (win) {
             $("#gameEndTitle").text("Correct!")
             let winText = "You got it in " + storage.guesses.length + " guess";
-            if (answer.citystorage.guesses.length > 1) {
+            if (storage.guesses.length > 1) {
                 winText += "es"
             }
             winText += "!"

@@ -56,7 +56,7 @@ function getDirectionEmoji(lat1, lon1, lat2, lon2) {
     } else if (bearing > 247.5 && bearing <= 292.5) {
         return leftArrow;
         return getEmoji(leftCode, leftArrow);
-    } else if (beraing > 292.5 && bearing <= 337.5) {
+    } else if (bearing > 292.5 && bearing <= 337.5) {
         return upLeftArrow;
         return getEmoji(upLeftCode, upLeftArrow);
     }
