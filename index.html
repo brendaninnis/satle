@@ -189,10 +189,21 @@
                         <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" style="padding-right: 0;">
-                        <p class="h4 mb-3 text-muted">Feedback<a id="emailButton" class="me-3" href="#" style="float: right;">Email</a></p>
-                        <p class="h4 pt-3 mb-3 text-muted" style="border-top: 1px solid grey;">Issues<a class="me-3" href="https://github.com/brendaninnis/satle" style="float: right;">Github</a></p>
-                        <p class="h4 pt-3 text-muted" style="border-top: 1px solid grey;">Difficulty settings coming soon!</p>
+                    <div id="settings-list" class="modal-body" style="padding-right: 0;">
+                        <p class="h4 mb-3 text-muted">Show distance
+                            <span class="me-3 form-check-reverse form-check form-switch" style="float:right;">
+                                <input id="show-distance-switch" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                            </span>
+                        </p>
+                        <p class="h4 pt-3 mb-3 text-muted">Distance units
+                            <span class="me-3 form-check-reverse form-check form-switch" style="float:right;">
+                                <input id="distance-units-switch" class="form-check-input" type="checkbox" role="switch">
+                                <label id="distance-units-value" class="form-check-label text-light" for="distance-units-switch">km</label>
+                            </span>
+                        </p>
+                        <p class="h4 pt-3 mb-3 text-muted">Feedback<a id="emailButton" class="me-3" href="#" style="float: right;">Email</a></p>
+                        <p class="h4 pt-3 pb-3 mb-3 text-muted" style="border-bottom: 1px solid grey;">Issues<a class="me-3" href="https://github.com/brendaninnis/satle" target="_blank" style="float: right;">Github</a></p>
+                        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Satle on Ko-fi', '#1b9aaa', 'O5O0F4YRT');kofiwidget2.draw();</script>
                     </div>
                     <div class="modal-footer">
                         <p class="h6"><strong>Next Satle available in <span id="satle-countdown"></span></strong></p>
@@ -207,20 +218,18 @@
                 <div class="modal-content bg-dark text-light">
                     <div class="modal-body text-center">
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="margin-left: auto; float: right;"></button>
-                        <p class="display-6" id="gameEndTitle"></p>
+                        <p class="display-6" id="gameEndTitle" style="padding-left: 24px;"></p>
                         <div id="gameEndMap" class="m-3" style="aspect-ratio: 1.62 / 1;"></div>
                         <p id="gameEndAnswer" class="h6"></p>
-                        <br/>
                         <p id="gameEndText" class="lead"></p>
-                        <button id="shareButton" type="button" class="btn btn-outline-success" style="width: 100%;" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Copied results to clipboard.">Share</button>
+                        <button id="shareButton" type="button" class="btn btn-success" style="width: 100%;" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Copied results to clipboard.">Share results</button>
+                        <p class="mt-4 text-muted">Google Maps API is expensive 😟</p>
+                        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Satle on Ko-fi', '#1b9aaa', 'O5O0F4YRT');kofiwidget2.draw();</script>
                     </div>
                 </div>
             </div>
         </div>
 
-
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
@@ -235,6 +244,7 @@
         <script src="js/storage.js"></script>
         <script src="js/time.js"></script>
         <script src="js/geolocation.js"></script>
+        <script src="js/settings.js"></script>
         <script src="js/game.js"></script>
     </body>
 </html>
