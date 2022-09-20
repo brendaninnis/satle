@@ -19,67 +19,72 @@ function getEmoji(unicode, alt) {
     return "<span><img alt=\"" + alt + "\" src=\"https://twemoji.maxcdn.com/2/72x72/" + unicode + ".png\" style=\"width: 1em; height: 1em; margin: 0px 0.05em 0px 0.1em; vertical-align: -0.1em;\"></span>"
 }
 
-function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-    let R = 6371; // Radius of the earth in km
-    let dLat = toRad(lat2-lat1);  // deg2rad below
-    let dLon = toRad(lon2-lon1);
+function getDistanceFromLatLon(metric, lat1, lon1, lat2, lon2) {
+    let earthRadius = 6371
+    let distLat = toRad(lat2-lat1)
+    let distLon = toRad(lon2-lon1)
     let a =
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(distLat/2) * Math.sin(distLat/2) +
         Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-        Math.sin(dLon/2) * Math.sin(dLon/2)
-    ;
-    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    let d = R * c; // Distance in km
-    return Math.round(d);
+        Math.sin(distLon/2) * Math.sin(distLon/2)
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+    let dist = earthRadius * c
+    if (metric) {
+        return Math.round(dist)
+    }
+    return Math.round(toMiles(dist))
 }
 
 function getDirectionEmoji(lat1, lon1, lat2, lon2) {
-    let bearing = degreeBearing(lat1, lon1, lat2, lon2);
+    let bearing = degreeBearing(lat1, lon1, lat2, lon2)
     if (bearing > 337.5 || bearing <= 22.5) {
-        return upArrow;
-        return getEmoji(upCode, upArrow);
+        return upArrow
+        return getEmoji(upCode, upArrow)
     } else if (bearing > 22.5 && bearing <= 67.5) {
-        return upRightArrow;
-        return getEmoji(upRightCode, upRightArrow);
+        return upRightArrow
+        return getEmoji(upRightCode, upRightArrow)
     } else if (bearing > 67.5 && bearing <= 112.5) {
-        return rightArrow;
-        return getEmoji(rightCode, rightArrow);
+        return rightArrow
+        return getEmoji(rightCode, rightArrow)
     } else if (bearing > 112.5 && bearing <= 157.5) {
-        return downRightArrow;
-        return getEmoji(downRightCode, downRightArrow);
+        return downRightArrow
+        return getEmoji(downRightCode, downRightArrow)
     } else if (bearing > 157.5 && bearing <= 202.5) {
-        return downArrow;
-        return getEmoji(downCode, downArrow);
+        return downArrow
+        return getEmoji(downCode, downArrow)
     } else if (bearing > 202.5 && bearing <= 247.5) {
-        return downLeftArrow;
-        return getEmoji(downLeftCode, downLeftArrow);
+        return downLeftArrow
+        return getEmoji(downLeftCode, downLeftArrow)
     } else if (bearing > 247.5 && bearing <= 292.5) {
-        return leftArrow;
-        return getEmoji(leftCode, leftArrow);
+        return leftArrow
+        return getEmoji(leftCode, leftArrow)
     } else if (bearing > 292.5 && bearing <= 337.5) {
-        return upLeftArrow;
-        return getEmoji(upLeftCode, upLeftArrow);
+        return upLeftArrow
+        return getEmoji(upLeftCode, upLeftArrow)
     }
 }
 
 function degreeBearing(lat1, lon1, lat2, lon2) {
-    let dLon = toRad(lon2-lon1);
+    let distLon = toRad(lon2-lon1)
     let dPhi = Math.log(
-        Math.tan(toRad(lat2)/2+Math.PI/4)/Math.tan(toRad(lat1)/2+Math.PI/4));
-    if (Math.abs(dLon) > Math.PI)
-        dLon = dLon > 0 ? -(2*Math.PI-dLon) : (2*Math.PI+dLon);
-    return toBearing(Math.atan2(dLon, dPhi));
+        Math.tan(toRad(lat2)/2+Math.PI/4)/Math.tan(toRad(lat1)/2+Math.PI/4))
+    if (Math.abs(distLon) > Math.PI)
+        distLon = distLon > 0 ? -(2*Math.PI-distLon) : (2*Math.PI+distLon)
+    return toBearing(Math.atan2(distLon, dPhi))
 }
 
 function toRad(degrees) {
-    return degrees * (Math.PI / 180);
+    return degrees * (Math.PI / 180)
 }
 
 function toDegrees(radians) {
-    return radians * 180 / Math.PI;
+    return radians * 180 / Math.PI
 }
 
 function toBearing(radians) {
-    return (toDegrees(radians) +360) % 360;
+    return (toDegrees(radians) +360) % 360
 }
 
+function toMiles(kilometers) {
+    return kilometers * 0.6214
+}
