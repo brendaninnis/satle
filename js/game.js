@@ -422,11 +422,11 @@ rebuildGuesses()
 // Show instructions if the player has not seen them
 if (!localStorage.instructionsShown) {
     helpModal.show()
-    localStorage.instructionsShown = true
 } else if (!localStorage.update1Shown) {
     update1Modal.show()
-    localStorage.update1Shown = true
 }
+localStorage.instructionsShown = true
+localStorage.update1Shown = true
 
 settings.bindSettings(rebuildGuesses)
 
