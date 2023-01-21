@@ -46,6 +46,7 @@ const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
 let helpModal = new bootstrap.Modal(document.getElementById("helpModal"), {})
+let update1Modal = new bootstrap.Modal(document.getElementById("update1Modal"), {})
 let gameEndModal = new bootstrap.Modal(document.getElementById("gameEndModal"), {})
 
 /**
@@ -421,8 +422,11 @@ rebuildGuesses()
 // Show instructions if the player has not seen them
 if (!localStorage.instructionsShown) {
     helpModal.show()
+    localStorage.instructionsShown = true
+} else if (!localStorage.update1Shown) {
+    update1Modal.show()
+    localStorage.update1Shown = true
 }
-localStorage.instructionsShown = true
 
 settings.bindSettings(rebuildGuesses)
 
