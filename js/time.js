@@ -3,8 +3,8 @@ function todaysSatle() {
     let startDay    = 227
     let today       = new Date()
 
-    // I missed 23 days of Satles, so we adjust the date appropriately
-    let satleId     = -23
+    // I missed 25 days of Satles, so we adjust the date appropriately
+    let satleId     = -25
 
     // add days in the year for each year since the start
     for (let i = startYear; i < today.getFullYear(); i++) {
