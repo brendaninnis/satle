@@ -308,12 +308,14 @@ guessBox.addEventListener("input", (event) => {
 
     // Suggestions are shuffled. Text appearing at the beginning comes first
     for (let i = 0; i < shuffled.length; i++) {
-        if (satles[i].city.toLowerCase().startsWith(guess)) {
-            suggestions.unshift(satles[i].city)
-        } else if (satles[i].city.toLowerCase().includes(guess)) {
-            suggestions.push(satles[i].city)
+        if (shuffled[i].city.toLowerCase().startsWith(guess)) {
+            suggestions.unshift(shuffled[i].city)
+        } else if (shuffled[i].city.toLowerCase().includes(guess)) {
+            suggestions.push(shuffled[i].city)
         }
     }
+
+    suggestions = [...new Set(suggestions)]
 
     // Limit to 5 suggestions
     for (let i = 0; i < suggestions.length && i < 5; i++) {
@@ -422,11 +424,11 @@ rebuildGuesses()
 // Show instructions if the player has not seen them
 if (!localStorage.instructionsShown) {
     helpModal.show()
-} else if (!localStorage.update1Shown) {
+} else if (!localStorage.update2Shown) {
     update1Modal.show()
 }
 localStorage.instructionsShown = true
-localStorage.update1Shown = true
+localStorage.update2Shown = true
 
 settings.bindSettings(rebuildGuesses)
 
