@@ -204,7 +204,7 @@ function submit(guess) {
         }
     }
     storage.addGuess(guess)
-    let guessSpan = createGuessSpan(guess, candidate)
+    let guessSpan = createGuessSpan(candidate)
     let guessesDiv = document.getElementById("guesses")
     let duration = 0
     if (storage.guesses.length > 1) {
@@ -256,19 +256,22 @@ function findCandidateAnswer(guess) {
     return satles.find(el => el.city.toLowerCase().trim() === guess.toLowerCase().trim())
 }
 
-function createGuessSpan(guess, candidate) {
+function createGuessSpan(candidate) {
     let guessSpan = document.createElement("span")
     guessSpan.classList.add("guess")
-    guessSpan.textContent = guess
-    if (guessIsCorrect(guess)) {
+
+    if (!candidate) {
+        guessSpan.textContent = skipStr
+    } else if (guessIsCorrect(candidate.city)) {
+        guessSpan.textContent = candidate.city + ", " + candidate.country
         guessSpan.classList.add("right")
         guessSpan.setAttribute("data-bs-toggle", "modal")
         guessSpan.setAttribute("data-bs-target", "#gameEndModal")
-    } else if (guess !== skipStr) {
+    } else {
         let distanceUnit = storage.metricDistance ? "km" : "mi"
         guessSpan.classList.add("wrong")
         if (storage.showDistance) {
-            guessSpan.textContent = getDistanceFromLatLon(storage.metricDistance, candidate.loc.lat, candidate.loc.lng, answer.loc.lat, answer.loc.lng) + " " + distanceUnit + " " + getDirectionEmoji(candidate.loc.lat, candidate.loc.lng, answer.loc.lat, answer.loc.lng) + " of " + guess
+            guessSpan.textContent = getDistanceFromLatLon(storage.metricDistance, candidate.loc.lat, candidate.loc.lng, answer.loc.lat, answer.loc.lng) + " " + distanceUnit + " " + getDirectionEmoji(candidate.loc.lat, candidate.loc.lng, answer.loc.lat, answer.loc.lng) + " of " + candidate.city + ", " + candidate.country
         }
     }
 
@@ -402,7 +405,7 @@ function rebuildGuesses() {
     for (const index in storage.guesses) {
         let guess = storage.guesses[index]
         let candidate = findCandidateAnswer(guess)
-        let guessSpan = createGuessSpan(guess, candidate)
+        let guessSpan = createGuessSpan(candidate)
         guessesDiv.prepend(guessSpan)
         if (guessIsCorrect(guess) && showGameOverOnLoad) {
             showGameOverModal(true)
