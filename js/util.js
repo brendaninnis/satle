@@ -58,3 +58,8 @@ function getTextWidth(text) {
 function getChildIndex(node) {
   return Array.prototype.indexOf.call(node.parentNode.childNodes, node);
 }
+
+function formatCityCountry(satle) {
+    return satle.city + ", " + satle.country
+}
+
