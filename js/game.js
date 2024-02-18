@@ -22,7 +22,7 @@ try {
     if (window.top !== window.self) window.top.location.replace(window.self.location.href)
 } catch(error) {
     if (window.top !== window.self) {
-        document.body.textContent = "<div class=\"container\" style=\"height: 100%;\"><div class=\"row pt-5\" style=\"height: 100%;\"><div class=\"col-12 pt-5\"><div class=\"alert alert-danger mt-5\" role=\"alert\"><h4 class=\"alert-heading\">⚠️ This game is stolen!</h4><p>I created Satle which has been stolen by this website. I work hard in my spare time to produce Satle out of love for the people who enjoy playing, and this website has stolen my code and hosting outright.</p><hr><p class=\"mb-0\">Please visit the official Satle <a href=\"" + atob("aHR0cHM6Ly9zYXRsZS5icmVuZGFuaW5uaXMuY2Ev") + "\">here</a>, on my website.</p></div></div></div></div>"
+        document.body.textContent = "<div class=\"container\" style=\"height: 100%;\"><div class=\"row pt-5\" style=\"height: 100%;\"><div class=\"col-12 pt-5\"><div class=\"alert alert-danger mt-5\" role=\"alert\"><h4 class=\"alert-heading\">⚠️ This game is stolen!</h4><p>I created Satle which has been stolen by this website. I work hard in my spare time to produce Satle out of love for the people who enjoy playing, and this website has stolen my code and hosting outright.</p><hr><p class=\"mb-0\">Please visit the official Satle <a href=\"" + atob("aHR0cHM6Ly9zYXRsZS5jYS8=") + "\">here</a>, on my website.</p></div></div></div></div>"
         throw new Error("Satle stolen in iframe")
     }
 }
@@ -384,7 +384,7 @@ document.getElementById("shareButton").addEventListener("click", (event) => {
             shareText += whiteBox
         }
     }
-    shareText += "\nhttps://satle.brendaninnis.ca"
+    shareText += "\nhttps://satle.ca"
     copyTextToClipboard(shareText)
 })
 
