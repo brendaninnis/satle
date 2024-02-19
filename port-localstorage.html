@@ -1,8 +1,11 @@
 <html>
     <head>
         <script>
-            if (localStorage.getItem("gamesPlayed") !== null) {
-                parent.postMessage(JSON.stringify(localStorage), "https://satle.ca")
+            if (!localStorage.storagePortAttempted) {
+                if (localStorage.getItem("gamesPlayed") !== null) {
+                    parent.postMessage(JSON.stringify(localStorage), "https://satle.ca")
+                }
+                localStorage.storagePortAttempted = true
             }
         </script>
     </head>
