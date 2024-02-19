@@ -59,6 +59,24 @@ let emailButton    = document.getElementById("emailButton")
 let settings = new Settings(storage, showDistSwitch, distUnitSwitch, distUnitValue, emailButton)
 
 /**
+ * PORT STORAGE
+ */
+window.addEventListener("message", function(message) {
+    if (!localStorage.storagePorted && message.origin === "https://satle.brendaninnis.ca" && message.origin !== window.self.location.href) {
+        let data = JSON.parse(message.data)
+        console.log("Received data: " + data)
+        for (const [key, value] of Object.entries(object1)) {
+            localStorage.setItem(key, value)
+        }
+        helpModal.hide()
+        update1Modal.show()
+        populateStatistics()
+        rebuildGuesses()
+        localStorage.storagePorted = true
+    }
+})
+
+/**
  * GAME LOGIC
  */
 let guessBox = document.getElementById("guessBox")
