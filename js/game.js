@@ -65,7 +65,7 @@ window.addEventListener("message", function(message) {
     if (!localStorage.storagePorted && message.origin === "https://satle.brendaninnis.ca" && message.origin !== window.self.location.href) {
         let data = JSON.parse(message.data)
         console.log("Received data: " + data)
-        for (const [key, value] of Object.entries(object1)) {
+        for (const [key, value] of Object.entries(data)) {
             localStorage.setItem(key, value)
         }
         helpModal.hide()
