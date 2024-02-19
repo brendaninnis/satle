@@ -62,7 +62,7 @@ let settings = new Settings(storage, showDistSwitch, distUnitSwitch, distUnitVal
  * PORT STORAGE
  */
 window.addEventListener("message", function(message) {
-    if (message.origin === "https://satle.brendaninnis.ca" && message.origin !== window.self.location.href) {
+    if (!localStorage.storagePorted && message.origin === "https://satle.brendaninnis.ca" && message.origin !== window.self.location.href) {
         let data = JSON.parse(message.data)
         console.log("Received data: " + data)
         for (const [key, value] of Object.entries(object1)) {
@@ -72,6 +72,7 @@ window.addEventListener("message", function(message) {
         update1Modal.show()
         populateStatistics()
         rebuildGuesses()
+        localStorage.storagePorted = true
     }
 })
 
