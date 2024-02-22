@@ -1,11 +1,10 @@
 <html>
     <head>
         <script>
-            if (!localStorage.storagePortAttempted) {
-                if (localStorage.getItem("gamesPlayed") !== null) {
-                    parent.postMessage(JSON.stringify(localStorage), "https://satle.ca")
-                }
-                localStorage.storagePortAttempted = true
+            console.log("Consider port storage")
+            if (localStorage.getItem("gamesPlayed") !== null) {
+                console.log("Begin storage port...")
+                parent.postMessage(JSON.stringify(localStorage), "https://satle.ca")
             }
         </script>
     </head>
