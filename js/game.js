@@ -62,9 +62,10 @@ let settings = new Settings(storage, showDistSwitch, distUnitSwitch, distUnitVal
  * PORT STORAGE
  */
 window.addEventListener("message", function(message) {
+    console.log("Received message: " + message)
     if (!localStorage.storagePorted && message.origin === "https://satle.brendaninnis.ca" && message.origin !== window.self.location.href) {
         let data = JSON.parse(message.data)
-        console.log("Received data: " + data)
+        console.log("Received storage port: " + data)
         for (const [key, value] of Object.entries(data)) {
             localStorage.setItem(key, value)
         }
