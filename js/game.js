@@ -441,10 +441,10 @@ populateStatistics()
 rebuildGuesses()
 
 // Show instructions if the player has not seen them
-if (!localStorage.instructionsShown) {
-    helpModal.show()
-} else if (!localStorage.update2Shown) {
+if (!localStorage.update2Shown) {
     update1Modal.show()
+} else if (!localStorage.instructionsShown) {
+    helpModal.show()
 }
 localStorage.instructionsShown = true
 localStorage.update2Shown = true
