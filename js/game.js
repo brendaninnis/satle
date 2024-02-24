@@ -41,7 +41,7 @@ let gameEndModal = new bootstrap.Modal(document.getElementById("gameEndModal"), 
  */
 
 // Check for redirect
-const satleUrl = "https://satle.ca"
+const satleUrl = "satle.ca"
 
 if (window.location.hostname !== satleUrl) {
     // Get stored player data
@@ -71,7 +71,7 @@ if (window.location.hostname !== satleUrl) {
         throw new Error("Failed to redirect")
     }
 } else if (queryParams.size !== 0 && !localStorage.storagePorted) { 
-    // hostname is https://satle.ca
+    // hostname is satle.ca
 
     // Port storage
     queryParamKeys.forEach(key => {
