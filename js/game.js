@@ -70,7 +70,7 @@ if (window.location.hostname !== satleUrl) {
         // Fallback if unable to redirect
         throw new Error("Failed to redirect")
     }
-} else if (queryParams.size !== 0) { 
+} else if (queryParams.size !== 0 && !localStorage.storagePorted) { 
     // hostname is https://satle.ca
 
     // Port storage
