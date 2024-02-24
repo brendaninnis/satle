@@ -32,7 +32,7 @@
     </head>
     <body>
         <div class="container p-5">
-            <p class="lead">Paste the text into the box below, then click "Finish import".<p>
+            <p class="lead">Paste the text you copied into the box below, then click "Finish import".<p>
             <form>
                 <textarea id="stats" class="mt-3" rows="14" cols="80"></textarea>
             </form>
@@ -55,9 +55,7 @@
 
                     alert('Success! Press "Close" to return to Satle.')
 
-                    setTimeout(function() {
-                        window.location.href = "https://satle.ca"
-                    }, 2000);
+                    window.location.href = "https://satle.ca"
                 } catch(e) {
                     alert('Error importing storage. Please use the help function on Satle to request help.')
                 } 
