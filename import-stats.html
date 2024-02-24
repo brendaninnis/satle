@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C6NJTT9HL4"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-C6NJTT9HL4');
+        </script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Site information -->
+        <title>Import Statistics - Satle</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="container p-5">
+            <p class="lead">Paste the text into the box below, then click "Finish import".<p>
+            <form>
+                <textarea id="stats" class="mt-3" rows="14" cols="80"></textarea>
+            </form>
+            <button type="button" class="btn btn-success mt-3" id="submit-button">Finish import</button>
+        </div>
+
+        <script src="js/util.js"></script>
+        <script src="js/clipboard.js"></script>
+        <script>
+            const textarea = document.getElementById("stats")
+            const submitButton = document.getElementById("submit-button")
+
+            submitButton.addEventListener("click", function() {
+                try {
+                    const obj = JSON.parse(textarea.value)
+
+                    Object.keys(obj).forEach(key => {
+                        localStorage.setItem(key, obj[key])
+                    });
+
+                    alert('Success! Press "Close" to return to Satle.')
+
+                    setTimeout(function() {
+                        window.location.href = "https://satle.ca"
+                    }, 2000);
+                } catch(e) {
+                    alert('Error importing storage. Please use the help function on Satle to request help.')
+                } 
+            })
+        </script>
+    </body>
+</html>
