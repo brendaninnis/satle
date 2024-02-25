@@ -60,7 +60,10 @@ if (window.location.hostname !== satleUrl) {
     }
 
     // Include player data in the query parameters
-    let fullUrl = "https://" + satleUrl + "?" + formatLocalStorageAsQueryParams()
+    let fullUrl = "https://" + satleUrl
+    if (localStorage.instructionsShown) {
+        fullUrl = fullUrl + "?" + formatLocalStorageAsQueryParams()
+    }
 
     try {
         // Perform the redirect
