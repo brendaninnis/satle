@@ -11,32 +11,19 @@ const skipStr       = "Skip"
 const maxGuesses    = 6
 const animDuration  = 300
 
-const satles    = populateSatles()
-const answer    = satles[todaysSatle() % satles.length]
-const id        = answer.id
-const loc       = answer.loc
-
-const storage = new Storage(id)
-
-try {
-    if (window.top !== window.self) window.top.location.replace(window.self.location.href)
-} catch(error) {
-    if (window.top !== window.self) {
-        document.body.textContent = "<div class=\"container\" style=\"height: 100%;\"><div class=\"row pt-5\" style=\"height: 100%;\"><div class=\"col-12 pt-5\"><div class=\"alert alert-danger mt-5\" role=\"alert\"><h4 class=\"alert-heading\">⚠️ This game is stolen!</h4><p>I created Satle which has been stolen by this website. I work hard in my spare time to produce Satle out of love for the people who enjoy playing, and this website has stolen my code and hosting outright.</p><hr><p class=\"mb-0\">Please visit the official Satle <a href=\"" + atob("aHR0cHM6Ly9zYXRsZS5jYS8=") + "\">here</a>, on my website.</p></div></div></div></div>"
-        throw new Error("Satle stolen in iframe")
-    }
-}
-
-/**
- * GOOGLE MAP
- */
-const map = new GameMap(storage)
-
-function initMap() {
-    map.initMap()
-}
-
-window.initMap = initMap
+const queryParamKeys = [
+    "currentStreak",
+    "gamesWon",
+    "longestStreak",
+    "showDistance",
+    "guesses",
+    "isGameOver",
+    "guessDistributions",
+    "metricDistance",
+    "currentSatleId",
+    "gamesPlayed"
+]
+const queryParams = new URLSearchParams(window.location.search)
 
 /**
  * BOOTSTRAP
@@ -48,6 +35,103 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 let helpModal = new bootstrap.Modal(document.getElementById("helpModal"), {})
 let update1Modal = new bootstrap.Modal(document.getElementById("update1Modal"), {})
 let gameEndModal = new bootstrap.Modal(document.getElementById("gameEndModal"), {})
+
+/**
+ * PRE-GAME CHECKS
+ */
+
+var windowReplaced = false
+
+// Check for redirect
+const satleUrl = "satle.ca"
+
+if (window.location.hostname !== satleUrl) {
+    // Get stored player data
+    function formatLocalStorageAsQueryParams() {
+        let queryParams = queryParamKeys.reduce((acc, key) => {
+            let value = localStorage.getItem(key)
+            if (value !== null) {
+                let encodedKey = encodeURIComponent(key)
+                let encodedValue = encodeURIComponent(value)
+                acc.push(`${encodedKey}=${encodedValue}`)
+            }
+            return acc
+        }, [])
+
+        return queryParams.join('&')
+    }
+
+    // Include player data in the query parameters
+    let fullUrl = "https://" + satleUrl
+    if (localStorage.instructionsShown) {
+        fullUrl = fullUrl + "?" + formatLocalStorageAsQueryParams()
+    }
+
+    try {
+        // Perform the redirect
+        window.location.replace(fullUrl)
+        windowReplaced = true
+    } catch {
+        document.body.innerHTML = "<div class=\"container\" style=\"height: 100%;\"><div class=\"row pt-5\" style=\"height: 100%;\"><div class=\"col-12 pt-5\"><div class=\"alert alert-primary mt-5\" role=\"alert\"><h4 class=\"alert-heading\">⚠️  Satle has moved.</h4><p>To visit the new home of Satle <a href=\"" + fullUrl + "\">click here</a>.</p></div></div></div></div>"
+        // Fallback if unable to redirect
+        throw new Error("Failed to redirect")
+    }
+} else if (queryParams.size !== 0 && !localStorage.storagePorted) { 
+    // hostname is satle.ca
+
+    // Port storage
+    queryParamKeys.forEach(key => {
+        if (queryParams.has(key)) {
+            let value = decodeURIComponent(queryParams.get(key))
+            localStorage.setItem(key, value)
+        }
+    })
+
+    update1Modal.show()
+    localStorage.storagePorted = true
+    localStorage.instructionsShown = true
+    localStorage.update2Shown = true
+}
+
+// Check for Satle stolen in iFrame
+try {
+    if (window.top !== window.self) {
+        window.top.location.replace(window.self.location.href)
+        windowReplaced = true
+    }
+} catch(error) {
+    if (window.top !== window.self) {
+        document.body.innerHTML = "<div class=\"container\" style=\"height: 100%;\"><div class=\"row pt-5\" style=\"height: 100%;\"><div class=\"col-12 pt-5\"><div class=\"alert alert-danger mt-5\" role=\"alert\"><h4 class=\"alert-heading\">⚠️ This game is stolen!</h4><p>I created Satle which has been stolen by this website. I work hard in my spare time to produce Satle out of love for the people who enjoy playing, and this website has stolen my code and hosting outright.</p><hr><p class=\"mb-0\">Please visit the official Satle <a href=\"" + atob("aHR0cHM6Ly9zYXRsZS5jYS8=") + "\">here</a>, on my website.</p></div></div></div></div>"
+        throw new Error("Satle stolen in iframe")
+    }
+}
+
+if (windowReplaced) {
+    throw new Error("Redirecting...")
+}
+console.log("Passed pre-game checks")
+
+/**
+ * POPULATE SATLES
+ */
+
+const satles    = populateSatles()
+const answer    = satles[todaysSatle() % satles.length]
+const id        = answer.id
+const loc       = answer.loc
+
+const storage = new Storage(id)
+
+/**
+ * GOOGLE MAP
+ */
+const map = new GameMap(storage)
+
+function initMap() {
+    map.initMap()
+}
+
+window.initMap = initMap
 
 /**
  * SETTINGS
