@@ -2,13 +2,13 @@
 <html lang="en">
     <head>
         <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C6NJTT9HL4"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-3GZ0H710YL"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-C6NJTT9HL4');
+            gtag('config', 'G-3GZ0H710YL');
         </script>
 
         <meta charset="utf-8">
@@ -19,7 +19,7 @@
         <meta name="description" property="description" content="Satle is a Wordle-like geography game where you have 6 tries to guess the city based on satellite images. A new puzzle is available each day.">
         <meta name="twitter:card" content="summary">
         <meta name="og:title" content="Satle - A daily geography puzzle">
-        <meta name="og:url" content="https://satle.brendaninnis.ca">
+        <meta name="og:url" content="https://satle.ca">
         <meta name="og:description" content="Satle is a Wordle-like geography game where you have 6 tries to guess the city based on satellite images. A new puzzle is available each day.">
 
         <!-- Bootstrap CSS -->
@@ -74,7 +74,7 @@
 
         <!-- Main Container -->
         <div id="container" class="container-fluid">
-	    <div id="map"></div>
+            <div id="map"></div>
             <div id="guessArea" class="row position-absolute w-100">
                 <div class="row">
                     <div id="guesses" class="col-md-auto pb-3 mx-auto">
@@ -143,17 +143,17 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-dark text-light">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="update1ModalLabel">Satle Update 07/02/2023</h5>
+                        <h5 class="modal-title" id="update1ModalLabel">Satle Update 02/24/2023</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Welcome to Satle Spring 2023!</p>
+                        <p>🚛 Satle has moved!</p>
                         <br/>
-                        <p>Each city so far featured on Satle has a brand new challenge for 2023, except Forest City of course: I boned that one 😬.</p>
+                        <p>Welcome to the new home of Satle at <strong>https://satle.ca</strong>.</p>
                         <br/>
-                        <p>A new landmark will be featured for each city, and the order of cities has been randomized.</p>
-                        <br/>
-                        <p>I hope you all will enjoy the new puzzles.</p>
+                        <p>Your stats have been migrated from the old site. Please remember to update your bookmarks.</p>
+                        <hr/>
+                        <p>There will be new puzzles and more exciting changes coming to Satle soon!</p>
                     </div>
                 </div>
             </div>
@@ -212,15 +212,15 @@
                     </div>
                     <div id="settings-list" class="modal-body" style="padding-right: 0;">
                         <p class="h4 mb-3 text-muted">Show distance
-                            <span class="me-3 form-check-reverse form-check form-switch" style="float:right;">
-                                <input id="show-distance-switch" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                            </span>
+                        <span class="me-3 form-check-reverse form-check form-switch" style="float:right;">
+                            <input id="show-distance-switch" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                        </span>
                         </p>
                         <p class="h4 pt-3 mb-3 text-muted">Distance units
-                            <span class="me-3 form-check-reverse form-check form-switch" style="float:right;">
-                                <input id="distance-units-switch" class="form-check-input" type="checkbox" role="switch">
-                                <label id="distance-units-value" class="form-check-label text-light" for="distance-units-switch">km</label>
-                            </span>
+                        <span class="me-3 form-check-reverse form-check form-switch" style="float:right;">
+                            <input id="distance-units-switch" class="form-check-input" type="checkbox" role="switch">
+                            <label id="distance-units-value" class="form-check-label text-light" for="distance-units-switch">km</label>
+                        </span>
                         </p>
                         <p class="h4 pt-3 mb-3 text-muted">Feedback<a id="emailButton" class="me-3" href="#" style="float: right;">Email</a></p>
                         <p class="h4 pt-3 pb-3 mb-3 text-muted" style="border-bottom: 1px solid grey;">Issues<a class="me-3" href="https://github.com/brendaninnis/satle" target="_blank" style="float: right;">Github</a></p>
