@@ -143,6 +143,17 @@ let emailButton    = document.getElementById("emailButton")
 let settings = new Settings(storage, showDistSwitch, distUnitSwitch, distUnitValue, emailButton)
 
 /**
+ * Twemoji
+ */
+
+function twemojiParse() {
+    twemoji.parse(
+        document.body,
+        { base: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/" }
+    )
+}
+
+/**
  * GAME LOGIC
  */
 let guessBox = document.getElementById("guessBox")
@@ -318,7 +329,7 @@ function submit(guess) {
     animateLeft(guessesDiv, dist, duration, function() {
         guessesDiv.style.left = "0px"
         guessesDiv.prepend(guessSpan)
-        twemoji.parse(document.body)
+        twemojiParse()
         // Allow time for the span to be appended with animation
         setTimeout(function() {
             let win = guessIsCorrect(guess)
@@ -494,7 +505,7 @@ function rebuildGuesses() {
             showGameOverOnLoad = false
         }
     }
-    twemoji.parse(document.body)
+    twemojiParse()
 }
 
 
@@ -516,4 +527,4 @@ localStorage.update2Shown = true
 
 settings.bindSettings(rebuildGuesses)
 
-twemoji.parse(document.body)
+twemojiParse()
