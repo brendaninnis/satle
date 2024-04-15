@@ -16,7 +16,7 @@ const upCode            = "2B06"
 const upRightCode       = "2197"
 
 function getEmoji(unicode, alt) {
-    return "<span><img alt=\"" + alt + "\" src=\"https://twemoji.maxcdn.com/2/72x72/" + unicode + ".png\" style=\"width: 1em; height: 1em; margin: 0px 0.05em 0px 0.1em; vertical-align: -0.1em;\"></span>"
+    return "<span><img alt=\"" + alt + "\" src=\"https://cdn.jsdelivr.net/npm/twemoji@12.0.0/2/svg/" + unicode + ".svg\" style=\"width: 1em; height: 1em; margin: 0px 0.05em 0px 0.1em; vertical-align: -0.1em;\"></span>"
 }
 
 function getDistanceFromLatLon(metric, lat1, lon1, lat2, lon2) {
