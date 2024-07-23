@@ -498,7 +498,9 @@ document.getElementById("shareButton").addEventListener("click", (event) => {
     copyTextToClipboard(shareText)
 })
 
-document.getElementById("gameEndAnswer").textContent = "Answer: " + answer.city
+document.getElementById("gameEndAnswer").textContent = "Answer: " + answer.city + ", " + answer.country + " " + answer.emoji
+document.getElementById("gameEndName").textContent = "📍 " + answer.name
+document.getElementById("gameEndDescription").textContent = answer.description
 
 // Focusing the guess box shows the current zoom level
 guessBox.addEventListener("focus", (event) => {
