@@ -228,7 +228,7 @@
                         <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Satle on Ko-fi', '#1b9aaa', 'O5O0F4YRT');kofiwidget2.draw();</script>
                     </div>
                     <div class="modal-footer">
-                        <p class="h6"><strong>Next Satle available in <span id="satle-countdown"></span></strong></p>
+                        <p class="h6"><strong>Next Satle available in <span class="satle-countdown"></span></strong></p>
                     </div>
                 </div>
             </div>
@@ -238,14 +238,20 @@
         <div class="modal fade" id="gameEndModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="gameEndModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-dark text-light">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="gameEndTitle"></h3>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                     <div class="modal-body text-center">
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="margin-left: auto; float: right;"></button>
-                        <p class="display-6" id="gameEndTitle" style="padding-left: 24px;"></p>
-                        <div id="gameEndMap" class="m-3" style="aspect-ratio: 1.62 / 1;"></div>
-                        <p id="gameEndAnswer" class="h6"></p>
-                        <p id="gameEndText" class="lead"></p>
+                        <p id="gameEndText" class="h4 mb-4"></p>
                         <button id="shareButton" type="button" class="btn btn-success" style="width: 100%;" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Copied results to clipboard.">Share results</button>
-                        <p class="mt-4 text-muted">Google Maps API is expensive 😟</p>
+                        <p id="gameEndAnswer" class="h6 mt-4"></p>
+                        <div id="gameEndMap" class="m-3" style="aspect-ratio: 1.62 / 1;"></div>
+                        <p id="gameEndName" class="h4"></p>
+                        <p id="gameEndDescription" class="text-white text-opacity-75"></p>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <p class="h6"><strong>Next Satle available in <span class="satle-countdown"></span></strong></p>
                         <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Satle on Ko-fi', '#1b9aaa', 'O5O0F4YRT');kofiwidget2.draw();</script>
                     </div>
                 </div>
