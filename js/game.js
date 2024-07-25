@@ -34,6 +34,7 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 
 let helpModal = new bootstrap.Modal(document.getElementById("helpModal"), {})
 let update1Modal = new bootstrap.Modal(document.getElementById("update1Modal"), {})
+let update2Modal = new bootstrap.Modal(document.getElementById("update2Modal"), {})
 let gameEndModal = new bootstrap.Modal(document.getElementById("gameEndModal"), {})
 
 /**
@@ -536,11 +537,11 @@ rebuildGuesses()
 // Show instructions if the player has not seen them
 if (!localStorage.instructionsShown) {
     helpModal.show()
-} else if (!localStorage.update2Shown) {
-    update1Modal.show()
+} else if (!localStorage.update3Shown) {
+    update2Modal.show()
 }
 localStorage.instructionsShown = true
-localStorage.update2Shown = true
+localStorage.update3Shown = true
 
 settings.bindSettings(rebuildGuesses)
 
