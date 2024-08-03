@@ -523,6 +523,11 @@ function rebuildGuesses() {
             showGameOverOnLoad = false
         }
     }
+    if (storage.guesses.length >= maxGuesses && showGameOverOnLoad) {
+        showGameOverModal(false)
+        updateGameOverState(false)
+        showGameOverOnLoad = false
+    }
     twemojiParse()
 }
 
