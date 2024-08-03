@@ -34,6 +34,7 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 
 let helpModal = new bootstrap.Modal(document.getElementById("helpModal"), {})
 let update1Modal = new bootstrap.Modal(document.getElementById("update1Modal"), {})
+let update2Modal = new bootstrap.Modal(document.getElementById("update2Modal"), {})
 let gameEndModal = new bootstrap.Modal(document.getElementById("gameEndModal"), {})
 
 /**
@@ -156,11 +157,26 @@ function twemojiParse() {
 /**
  * GAME LOGIC
  */
-let guessBox = document.getElementById("guessBox")
 
-function guessIsCorrect(guess) {
-    return guess.toLowerCase().trim() == answer.city.toLowerCase().trim()
+function findCandidateAnswer(guess) {
+    let parts = guess.split(",")
+    if (parts.length < 2) {
+        return false
+    }
+    let city = parts[0]
+    let country = parts[1]
+    return satles.find(el => el.city.toLowerCase().trim() === city.toLowerCase().trim() && 
+                             el.country.toLowerCase().trim() === country.toLowerCase().trim())
 }
+
+function guessIsCorrect(candidate) {
+    if (!candidate) {
+        return false
+    }
+    return candidate.city === answer.city && candidate.country === answer.country
+}
+
+let guessBox = document.getElementById("guessBox")
 
 function populateStatistics(correctGuessNumber) {
     document.getElementById("playedValue").textContent = storage.gamesPlayed
@@ -299,7 +315,7 @@ function submit(guess) {
         }
     }
     storage.addGuess(guess)
-    let guessSpan = createGuessSpan(guess, candidate)
+    let guessSpan = createGuessSpan(candidate)
     let guessesDiv = document.getElementById("guesses")
     let duration = 0
     if (storage.guesses.length > 1) {
@@ -332,7 +348,7 @@ function submit(guess) {
         twemojiParse()
         // Allow time for the span to be appended with animation
         setTimeout(function() {
-            let win = guessIsCorrect(guess)
+            let win = guessIsCorrect(candidate)
             let ended = win || storage.guesses.length >= maxGuesses
             setTimeout(function() {
                 if (ended) {
@@ -347,23 +363,23 @@ function submit(guess) {
     return true
 }
 
-function findCandidateAnswer(guess) {
-    return satles.find(el => el.city.toLowerCase().trim() === guess.toLowerCase().trim())
-}
-
-function createGuessSpan(guess, candidate) {
+function createGuessSpan(candidate) {
     let guessSpan = document.createElement("span")
     guessSpan.classList.add("guess")
-    guessSpan.textContent = guess
-    if (guessIsCorrect(guess)) {
+
+    if (!candidate) {
+        guessSpan.textContent = skipStr
+    } else if (guessIsCorrect(candidate)) {
+        guessSpan.textContent = formatCityCountry(candidate)
         guessSpan.classList.add("right")
         guessSpan.setAttribute("data-bs-toggle", "modal")
         guessSpan.setAttribute("data-bs-target", "#gameEndModal")
-    } else if (guess !== skipStr) {
-        let distanceUnit = storage.metricDistance ? "km" : "mi"
+    } else {
+        guessSpan.textContent = formatCityCountry(candidate)
         guessSpan.classList.add("wrong")
         if (storage.showDistance) {
-            guessSpan.textContent = getDistanceFromLatLon(storage.metricDistance, candidate.loc.lat, candidate.loc.lng, answer.loc.lat, answer.loc.lng) + " " + distanceUnit + " " + getDirectionEmoji(candidate.loc.lat, candidate.loc.lng, answer.loc.lat, answer.loc.lng) + " of " + guess
+            let distanceUnit = storage.metricDistance ? "km" : "mi"
+            guessSpan.textContent = getDistanceFromLatLon(storage.metricDistance, candidate.loc.lat, candidate.loc.lng, answer.loc.lat, answer.loc.lng) + " " + distanceUnit + " " + getDirectionEmoji(candidate.loc.lat, candidate.loc.lng, answer.loc.lat, answer.loc.lng) + " of " + formatCityCountry(candidate)
         }
     }
 
@@ -394,7 +410,7 @@ guessBox.addEventListener("input", (event) => {
     autocompleteList.textContent = ""
 
     let guess = guessBox.value.toLowerCase()
-    if (guess == "" || storage.isGameOver) {
+    if (guess === "" || storage.isGameOver) {
         return
     }
 
@@ -403,10 +419,11 @@ guessBox.addEventListener("input", (event) => {
 
     // Suggestions are shuffled. Text appearing at the beginning comes first
     for (let i = 0; i < shuffled.length; i++) {
-        if (shuffled[i].city.toLowerCase().startsWith(guess)) {
-            suggestions.unshift(shuffled[i].city)
-        } else if (shuffled[i].city.toLowerCase().includes(guess)) {
-            suggestions.push(shuffled[i].city)
+        let satle = shuffled[i]
+        if (satle.city.toLowerCase().startsWith(guess) || satle.country.toLowerCase().startsWith(guess) || formatCityCountry(satle).toLowerCase().startsWith(guess)) {
+            suggestions.unshift(formatCityCountry(satle))
+        } else if (satle.city.toLowerCase().includes(guess) || satle.country.toLowerCase().includes(guess) || formatCityCountry(satle).toLowerCase().includes(guess)) {
+            suggestions.push(formatCityCountry(satle))
         }
     }
 
@@ -435,7 +452,6 @@ guessBox.addEventListener("input", (event) => {
                 checkIndex = 0
             }
         }
-        let suggestionText = suggestion.slice(0, firstIndex) + "<strong>" + suggestion.slice(firstIndex, lastIndex) + "</strong>" + suggestion.slice(lastIndex)
 
         // Add the suggestion to the autocomplete list
         let listItem = document.createElement("li")
@@ -447,7 +463,6 @@ guessBox.addEventListener("input", (event) => {
         strongSpan.textContent = suggestion.slice(firstIndex, lastIndex)
         listItem.append(strongSpan)
         listItem.append(suggestion.slice(lastIndex))
-        //listItem.textContent = suggestionText
         autocompleteList.prepend(listItem)
     }
 
@@ -468,9 +483,10 @@ document.getElementById("shareButton").addEventListener("click", (event) => {
     let shareText = satellite + "Satle #" + id + " " + storage.guesses.length + "/6\n"
     for (let i = 0; i < maxGuesses; i++) {
         if (i < storage.guesses.length) {
-            if (guessIsCorrect(storage.guesses[i])) {
+            let candidate = findCandidateAnswer(storage.guesses[i])
+            if (guessIsCorrect(candidate)) {
                 shareText += greenBox
-            } else if (storage.guesses[i] == skipStr) {
+            } else if (storage.guesses[i] === skipStr) {
                 shareText += blackBox
             } else {
                 shareText += redBox
@@ -483,7 +499,9 @@ document.getElementById("shareButton").addEventListener("click", (event) => {
     copyTextToClipboard(shareText)
 })
 
-document.getElementById("gameEndAnswer").textContent = "Answer: " + answer.city
+document.getElementById("gameEndAnswer").textContent = "Answer: " + answer.city + ", " + answer.country + " " + answer.emoji
+document.getElementById("gameEndName").textContent = "📍 " + answer.name
+document.getElementById("gameEndDescription").textContent = answer.description
 
 // Focusing the guess box shows the current zoom level
 guessBox.addEventListener("focus", (event) => {
@@ -497,9 +515,9 @@ function rebuildGuesses() {
     for (const index in storage.guesses) {
         let guess = storage.guesses[index]
         let candidate = findCandidateAnswer(guess)
-        let guessSpan = createGuessSpan(guess, candidate)
+        let guessSpan = createGuessSpan(candidate)
         guessesDiv.prepend(guessSpan)
-        if (guessIsCorrect(guess) && showGameOverOnLoad) {
+        if (guessIsCorrect(candidate) && showGameOverOnLoad) {
             showGameOverModal(true)
             updateGameOverState(true)
             showGameOverOnLoad = false
@@ -519,11 +537,11 @@ rebuildGuesses()
 // Show instructions if the player has not seen them
 if (!localStorage.instructionsShown) {
     helpModal.show()
-} else if (!localStorage.update2Shown) {
-    update1Modal.show()
+} else if (!localStorage.update3Shown) {
+    update2Modal.show()
 }
 localStorage.instructionsShown = true
-localStorage.update2Shown = true
+localStorage.update3Shown = true
 
 settings.bindSettings(rebuildGuesses)
 
