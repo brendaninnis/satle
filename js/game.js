@@ -289,6 +289,9 @@ function updateGameOverState(win) {
 }
 
 function submit(guess) {
+    // Disable input while submitting
+    let inputDOM = document.getElementById("guessBox")
+    inputDOM.disabled = true
     // If guess contains only whitespace then skip
     if (!guess.replace(/\s/g, '').length) {
         guess = skipStr
@@ -359,6 +362,8 @@ function submit(guess) {
             }, animDuration)
         }, animDuration)
     })
+    // Re-enable input after submitting
+    inputDOM.disabled = false
 
     return true
 }
