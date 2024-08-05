@@ -1,0 +1,15 @@
+{
+  "name": "satle",
+  "version": "1.0.0",
+  "description": "Satle is a Wordle-like geography game where you have 6 tries to guess the city based on satellite images. A new puzzle is available each day.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": "Brendan Innis",
+  "devDependencies": {
+    "vite": "^5.3.5"
+  }
+}
