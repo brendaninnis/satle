@@ -1,0 +1,17 @@
+{
+  "name": "satle",
+  "version": "1.0.0",
+  "description": "Satle is a geography puzzle game where you guess a city from satellite images",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brendan Innis",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^5.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.2"
+  }
+}

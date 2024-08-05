@@ -1,3 +1,7 @@
+# Node
+node_modules/
+
+# Python
 venv/
 
 *.pyc
