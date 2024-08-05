@@ -9,6 +9,8 @@
   "author": "Brendan Innis",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^3.0.2",
+    "del": "^7.1.0",
     "gulp": "^5.0.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
