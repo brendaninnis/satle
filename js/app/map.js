@@ -51,3 +51,6 @@ class GameMap {
     }
 
 }
+
+export { GameMap }
+
