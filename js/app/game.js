@@ -7,6 +7,8 @@ import { GameMap } from "./map.js"
 import { Settings } from "./settings.js"
 import { Storage } from "./storage.js"
 
+import { Loader } from "@googlemaps/js-api-loader"
+
 /**
  * CONSTS AND VARS
  */
@@ -135,18 +137,18 @@ const storage = new Storage(id)
 /**
  * GOOGLE MAP
  */
+const loader = new Loader({
+  apiKey: "AIzaSyBsAJ8zq3tIH-ALCwimBjWxb5rrQETrwJ8",
+  version: "weekly"
+})
 const map = new GameMap(storage)
 
-async function initMap() {
-    // Request needed libraries.
-    //@ts-ignore
-    const { Map } = await google.maps.importLibrary("maps")
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker")
+loader.load().then(async () => {
+    await map.initMap(loc)
+}).catch(error => {
+    console.error(error)
+})
 
-    map.initMap()
-}
-
-initMap()
 
 /**
  * SETTINGS
