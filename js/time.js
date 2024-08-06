@@ -42,7 +42,7 @@ Date.prototype.getDOY = function() {
 }
 
 function startTimer(duration) {
-    let timer = duration, minutes, seconds
+    let timer = duration, hours, minutes, seconds
     setInterval(function () {
         hours   = parseInt(timer / (60 * 60), 10)
         minutes = parseInt((timer / 60) % 60, 10)
