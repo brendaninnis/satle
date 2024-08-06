@@ -57,7 +57,7 @@ var windowReplaced = false
 // Check for redirect
 const satleUrl = "satle.ca"
 
-if (window.location.hostname !== satleUrl && false) {
+if (window.location.hostname !== satleUrl) {
     // Get stored player data
     function formatLocalStorageAsQueryParams() {
         let queryParams = queryParamKeys.reduce((acc, key) => {
