@@ -1,6 +1,4 @@
 
-import { LZString } from '../libs/lz-string.js'
-
 /**
  * Shuffle an array
  */
