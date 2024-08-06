@@ -21,7 +21,8 @@ class GameMap {
         }
 
         let zoom = this.zoomLevels[this.zoomLevel]
-        this.map = new google.maps.Map(document.getElementById("map"), {
+
+        this.map = new Map(document.getElementById("map"), {
             zoom: zoom,
             center: loc,
             disableDefaultUI: true,

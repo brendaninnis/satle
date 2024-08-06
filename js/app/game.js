@@ -137,11 +137,16 @@ const storage = new Storage(id)
  */
 const map = new GameMap(storage)
 
-function initMap() {
+async function initMap() {
+    // Request needed libraries.
+    //@ts-ignore
+    const { Map } = await google.maps.importLibrary("maps")
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker")
+
     map.initMap()
 }
 
-window.initMap = initMap
+initMap()
 
 /**
  * SETTINGS
