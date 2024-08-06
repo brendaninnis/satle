@@ -2,10 +2,6 @@
 import { shuffle, populateSatles, getTextWidth, getChildIndex, formatCityCountry } from "./util.js"
 import { copyTextToClipboard } from "./clipboard.js"
 import { getDistanceFromLatLon, getDirectionEmoji } from "./geolocation.js"
-import { todaysSatle } from "./time.js"
-import { GameMap } from "./map.js"
-import { Settings } from "./settings.js"
-import { Storage } from "./storage.js"
 
 /**
  * CONSTS AND VARS
@@ -55,7 +51,7 @@ var windowReplaced = false
 // Check for redirect
 const satleUrl = "satle.ca"
 
-if (window.location.hostname !== satleUrl) {
+if (window.location.hostname !== satleUrl && false) {
     // Get stored player data
     function formatLocalStorageAsQueryParams() {
         let queryParams = queryParamKeys.reduce((acc, key) => {
