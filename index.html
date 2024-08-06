@@ -292,7 +292,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
 
         <!-- Google Maps API -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsAJ8zq3tIH-ALCwimBjWxb5rrQETrwJ8&callback=initMap&v=weekly" defer></script>
+        <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+        ({key: "AIzaSyBsAJ8zq3tIH-ALCwimBjWxb5rrQETrwJ8", v: "weekly"});</script>
 
         <!-- String Compression -->
         <script language="javascript" src="js/libs/lz-string.min.js"></script>
@@ -306,7 +307,6 @@
         <script type="module" src="js/app/geolocation.js"></script>
         <script type="module" src="js/app/settings.js"></script>
         <script type="module" src="js/app/game.js"></script>
-
         
     </body>
 </html>
