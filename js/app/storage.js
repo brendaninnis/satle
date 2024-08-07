@@ -105,3 +105,6 @@ class Storage {
         localStorage.metricDistance = JSON.stringify(this.metricDistance)
     }
 }
+
+export { Storage }
+

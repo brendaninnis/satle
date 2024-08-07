@@ -13,15 +13,18 @@ class GameMap {
         this.zoomLevel = 0
     }
 
-    initMap() {
-        if (storage.isGameOver) {
-            this.zoomLevel = storage.guesses.length - 1
+    async initMap(loc) {
+        const { Map } = await google.maps.importLibrary("maps")
+
+        if (this.storage.isGameOver) {
+            this.zoomLevel = this.storage.guesses.length - 1
         } else {
-            this.zoomLevel = storage.guesses.length
+            this.zoomLevel = this.storage.guesses.length
         }
 
         let zoom = this.zoomLevels[this.zoomLevel]
-        this.map = new google.maps.Map(document.getElementById("map"), {
+
+        this.map = new Map(document.getElementById("map"), {
             zoom: zoom,
             center: loc,
             disableDefaultUI: true,
@@ -51,3 +54,6 @@ class GameMap {
     }
 
 }
+
+export { GameMap }
+

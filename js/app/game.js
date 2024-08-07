@@ -1,3 +1,14 @@
+
+import { shuffle, populateSatles, getTextWidth, getChildIndex, formatCityCountry } from "./util.js"
+import { copyTextToClipboard } from "./clipboard.js"
+import { getDistanceFromLatLon, getDirectionEmoji } from "./geolocation.js"
+import { todaysSatle } from "./time.js"
+import { GameMap } from "./map.js"
+import { Settings } from "./settings.js"
+import { Storage } from "./storage.js"
+
+import { Loader } from "@googlemaps/js-api-loader"
+
 /**
  * CONSTS AND VARS
  */
@@ -126,13 +137,18 @@ const storage = new Storage(id)
 /**
  * GOOGLE MAP
  */
+const loader = new Loader({
+  apiKey: "AIzaSyBsAJ8zq3tIH-ALCwimBjWxb5rrQETrwJ8",
+  version: "weekly"
+})
 const map = new GameMap(storage)
 
-function initMap() {
-    map.initMap()
-}
+loader.load().then(async () => {
+    await map.initMap(loc)
+}).catch(error => {
+    console.error(error)
+})
 
-window.initMap = initMap
 
 /**
  * SETTINGS

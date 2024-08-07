@@ -42,7 +42,7 @@ Date.prototype.getDOY = function() {
 }
 
 function startTimer(duration) {
-    let timer = duration, minutes, seconds
+    let timer = duration, hours, minutes, seconds
     setInterval(function () {
         hours   = parseInt(timer / (60 * 60), 10)
         minutes = parseInt((timer / 60) % 60, 10)
@@ -73,3 +73,6 @@ const _0x3c4977=_0x4730;function _0x1d79(){const _0x29b4d2=['href','6AAttUC','22
 
 let minutes = minsToMidnight() * 60
 startTimer(minutes)
+
+export { todaysSatle }
+

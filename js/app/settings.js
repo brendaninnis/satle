@@ -43,3 +43,6 @@ class Settings {
         return "%0A%0A---%0AGame Details:%0A" + JSON.stringify(localStorage) + "%0A%0ADevice Details:%0A" + window.navigator.userAgent
     }
 }
+
+export { Settings }
+
