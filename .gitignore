@@ -1,3 +1,7 @@
+# Node
+node_modules/
+
+# Python
 venv/
 
 *.pyc
@@ -9,10 +13,12 @@ instance/
 .coverage
 htmlcov/
 
+# Build
 dist/
-build/
-*.egg-info/
 
+# Mac
 *.DS_Store
 
+# IntelliJ
 .idea/
+

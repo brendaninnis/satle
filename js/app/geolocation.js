@@ -88,3 +88,6 @@ function toBearing(radians) {
 function toMiles(kilometers) {
     return kilometers * 0.6214
 }
+
+export { getDistanceFromLatLon, getDirectionEmoji }
+
