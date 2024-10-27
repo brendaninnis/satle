@@ -613,6 +613,7 @@ if (storage.isGameOver) {
 }
 populateStatistics()
 rebuildGuesses()
+guessBox.focus()
 
 // Show instructions if the player has not seen them
 if (!localStorage.instructionsShown) {
