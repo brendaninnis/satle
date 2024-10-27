@@ -88,7 +88,7 @@ img.emoji {
     border: 1px solid #ffffff88;
 }
 
-.autocomplete-option:hover {
+.autocomplete-option.selected {
     background-color: #333333CC;
 }
 
