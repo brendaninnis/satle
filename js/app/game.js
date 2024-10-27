@@ -414,12 +414,67 @@ function addAutocompleteListeners() {
     let autocompleteClick = function() {
         document.getElementById("autocompleteList").textContent = ""
         guessBox.value = this.textContent
+        guessBox.focus()
+    }
+
+    let autocompleteMouseover = function(event) {
+        let selectedAutocomplete = Array.from(autocompleteEls).findIndex(el => el.classList.contains("selected"))
+        if (selectedAutocomplete >= 0) {
+            autocompleteEls[selectedAutocomplete].classList.remove("selected")
+        }
+        event.target.classList.add("selected")
     }
 
     for (var i = 0; i < autocompleteEls.length; i++) {
         autocompleteEls[i].addEventListener('click', autocompleteClick, false)
+        autocompleteEls[i].addEventListener('mouseover', autocompleteMouseover, false)
+        if (i === autocompleteEls.length - 1) {
+            autocompleteEls[i].classList.add("selected")
+        }
     }
 }
+
+function handleKeydown(event) {
+    let autocompleteEls = document.getElementsByClassName("autocomplete-option")
+    let selectedAutocomplete = Array.from(autocompleteEls).findIndex(el => el.classList.contains("selected"))
+
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+        if (autocompleteEls.length === 0) {
+            return
+        }
+        if (selectedAutocomplete >= 0) {
+            autocompleteEls[selectedAutocomplete].classList.remove("selected")
+        } else {
+            selectedAutocomplete = -1
+        }
+        if (event.key === "ArrowUp") {
+            selectedAutocomplete -= 1
+            if (selectedAutocomplete < 0) {
+                selectedAutocomplete = autocompleteEls.length - 1
+            }
+        } else {
+            selectedAutocomplete += 1
+            if (selectedAutocomplete >= autocompleteEls.length) {
+                selectedAutocomplete = 0
+            }
+        }
+        autocompleteEls[selectedAutocomplete].classList.add("selected")
+    } else if (event.key === "Enter") {
+        event.preventDefault()
+        let shouldSubmit = autocompleteEls.length <= 1
+        if (selectedAutocomplete >= 0) {
+            let selected = autocompleteEls[selectedAutocomplete]
+            document.getElementById("autocompleteList").textContent = ""
+            guessBox.value = selected.textContent
+            guessBox.focus()
+        }
+        if (shouldSubmit) {
+            submitGuess()
+        }
+    }
+}
+
+document.addEventListener("keydown", handleKeydown)
 
 guessBox.addEventListener("input", (event) => {
     let autocompleteList = document.getElementById("autocompleteList")
@@ -485,13 +540,17 @@ guessBox.addEventListener("input", (event) => {
     addAutocompleteListeners()
 })
 
-// Submitting the guess form submits the guess and clears the form
-document.getElementById("guessForm").addEventListener("submit", (event) => {
-    event.preventDefault()
+function submitGuess() {
     document.getElementById("autocompleteList").textContent = ""
     if (submit(guessBox.value)) {
         guessBox.value = null
     }
+}
+
+// Submitting the guess form submits the guess and clears the form
+document.getElementById("guessForm").addEventListener("submit", (event) => {
+    event.preventDefault()
+    submitGuess()
 })
 
 // Share button
