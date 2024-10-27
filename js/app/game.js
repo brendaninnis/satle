@@ -423,7 +423,6 @@ function addAutocompleteListeners() {
             autocompleteEls[selectedAutocomplete].classList.remove("selected")
         }
         event.target.classList.add("selected")
-        selectedAutocomplete = getChildIndex(event.target)
     }
 
     for (var i = 0; i < autocompleteEls.length; i++) {
