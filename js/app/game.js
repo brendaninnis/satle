@@ -76,7 +76,7 @@ if (window.location.hostname !== satleUrl) {
     // Include player data in the query parameters
     let fullUrl = "https://" + satleUrl
     if (localStorage.instructionsShown) {
-        fullUrl = fullUrl + "?" + formatLocalStorageAsQueryParams()
+        fullUrl = fullUrl + "?" + formatlocalstorageasqueryparams()
     }
 
     try {
@@ -296,6 +296,7 @@ function showGameOverModal(win) {
 
 function updateGameOverState(win) {
     document.getElementById("submitBtn").setAttribute("disabled", true)
+    document.removeEventListener("keydown", handleKeydown)
     storage.isGameOver = true
     if (win) {
         populateStatistics(storage.guesses.length)
