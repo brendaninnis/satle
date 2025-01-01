@@ -1,3 +1,5 @@
+import mapboxgl from 'mapbox-gl';
+
 /**
  * @Class
  * An instance of the game map
@@ -9,12 +11,12 @@ class GameMap {
      */
     constructor(storage) {
         this.storage = storage
-        this.zoomLevels = [19, 17, 15, 12, 9, 5]
+        this.zoomLevels = [18, 16, 14, 11, 8, 4]
         this.zoomLevel = 0
     }
 
-    async initMap(loc) {
-        const { Map } = await google.maps.importLibrary("maps")
+    initMap(loc) {
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaW5uaXNicmVuZGFuIiwiYSI6ImNtNTU2a3Q2eDBlaGUyc3FyZ2J5aGlleXQifQ.NLnVEby7Ci7Eg2vWyADucA';
 
         if (this.storage.isGameOver) {
             this.zoomLevel = this.storage.guesses.length - 1
@@ -24,33 +26,28 @@ class GameMap {
 
         let zoom = this.zoomLevels[this.zoomLevel]
 
-        this.map = new Map(document.getElementById("map"), {
-            zoom: zoom,
+        let map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/satellite-v9',
             center: loc,
-            disableDefaultUI: true,
-            gestureHandling: "none",
-            keyboardShortcuts: false,
-            zoomControl: false,
-            mapTypeControl: false,
-            scaleControl: false,
-            streetViewControl: false,
-            rotateControl: false,
-            fullscreenControl: false,
-            mapTypeId: google.maps.MapTypeId.SATELLITE
-        })
+            zoom: zoom,
+            interactive: false,
+        });
+
+        this.map = map
     }
 
     resetZoom() {
-        this.map.setZoom(this.zoomLevels[this.zoomLevel])
+        this.map.zoomTo(this.zoomLevels[this.zoomLevel], { duration: 1000 })
     }
 
     setZoomToIndex(index) {
-        this.map.setZoom(this.zoomLevels[index])
+        this.map.zoomTo(this.zoomLevels[index], { duration: 1000 })
     }
 
     zoomOutMap() {
         this.zoomLevel += 1
-        this.map.setZoom(this.zoomLevels[this.zoomLevel])
+        this.map.zoomTo(this.zoomLevels[this.zoomLevel], { duration: 1000 })
     }
 
 }
