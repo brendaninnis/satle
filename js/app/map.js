@@ -16,7 +16,7 @@ class GameMap {
     }
 
     initMap(loc) {
-        mapboxgl.accessToken = 'pk.eyJ1IjoiaW5uaXNicmVuZGFuIiwiYSI6ImNtNTU2a3Q2eDBlaGUyc3FyZ2J5aGlleXQifQ.NLnVEby7Ci7Eg2vWyADucA';
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaW5uaXNicmVuZGFuIiwiYSI6ImNtNTVzZXBkNTJzNXgybHNlYTJ4cW9tZHkifQ._lhqqZbY1P1zSHfVR2PTag';
 
         if (this.storage.isGameOver) {
             this.zoomLevel = this.storage.guesses.length - 1
