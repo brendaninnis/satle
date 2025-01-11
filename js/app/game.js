@@ -7,8 +7,6 @@ import { GameMap } from "./map.js"
 import { Settings } from "./settings.js"
 import { Storage } from "./storage.js"
 
-import { Loader } from "@googlemaps/js-api-loader"
-
 /**
  * CONSTS AND VARS
  */
@@ -135,20 +133,10 @@ const loc       = answer.loc
 const storage = new Storage(id)
 
 /**
- * GOOGLE MAP
+ * MAP
  */
-const loader = new Loader({
-  apiKey: "AIzaSyBsAJ8zq3tIH-ALCwimBjWxb5rrQETrwJ8",
-  version: "weekly"
-})
 const map = new GameMap(storage)
-
-loader.load().then(async () => {
-    await map.initMap(loc)
-}).catch(error => {
-    console.error(error)
-})
-
+map.initMap(loc)
 
 /**
  * SETTINGS
@@ -619,11 +607,11 @@ guessBox.focus()
 // Show instructions if the player has not seen them
 if (!localStorage.instructionsShown) {
     helpModal.show()
-} else if (!localStorage.update3Shown) {
+} else if (!localStorage.update2Shown0) {
     update2Modal.show()
 }
 localStorage.instructionsShown = true
-localStorage.update3Shown = true
+localStorage.update2Shown0 = true
 
 settings.bindSettings(rebuildGuesses)
 
