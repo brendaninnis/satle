@@ -44,6 +44,8 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 let helpModal = new bootstrap.Modal(document.getElementById("helpModal"), {})
 let update1Modal = new bootstrap.Modal(document.getElementById("update1Modal"), {})
 let update2Modal = new bootstrap.Modal(document.getElementById("update2Modal"), {})
+let androidModal = new bootstrap.Modal(document.getElementById("androidUpdate"), {})
+let iosModal = new bootstrap.Modal(document.getElementById("iosUpdate"), {})
 let gameEndModal = new bootstrap.Modal(document.getElementById("gameEndModal"), {})
 
 /**
@@ -135,46 +137,6 @@ function iOS() {
 
 var ua = navigator.userAgent.toLowerCase();
 var isAndroid = ua.indexOf("android") > -1;
-
-if (iOS()) {
-    // Replace screen with download on App Store prompt
-    document.body.innerHTML = `
-    <div class="container" style="height: 100%;">
-        <div class="row pt-5" style="height: 100%;">
-            <div class="col-12 pt-5">
-                <div class="alert alert-dark mt-5" role="alert">
-                    <h4 class="alert-heading">Get Satle on the App Store.</h4>
-                    <br />
-                    <div class="col-12 col-sm-6 col-xl-4 mt-2 text-center">
-                        <div><a href="https://apps.apple.com/app/id6745372308"><img src="images/download-on-the-app-store.svg" alt="Download on the App Store" style="width:auto; height: 80px;"/></a></div>
-                    </div>
-                    <br />
-                    <p>To play Satle, download the app for free at the link above.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-`
-} else if (isAndroid) {
-    // Replace screen with download on Play Store prompt
-    document.body.innerHTML = `
-    <div class="container" style="height: 100%;">
-        <div class="row pt-5" style="height: 100%;">
-            <div class="col-12 pt-5">
-                <div class="alert alert-dark mt-5" role="alert">
-                    <h4 class="alert-heading">Get Satle on the Play Store.</h4>
-                    <br />
-                    <div class="col-12 col-sm-6 col-xl-4 mt-2 text-center">
-                        <div><a href="https://play.google.com/store/apps/details?id=ca.satle.mobile"><img src="images/google-play-badge.png" alt="Get it on Google Play" style="width:auto; height: 80px;"/></a></div>
-                    </div>
-                    <br />
-                    <p>To play Satle, download the app for free at the link above.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-`
-}
 
 console.log("Passed pre-game checks")
 
@@ -662,7 +624,11 @@ rebuildGuesses()
 guessBox.focus()
 
 // Show instructions if the player has not seen them
-if (!localStorage.instructionsShown) {
+if (iOS()) {
+    iosModal.show()
+} else if (isAndroid) {
+    androidModal.show()
+} else if (!localStorage.instructionsShown) {
     helpModal.show()
 } else if (!localStorage.update2Shown01) {
     update2Modal.show()
