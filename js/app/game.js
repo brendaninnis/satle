@@ -623,10 +623,20 @@ populateStatistics()
 rebuildGuesses()
 guessBox.focus()
 
+// Hook up platform ignore buttons
+document.getElementById("ignoreIosBtn").addEventListener("click", (event) => {
+    localStorage.ignoreIOSUpdate = true
+    iosModal.hide()
+})
+document.getElementById("ignoreAndroidBtn").addEventListener("click", (event) => {
+    localStorage.ignoreAndroidUpdate = true
+    androidModal.hide()
+})
+
 // Show instructions if the player has not seen them
-if (iOS()) {
+if (iOS() && !localStorage.ignoreIOSUpdate) {
     iosModal.show()
-} else if (isAndroid) {
+} else if (isAndroid && !localStorage.ignoreAndroidUpdate) {
     androidModal.show()
 } else if (!localStorage.instructionsShown) {
     helpModal.show()
