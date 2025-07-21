@@ -144,11 +144,9 @@ console.log("Passed pre-game checks")
  * ASYNC GAME INITIALIZATION
  */
 async function initializeGame() {
-    // Wait for satles data to load
     let satles;
     try {
         satles = await populateSatles();
-        console.log(satles);
     } catch (error) {
         console.error("Failed to load satellite data:", error);
         alert("An error occurred while loading the game. Please try again later.");
