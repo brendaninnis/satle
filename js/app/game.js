@@ -145,11 +145,18 @@ console.log("Passed pre-game checks")
  */
 async function initializeGame() {
     // Wait for satles data to load
-    const satles = await populateSatles()
-    console.log(satles)
-    const answer = satles[todaysSatle() % satles.length]
-    const id = answer.id
-    const loc = answer.loc
+    let satles;
+    try {
+        satles = await populateSatles();
+        console.log(satles);
+    } catch (error) {
+        console.error("Failed to load satellite data:", error);
+        alert("An error occurred while loading the game. Please try again later.");
+        return; // Exit the function to prevent further execution
+    }
+    const answer = satles[todaysSatle() % satles.length];
+    const id = answer.id;
+    const loc = answer.loc;
 
     const storage = new Storage(id)
 
