@@ -28,19 +28,24 @@ async function populateSatles() {
         if (!response.ok) {
             throw new Error(`Failed to fetch satles data: ${response.status}`)
         }
-        
         const text = await response.text()
-        const decompressed = decompressFromUTF16(text)
-        
-        if (!decompressed) {
-            throw new Error('Failed to decompress satles data')
-        }
-        
-        return JSON.parse(decompressed)
+        localStorage.setItem('satles-encoded', text)
+        return decompressSatles(text)
     } catch (error) {
-        console.error('Error loading satles data:', error)
-        throw error
+        let text = localStorage.getItem('satles-encoded')
+        if (!text) {
+            throw new Error('Failed to load satles data')
+        }
+        return decompressSatles(text)
     }
+}
+
+function decompressSatles(text) {
+    const decompressed = decompressFromUTF16(text)
+    if (!decompressed) {
+        throw new Error('Failed to decompress satles data')
+    }
+    return JSON.parse(decompressed)
 }
 
 function getTextWidth(text) {
