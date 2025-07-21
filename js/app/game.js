@@ -314,7 +314,13 @@ async function initializeGame() {
         }
     }
 
+    let isAnimating = false
+
     function submit(guess) {
+        if (isAnimating) {
+            return false
+        }
+
         // If guess contains only whitespace then skip
         if (!guess.replace(/\s/g, '').length) {
             guess = skipStr
@@ -323,6 +329,44 @@ async function initializeGame() {
         if (guess !== skipStr) {
             if (!candidate) {
                 let guessWarning = document.getElementById("guessWarning")
+                let warningContent = guessWarning.querySelector('.alert')
+                
+                // Set the warning text for invalid guess
+                warningContent.innerHTML = "That guess is not in the list.<br/>Pick a city and country from the autofill list, then guess again."
+                
+                if (guessWarning.classList.contains("show")) {
+                    if (guessWarning.classList.contains("big")) {
+                        return false
+                    }
+                    guessWarning.classList.add("big")
+                    setTimeout(function() {
+                        guessWarning.classList.remove("big")
+                    }, 500)
+                    return false
+                }
+                guessWarning.classList.add("show")
+                setTimeout(function() {
+                    guessWarning.classList.remove("show")
+                }, 3000)
+                return false
+            }
+            
+            // Check for duplicate guess
+            let alreadyGuessed = storage.guesses.some(previousGuess => {
+                if (previousGuess === skipStr) return false
+                let previousCandidate = findCandidateAnswer(previousGuess)
+                return previousCandidate && 
+                       previousCandidate.city === candidate.city && 
+                       previousCandidate.country === candidate.country
+            })
+            
+            if (alreadyGuessed) {
+                let guessWarning = document.getElementById("guessWarning")
+                let warningContent = guessWarning.querySelector('.alert')
+                
+                // Set the warning text for duplicate guess
+                warningContent.innerHTML = "You've already guessed that city.<br/>Try a different city and country."
+                
                 if (guessWarning.classList.contains("show")) {
                     if (guessWarning.classList.contains("big")) {
                         return false
@@ -340,6 +384,11 @@ async function initializeGame() {
                 return false
             }
         }
+
+        isAnimating = true
+        // Disable submit button during animations
+        document.getElementById("submitBtn").setAttribute("disabled", true)
+
         storage.addGuess(guess)
         let guessSpan = createGuessSpan(candidate)
         let guessesDiv = document.getElementById("guesses")
@@ -381,6 +430,12 @@ async function initializeGame() {
                         gameOver(win)
                     } else {
                         map.zoomOutMap()
+                    }
+                    
+                    isAnimating = false
+                    // Re-enable submissions after all animations complete
+                    if (!storage.isGameOver) {
+                        document.getElementById("submitBtn").removeAttribute("disabled")
                     }
                 }, animDuration)
             }, animDuration)
@@ -620,6 +675,9 @@ async function initializeGame() {
     // Initialize game state
     if (storage.isGameOver) {
         document.getElementById("submitBtn").setAttribute("disabled", true)
+    } else {
+        // Ensure submit button is enabled if game is not over
+        document.getElementById("submitBtn").removeAttribute("disabled")
     }
     populateStatistics()
     rebuildGuesses()
@@ -642,11 +700,11 @@ async function initializeGame() {
         androidModal.show()
     } else if (!localStorage.instructionsShown) {
         helpModal.show()
-    } else if (!localStorage.update2Shown01) {
+    } else if (!localStorage.update2Shown02) {
         update2Modal.show()
     }
     localStorage.instructionsShown = true
-    localStorage.update2Shown01 = true
+    localStorage.update2Shown02 = true
 
     settings.bindSettings(rebuildGuesses)
 
