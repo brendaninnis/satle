@@ -1,6 +1,6 @@
 function todaysSatle() {
-    let startYear   = 2024
-    let startDay    = 215
+    let startYear   = 2025
+    let startDay    = 203
     let today       = new Date()
 
     let satleId     = 0

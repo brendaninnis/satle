@@ -22,3 +22,10 @@ dist/
 # IntelliJ
 .idea/
 
+# Environment variables (contain sensitive tokens)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
