@@ -1,5 +1,5 @@
 
-import { shuffle, populateSatles, getTextWidth, getChildIndex, formatCityCountry } from "./util.js"
+import { shuffle, populateSatlesV2, getTextWidth, getChildIndex, formatCityCountry } from "./util.js"
 import { copyTextToClipboard } from "./clipboard.js"
 import { getDistanceFromLatLon, getDirectionEmoji } from "./geolocation.js"
 import { todaysSatle } from "./time.js"
@@ -145,14 +145,17 @@ console.log("Passed pre-game checks")
  */
 async function initializeGame() {
     let satles;
+    let data;
     try {
-        satles = await populateSatles();
+        data = await populateSatlesV2();
+        satles = data.puzzles;
     } catch (error) {
         console.error("Failed to load satellite data:", error);
         alert("An error occurred while loading the game. Please try again later.");
         return; // Exit the function to prevent further execution
     }
-    const answer = satles[todaysSatle() % satles.length];
+    const dayIndex = todaysSatle();
+    const answer = data.puzzlesById[data.schedule[dayIndex % data.schedule.length]];
     const id = answer.id;
     const loc = answer.loc;
 
