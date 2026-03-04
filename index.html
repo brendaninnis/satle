@@ -88,6 +88,28 @@
             </div>
         </nav>
 
+        <!-- Promo Banner -->
+        <div id="promoBanner" class="promo-banner">
+            <a href="https://uncluttered.recipes" target="_blank" rel="noopener">
+                &#127859; I'm building a recipe app with no ads &mdash; looking for 50 early access testers.
+                <strong>Claim your spot &rarr;</strong>
+            </a>
+            <button id="promoBannerClose" class="promo-banner-close" aria-label="Dismiss">&times;</button>
+        </div>
+        <script>
+            (function() {
+                var banner = document.getElementById('promoBanner');
+                if (localStorage.getItem('promoBannerDismissed') === 'true' || !localStorage.instructionsShown) {
+                    banner.classList.add('hidden');
+                }
+                document.getElementById('promoBannerClose').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    banner.classList.add('hidden');
+                    localStorage.setItem('promoBannerDismissed', 'true');
+                });
+            })();
+        </script>
+
         <!-- Main Container -->
         <div id="container" class="container-fluid">
             <div id="map"></div>

@@ -12,6 +12,53 @@ body {
     z-index: 2;
 }
 
+.promo-banner {
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1B9AAA;
+    padding: 0.4rem 2.5rem 0.4rem 1rem;
+    z-index: 2;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.promo-banner a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.promo-banner a:hover {
+    text-decoration: underline;
+}
+
+.promo-banner-close {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    line-height: 1;
+    opacity: 0.8;
+}
+
+.promo-banner-close:hover {
+    opacity: 1;
+}
+
+.promo-banner.hidden {
+    display: none;
+}
+
 #container {
     padding: 0 !important;
     height: calc(100% - 4rem);

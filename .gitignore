@@ -22,6 +22,9 @@ dist/
 # IntelliJ
 .idea/
 
+# Workspace (local scripts and temp files, not committed)
+workspace/
+
 # Environment variables (contain sensitive tokens)
 .env
 .env.local
