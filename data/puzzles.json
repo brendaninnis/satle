@@ -4825,15 +4825,15 @@
   },
   {
     "id": 404,
-    "city": "Livingstone",
-    "country": "Zambia",
-    "emoji": "🇿🇲",
+    "city": "Buenos Aires",
+    "country": "Argentina",
+    "emoji": "🇦🇷",
     "loc": {
-      "lat": -17.9316,
-      "lng": 25.8589
+      "lat": -34.6083,
+      "lng": -58.3712
     },
-    "name": "Victoria Falls Bridge",
-    "description": "A historic steel arch bridge spanning a dramatic gorge below a famous waterfall. Completed in 1905, it carries road, rail, and pedestrian traffic between two countries and is a popular bungee jumping location."
+    "name": "Casa Rosada",
+    "description": "This distinctive pink presidential palace faces the historic Plaza de Mayo and has been the seat of the executive branch since 1898. Its rosy hue is said to have originally come from mixing white paint with ox blood. The building has witnessed some of the nation's most pivotal political moments, including Eva Perón's famous speeches from its balcony."
   },
   {
     "id": 405,
@@ -5165,11 +5165,11 @@
     "country": "Libya",
     "emoji": "🇱🇾",
     "loc": {
-      "lat": 32.1167,
-      "lng": 20.0667
+      "lat": 32.1142,
+      "lng": 20.0594
     },
     "name": "Benghazi Cathedral",
-    "description": "An Italian colonial-era cathedral built in the 1920s featuring a distinctive Byzantine-style dome. The building has been converted to a mosque but retains its original Christian architectural elements. Its prominent position in the city center reflects the complex layers of the region's history."
+    "description": "One of the largest churches in North Africa, this Italian colonial cathedral was built between 1929 and 1939 in Neoclassical style with twin domes and a columned portico. Abandoned since the 1970s, plans to convert it to a mosque were abandoned because the building's orientation prevented worshippers from facing Mecca. The striking basilica has survived two civil wars and remains a monument to the city's layered history."
   },
   {
     "id": 433,
@@ -5573,11 +5573,11 @@
     "country": "China",
     "emoji": "🇨🇳",
     "loc": {
-      "lat": 24.9384,
-      "lng": 110.2928
+      "lat": 25.2669,
+      "lng": 110.2933
     },
-    "name": "Li River",
-    "description": "This iconic waterway winds through a stunning landscape of karst peaks and verdant rice paddies. The dramatic limestone formations rising from the river have inspired Chinese artists and poets for centuries. A cruise between the cities reveals one of the country's most celebrated natural scenes."
+    "name": "Elephant Trunk Hill",
+    "description": "This 55-meter limestone formation at the confluence of the Li River and Peach Blossom River resembles an elephant dipping its trunk into the water. The natural arch beneath the 'trunk' is known as Water-Moon Cave, and the ancient Puxian Pagoda sits atop the hill. It has been the official symbol of Guilin for centuries."
   },
   {
     "id": 467,
