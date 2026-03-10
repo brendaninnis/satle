@@ -102,10 +102,19 @@ for (const id of newIds) {
     }
 }
 
-// Preserve schedule entries for days already played (0 to dayIndex-1)
-const preservedSchedule = currentSchedule.slice(0, dayIndex)
-const preservedIds = new Set(preservedSchedule)
+// The game uses schedule[dayIndex % schedule.length], so when the schedule
+// has wrapped we need to use the effective position, not the raw dayIndex.
+const effectiveIndex = currentSchedule.length > 0
+    ? dayIndex % currentSchedule.length
+    : 0
 
+if (dayIndex !== effectiveIndex) {
+    console.log(`Schedule has wrapped (day ${dayIndex} % ${currentSchedule.length} = position ${effectiveIndex})`)
+}
+
+// Preserve schedule entries for days already played (0 to effectiveIndex-1)
+const preservedSchedule = currentSchedule.slice(0, effectiveIndex)
+const preservedIds = new Set(preservedSchedule)
 console.log(`Preserving ${preservedSchedule.length} past schedule entries`)
 
 // New puzzle IDs that aren't in the preserved portion (not yet played)
@@ -145,3 +154,34 @@ console.log(`Wrote ${schedulePath}`)
 // Rebuild .lz files
 console.log('\nRunning build script...')
 execSync('node scripts/build-satles.mjs', { cwd: projectRoot, stdio: 'inherit' })
+
+// Schedule preview
+const puzzlesById = Object.fromEntries(puzzles.map(p => [p.id, p]))
+const startDate = new Date(2025, 7, 1) // Aug 1, 2025
+const newEnd = effectiveIndex + shuffledNew.length - 1
+const oldEnd = newEnd + shuffledOld.length
+const newMonths = (shuffledNew.length / 30).toFixed(1)
+const oldMonths = (shuffledOld.length / 30).toFixed(1)
+
+function dateForDay(idx) {
+    const d = new Date(startDate)
+    d.setDate(d.getDate() + idx)
+    return d.getFullYear() + '-' +
+        String(d.getMonth() + 1).padStart(2, '0') + '-' +
+        String(d.getDate()).padStart(2, '0')
+}
+
+console.log('\n--- New Puzzles Schedule ---')
+for (let i = 0; i < shuffledNew.length; i++) {
+    const idx = dayIndex + i
+    const id = newSchedule[idx % newSchedule.length]
+    const p = puzzlesById[id]
+    const date = dateForDay(idx)
+    console.log(`  Day ${idx} (${date}) → ID ${id} ${p.city}, ${p.country} — ${p.name}`)
+}
+
+console.log(`\n--- Schedule Summary ---`)
+console.log(`  Preserved (past):  positions 0–${effectiveIndex - 1}`)
+console.log(`  New puzzles:       positions ${effectiveIndex}–${newEnd} (${shuffledNew.length} puzzles, ~${newMonths} months)`)
+console.log(`  Old puzzles:       positions ${newEnd + 1}–${oldEnd} (${shuffledOld.length} puzzles, ~${oldMonths} months)`)
+console.log(`  Total:             ${newSchedule.length} puzzles, wraps after ~${(newSchedule.length / 30).toFixed(1)} months`)
