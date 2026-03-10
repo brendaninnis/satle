@@ -4625,8 +4625,8 @@
     "country": "Kazakhstan",
     "emoji": "🇰🇿",
     "loc": {
-      "lat": 43.2567,
-      "lng": 76.9453
+      "lat": 43.2585,
+      "lng": 76.9529
     },
     "name": "Zenkov Cathedral",
     "description": "A stunning Russian Orthodox cathedral built entirely of wood in 1907 without using any nails. Standing 56 meters tall, it is one of the tallest wooden buildings in the world. The colorful structure survived a major earthquake in 1911 and sits within a popular urban park."
@@ -4637,7 +4637,7 @@
     "country": "Uzbekistan",
     "emoji": "🇺🇿",
     "loc": {
-      "lat": 39.655,
+      "lat": 39.6546,
       "lng": 66.9758
     },
     "name": "Registan Square",
@@ -4649,8 +4649,8 @@
     "country": "Uzbekistan",
     "emoji": "🇺🇿",
     "loc": {
-      "lat": 39.7758,
-      "lng": 64.4156
+      "lat": 39.7756,
+      "lng": 64.4151
     },
     "name": "Kalyan Minaret",
     "description": "A 48-meter brick tower built in 1127 that has dominated the skyline for nearly 900 years. Legend says Genghis Khan was so impressed by its beauty that he spared it during his conquest. The tower's intricate brickwork patterns are considered masterpieces of medieval Islamic architecture."
@@ -4661,8 +4661,8 @@
     "country": "Kyrgyzstan",
     "emoji": "🇰🇬",
     "loc": {
-      "lat": 42.8746,
-      "lng": 74.604
+      "lat": 42.8752,
+      "lng": 74.6037
     },
     "name": "Ala-Too Square",
     "description": "The central square of the capital city, featuring a prominent flagpole and a monument to a national hero. Originally built during the Soviet era, it has been the site of significant political events and public gatherings. The square is surrounded by government buildings and offers views of the Tian Shan mountains."
@@ -4673,8 +4673,8 @@
     "country": "Turkmenistan",
     "emoji": "🇹🇲",
     "loc": {
-      "lat": 37.9152,
-      "lng": 58.3803
+      "lat": 37.882,
+      "lng": 58.3333
     },
     "name": "Neutrality Arch",
     "description": "A distinctive 95-meter tripod structure topped with a 12-meter gold-plated statue that once rotated to face the sun. Relocated to its current location in 2010 from the city center. The monument symbolizes the country's official policy of permanent neutrality adopted in 1995."
@@ -4685,8 +4685,8 @@
     "country": "Tajikistan",
     "emoji": "🇹🇯",
     "loc": {
-      "lat": 38.5607,
-      "lng": 68.7742
+      "lat": 38.574,
+      "lng": 68.7851
     },
     "name": "Ismoil Somoni Monument",
     "description": "A golden monument honoring the founder of the Samanid dynasty who ruled from the 9th to 10th century. Standing in the heart of the capital, it replaced a statue of Lenin after independence. The elaborate structure features traditional Persian-influenced architectural elements and serves as a symbol of national identity."
@@ -4697,8 +4697,8 @@
     "country": "Oman",
     "emoji": "🇴🇲",
     "loc": {
-      "lat": 23.5954,
-      "lng": 58.4036
+      "lat": 23.5842,
+      "lng": 58.389
     },
     "name": "Sultan Qaboos Grand Mosque",
     "description": "This grand mosque is one of the largest in the world, featuring stunning Islamic architecture with intricate mosaics and a massive prayer carpet. The main dome rises 50 meters high, and the complex includes extensive gardens and courtyards."
@@ -4709,8 +4709,8 @@
     "country": "Qatar",
     "emoji": "🇶🇦",
     "loc": {
-      "lat": 25.2959,
-      "lng": 51.5397
+      "lat": 25.295,
+      "lng": 51.5394
     },
     "name": "Museum of Islamic Art",
     "description": "Designed by renowned architect I.M. Pei, this museum sits on an artificial island connected to the Corniche. The geometric limestone building houses one of the world's most comprehensive collections of Islamic art spanning 1,400 years."
@@ -4721,8 +4721,8 @@
     "country": "Kuwait",
     "emoji": "🇰🇼",
     "loc": {
-      "lat": 29.3906,
-      "lng": 47.9893
+      "lat": 29.3894,
+      "lng": 48.0026
     },
     "name": "Kuwait Towers",
     "description": "These iconic towers on the Arabian Gulf coast serve as the country's most recognizable landmark. The main tower features a revolving observation deck and restaurant, while the distinctive blue-green spheres are covered with thousands of enameled steel discs."
@@ -4733,8 +4733,8 @@
     "country": "Bahrain",
     "emoji": "🇧🇭",
     "loc": {
-      "lat": 26.2419,
-      "lng": 50.5775
+      "lat": 26.2394,
+      "lng": 50.5815
     },
     "name": "Bahrain World Trade Center",
     "description": "This twin-tower complex is notable for being the first skyscraper to integrate large-scale wind turbines into its design. Three bridges connecting the 50-story towers each support a 29-meter diameter turbine, generating clean energy for the building."
@@ -4745,8 +4745,8 @@
     "country": "Iraq",
     "emoji": "🇮🇶",
     "loc": {
-      "lat": 36.1912,
-      "lng": 44.0103
+      "lat": 36.1911,
+      "lng": 44.0094
     },
     "name": "Erbil Citadel",
     "description": "Rising 30 meters above the surrounding plain, this ancient fortified settlement has been continuously inhabited for over 6,000 years. The UNESCO World Heritage Site features a distinctive oval shape and historic architecture atop an artificial mound."
@@ -4769,8 +4769,8 @@
     "country": "Bahamas",
     "emoji": "🇧🇸",
     "loc": {
-      "lat": 25.0781,
-      "lng": -77.3397
+      "lat": 25.078,
+      "lng": -77.3405
     },
     "name": "Parliament Square",
     "description": "This historic government complex features striking pink colonial buildings dating from the early 1800s. The square serves as the seat of national government and showcases Georgian-style architecture surrounded by statues commemorating notable historical figures."
@@ -4781,8 +4781,8 @@
     "country": "Saint Lucia",
     "emoji": "🇱🇨",
     "loc": {
-      "lat": 14.0894,
-      "lng": -60.9561
+      "lat": 14.0911,
+      "lng": -60.9668
     },
     "name": "Pigeon Island",
     "description": "Once a separate island, this 44-acre national landmark is now connected to the mainland by a causeway. The site features ruins of 18th-century military fortifications and offers panoramic views of the Caribbean Sea and neighboring islands."
@@ -4793,8 +4793,8 @@
     "country": "Grenada",
     "emoji": "🇬🇩",
     "loc": {
-      "lat": 12.0523,
-      "lng": -61.753
+      "lat": 12.0491,
+      "lng": -61.7538
     },
     "name": "Fort George",
     "description": "Perched on a promontory overlooking a horseshoe-shaped harbor, this 18th-century fortification was originally built by the French. The star-shaped fort features historic cannons and provides sweeping views of the colorful waterfront capital below."
@@ -4805,8 +4805,8 @@
     "country": "Zimbabwe",
     "emoji": "🇿🇼",
     "loc": {
-      "lat": -17.8244,
-      "lng": 31.0019
+      "lat": -17.8353,
+      "lng": 31.9877
     },
     "name": "National Heroes Acre",
     "description": "A hilltop shrine built in the 1980s to honor those who fought for independence. The terraced complex features a striking modernist design with North Korean architectural influence, centered around an eternal flame and towering sculpture."
@@ -4817,8 +4817,8 @@
     "country": "Zimbabwe",
     "emoji": "🇿🇼",
     "loc": {
-      "lat": -17.9243,
-      "lng": 25.8572
+      "lat": -17.9257,
+      "lng": 25.8582
     },
     "name": "Victoria Falls",
     "description": "One of the world's largest waterfalls where the Zambezi River plunges into a basalt gorge. Known locally as 'Mosi-oa-Tunya' (The Smoke That Thunders), the spray can rise over 400 meters and is visible from kilometers away."
@@ -4841,8 +4841,8 @@
     "country": "Rwanda",
     "emoji": "🇷🇼",
     "loc": {
-      "lat": -1.9403,
-      "lng": 30.0604
+      "lat": -1.9308,
+      "lng": 30.0605
     },
     "name": "Kigali Genocide Memorial",
     "description": "A solemn memorial and museum located on the grounds where over 250,000 victims are buried. The site documents the events of 1994 through exhibits and serves as a place of remembrance and education about reconciliation."
@@ -4853,8 +4853,8 @@
     "country": "Senegal",
     "emoji": "🇸🇳",
     "loc": {
-      "lat": 14.7195,
-      "lng": -17.4953
+      "lat": 14.7221,
+      "lng": -17.4949
     },
     "name": "African Renaissance Monument",
     "description": "A 49-meter bronze statue depicting a family emerging from a volcano, making it one of the tallest statues in the world. Built in 2010, it stands on a hill overlooking the Atlantic Ocean and symbolizes the continent's emergence into a new era."
@@ -4865,8 +4865,8 @@
     "country": "Madagascar",
     "emoji": "🇲🇬",
     "loc": {
-      "lat": -18.9177,
-      "lng": 47.5327
+      "lat": -18.924,
+      "lng": 47.532
     },
     "name": "Rova of Antananarivo",
     "description": "A royal palace complex perched on the highest hill of the capital city. The fortified compound served as the residence of Merina sovereigns from the 17th century until the monarchy ended, featuring both traditional wooden and stone palace buildings."
@@ -4877,8 +4877,8 @@
     "country": "Mauritius",
     "emoji": "🇲🇺",
     "loc": {
-      "lat": -20.1597,
-      "lng": 57.5012
+      "lat": -20.1588,
+      "lng": 57.5029
     },
     "name": "Aapravasi Ghat",
     "description": "A UNESCO World Heritage Site that served as a processing depot for indentured laborers from 1849 to 1923. Over half a million workers passed through this immigration depot, marking a significant chapter in the history of labor migration."
@@ -4889,8 +4889,8 @@
     "country": "Botswana",
     "emoji": "🇧🇼",
     "loc": {
-      "lat": -24.6581,
-      "lng": 25.9117
+      "lat": -24.6451,
+      "lng": 25.9074
     },
     "name": "Three Dikgosi Monument",
     "description": "A bronze monument honoring three chiefs who traveled to Britain in 1895 to protest colonial encroachment on their lands. The statues stand near the National Assembly and commemorate figures instrumental in preserving the nation's sovereignty."
@@ -4901,8 +4901,8 @@
     "country": "Namibia",
     "emoji": "🇳🇦",
     "loc": {
-      "lat": -22.57,
-      "lng": 17.0836
+      "lat": -22.5679,
+      "lng": 17.0873
     },
     "name": "Christuskirche",
     "description": "A distinctive Lutheran church built in 1910 blending Neo-Romanesque and Art Nouveau styles with local sandstone. The landmark sits prominently on a hill in the capital and features stained glass windows donated by Kaiser Wilhelm II."
@@ -4949,8 +4949,8 @@
     "country": "Cyprus",
     "emoji": "🇨🇾",
     "loc": {
-      "lat": 35.1762,
-      "lng": 33.3625
+      "lat": 35.1764,
+      "lng": 33.3645
     },
     "name": "Selimiye Mosque",
     "description": "This stunning example of Gothic architecture was originally built as a cathedral in the 13th century before being converted to a mosque following the Ottoman conquest in 1570. Its twin minarets, added after the conversion, contrast dramatically with the original Gothic flying buttresses and pointed arches. The structure remains the largest medieval building on the island."
@@ -4973,8 +4973,8 @@
     "country": "Paraguay",
     "emoji": "🇵🇾",
     "loc": {
-      "lat": -25.2785,
-      "lng": -57.6359
+      "lat": -25.2775,
+      "lng": -57.6372
     },
     "name": "Palacio de los López",
     "description": "This neoclassical palace serves as the seat of government and workplace of the President. Built in the 1860s during the presidency of Carlos Antonio López, it sits prominently on the banks of the Paraguay River. The building features elegant European-influenced architecture with a distinctive white facade."
@@ -4985,8 +4985,8 @@
     "country": "Suriname",
     "emoji": "🇸🇷",
     "loc": {
-      "lat": 5.8253,
-      "lng": -55.1508
+      "lat": 5.8251,
+      "lng": -55.1498
     },
     "name": "Fort Zeelandia",
     "description": "This 17th-century star-shaped fortification was originally built by the British and later expanded by the Dutch. Located on the banks of the Suriname River, it served as the colonial administrative center for centuries. Today it houses a museum documenting the country's complex colonial history."
@@ -4997,8 +4997,8 @@
     "country": "El Salvador",
     "emoji": "🇸🇻",
     "loc": {
-      "lat": 13.7006,
-      "lng": -89.2264
+      "lat": 13.7013,
+      "lng": -89.2246
     },
     "name": "Monumento al Divino Salvador del Mundo",
     "description": "This iconic monument features a statue of Jesus Christ standing atop a globe, mounted on a tall pedestal at a major intersection. Unveiled in 1942, it honors the patron saint of the country and capital city. The plaza surrounding it hosts national celebrations and serves as a gathering place for major events."
@@ -5009,8 +5009,8 @@
     "country": "Laos",
     "emoji": "🇱🇦",
     "loc": {
-      "lat": 17.9692,
-      "lng": 102.6303
+      "lat": 17.9705,
+      "lng": 102.6186
     },
     "name": "Patuxai",
     "description": "This massive victory gate was built in the 1960s to commemorate independence from France and those who died in the struggle for freedom. The monument combines traditional Lao architectural motifs with the concept of a European triumphal arch. Visitors can climb to the top for panoramic views of the surrounding boulevard and city."
@@ -5021,8 +5021,8 @@
     "country": "Laos",
     "emoji": "🇱🇦",
     "loc": {
-      "lat": 19.8932,
-      "lng": 102.1347
+      "lat": 19.892,
+      "lng": 102.1358
     },
     "name": "Royal Palace Museum",
     "description": "This elegant French Beaux-Arts style building served as the residence of the royal family until 1975. Now a national museum, it houses royal regalia, religious artifacts, and the sacred Phra Bang Buddha image. The grounds feature beautiful tropical gardens along the banks of the Mekong River."
@@ -5033,8 +5033,8 @@
     "country": "Bhutan",
     "emoji": "🇧🇹",
     "loc": {
-      "lat": 27.4712,
-      "lng": 89.6339
+      "lat": 27.4893,
+      "lng": 89.635
     },
     "name": "Tashichho Dzong",
     "description": "This massive whitewashed fortress monastery serves as the seat of government and the summer residence of the religious leader. Originally built in 1641, it was extensively renovated in the 1960s using traditional methods without nails or written plans. The imposing structure sits along the western bank of a river with the Himalayas as its backdrop."
@@ -5045,8 +5045,8 @@
     "country": "Fiji",
     "emoji": "🇫🇯",
     "loc": {
-      "lat": -18.1416,
-      "lng": 178.4419
+      "lat": -18.1361,
+      "lng": 178.4251
     },
     "name": "Suva Municipal Market",
     "description": "This bustling covered market is the largest in the South Pacific, where vendors sell fresh produce, fish, kava, and handicrafts. The distinctive green-roofed building has been a community gathering place since 1952. It offers an authentic glimpse into daily island life and local commerce."
@@ -5057,8 +5057,8 @@
     "country": "Maldives",
     "emoji": "🇲🇻",
     "loc": {
-      "lat": 4.1755,
-      "lng": 73.5093
+      "lat": 4.2179,
+      "lng": 73.5437
     },
     "name": "Hukuru Miskiy",
     "description": "Built in 1658, this historic mosque is constructed entirely from intricately carved coral stone. The interior features elaborate lacquerwork and Arabic calligraphy, while the exterior displays remarkable craftsmanship in its white coral walls. Adjacent stands a distinctive minaret with a round base, one of the most recognizable structures in the island nation."
@@ -5069,8 +5069,8 @@
     "country": "Nigeria",
     "emoji": "🇳🇬",
     "loc": {
-      "lat": 9.0579,
-      "lng": 7.4891
+      "lat": 9.0599,
+      "lng": 7.4897
     },
     "name": "Nigerian National Mosque",
     "description": "This grand mosque with its golden dome and four towering minarets dominates the capital's skyline. Completed in 1984, it can accommodate over 15,000 worshippers and serves as the national center of Islamic worship. The impressive structure combines traditional Islamic architectural elements with modern Nigerian design."
@@ -5081,8 +5081,8 @@
     "country": "Ghana",
     "emoji": "🇬🇭",
     "loc": {
-      "lat": 5.5469,
-      "lng": -0.2065
+      "lat": 5.5443,
+      "lng": -0.2027
     },
     "name": "Kwame Nkrumah Memorial Park",
     "description": "A mausoleum and memorial dedicated to the first President and founding father of the nation. The park features a bronze statue of Nkrumah surrounded by fountains and the distinctive marble building that houses his remains. It stands on the site where he declared independence in 1957."
@@ -5093,8 +5093,8 @@
     "country": "Algeria",
     "emoji": "🇩🇿",
     "loc": {
-      "lat": 35.6969,
-      "lng": -0.6353
+      "lat": 35.709,
+      "lng": -0.6649
     },
     "name": "Santa Cruz Fort",
     "description": "A Spanish fortification built in the 16th century atop Murdjadjo Mountain overlooking the Mediterranean Sea. The fortress offers commanding views of the city and harbor below and is connected to the Chapel of Santa Cruz. Its strategic position made it vital for controlling the region's maritime routes."
@@ -5105,7 +5105,7 @@
     "country": "Croatia",
     "emoji": "🇭🇷",
     "loc": {
-      "lat": 43.5081,
+      "lat": 43.5082,
       "lng": 16.4402
     },
     "name": "Diocletian's Palace",
@@ -5129,8 +5129,8 @@
     "country": "Belize",
     "emoji": "🇧🇿",
     "loc": {
-      "lat": 17.4951,
-      "lng": -88.1879
+      "lat": 17.4915,
+      "lng": -88.1815
     },
     "name": "Baron Bliss Lighthouse",
     "description": "A historic lighthouse and tomb honoring an English baron who left most of his fortune to the colony. Built in the 1920s, it stands at the entrance to Belize Harbor and marks the grave of its benefactor. The annual Baron Bliss Day celebrates his legacy of philanthropy to the nation."
@@ -5141,8 +5141,8 @@
     "country": "Bolivia",
     "emoji": "🇧🇴",
     "loc": {
-      "lat": -19.047,
-      "lng": -65.2595
+      "lat": -19.0477,
+      "lng": -65.2602
     },
     "name": "Casa de la Libertad",
     "description": "This historic building is where the declaration of independence was signed in 1825, giving birth to the nation. The colonial-era structure now serves as a museum housing the original Act of Independence and other founding documents. Its elegant white facade faces the main plaza of the constitutional capital."
@@ -5153,8 +5153,8 @@
     "country": "Bolivia",
     "emoji": "🇧🇴",
     "loc": {
-      "lat": -20.4639,
-      "lng": -66.8269
+      "lat": -20.3305,
+      "lng": -67.047
     },
     "name": "Salar de Uyuni",
     "description": "The world's largest salt flat spans over 10,000 square kilometers at an elevation of 3,656 meters. During the wet season, a thin layer of water transforms it into the world's largest natural mirror. The surreal landscape contains islands of ancient coral and cacti rising from the brilliant white expanse."
@@ -5177,8 +5177,8 @@
     "country": "Luxembourg",
     "emoji": "🇱🇺",
     "loc": {
-      "lat": 49.8127,
-      "lng": 6.4214
+      "lat": 49.8133,
+      "lng": 6.4222
     },
     "name": "Echternach Abbey",
     "description": "A Benedictine abbey founded in 698 by the Anglo-Saxon missionary Willibrord, making it one of the oldest religious sites in the region. The current buildings date from the 18th century, though the crypt contains the saint's original tomb. The abbey is known for its famous medieval manuscripts and the annual dancing procession."
@@ -5189,7 +5189,7 @@
     "country": "India",
     "emoji": "🇮🇳",
     "loc": {
-      "lat": 27.1751,
+      "lat": 27.1747,
       "lng": 78.0421
     },
     "name": "Taj Mahal",
@@ -5201,8 +5201,8 @@
     "country": "Italy",
     "emoji": "🇮🇹",
     "loc": {
-      "lat": 43.723,
-      "lng": 10.3966
+      "lat": 43.7232,
+      "lng": 10.3967
     },
     "name": "Leaning Tower of Pisa",
     "description": "This famous bell tower began tilting during its construction in the 12th century due to soft ground on one side. Standing at about 56 meters tall, it took nearly 200 years to complete. The distinctive lean has made it one of the most photographed structures in Europe."
@@ -5249,8 +5249,8 @@
     "country": "United States",
     "emoji": "🇺🇸",
     "loc": {
-      "lat": 40.7736,
-      "lng": -73.9712
+      "lat": 40.7741,
+      "lng": -73.9709
     },
     "name": "Bethesda Fountain",
     "description": "This ornate fountain sits at the heart of a famous urban park, featuring an angel statue called Angel of the Waters. Completed in 1873, it was one of the first public works of art commissioned from a woman in the United States. The terrace around it has become an iconic gathering place."
@@ -5381,8 +5381,8 @@
     "country": "Norway",
     "emoji": "🇳🇴",
     "loc": {
-      "lat": 69.6496,
-      "lng": 18.956
+      "lat": 69.6479,
+      "lng": 18.9875
     },
     "name": "Arctic Cathedral",
     "description": "This striking modernist church features a distinctive triangular design with a wall of stained glass facing the Arctic Ocean. Completed in 1965, its dramatic white concrete form is meant to evoke icebergs and northern lights. The building serves as a cultural landmark in one of the world's northernmost cities."
@@ -5393,8 +5393,8 @@
     "country": "Argentina",
     "emoji": "🇦🇷",
     "loc": {
-      "lat": -54.8019,
-      "lng": -68.3029
+      "lat": -54.8061,
+      "lng": -68.3002
     },
     "name": "End of the World Museum",
     "description": "This small museum documents the history and natural environment of the southernmost region of South America. Housed in a historic building near the waterfront, it tells the story of indigenous peoples, explorers, and shipwrecks. The city proudly claims its title as the southernmost city in the world."
@@ -5405,8 +5405,8 @@
     "country": "China",
     "emoji": "🇨🇳",
     "loc": {
-      "lat": 29.6575,
-      "lng": 91.1173
+      "lat": 29.6563,
+      "lng": 91.1179
     },
     "name": "Potala Palace",
     "description": "This massive fortress palace rises dramatically from a rocky hill, reaching 13 stories and containing over 1,000 rooms. Originally built in the 7th century and greatly expanded in the 17th century, it served as the winter residence of the Dalai Lama. The white and red structure is a masterpiece of Tibetan architecture."
@@ -5441,8 +5441,8 @@
     "country": "Chile",
     "emoji": "🇨🇱",
     "loc": {
-      "lat": -27.1254,
-      "lng": -109.2773
+      "lat": -27.1256,
+      "lng": -109.2771
     },
     "name": "Ahu Tongariki",
     "description": "This restored ceremonial platform holds 15 towering stone statues, the largest group of standing moai on the island. The monolithic figures face inland, away from the ocean, as guardians of the community they once protected. A devastating tsunami swept them down in 1960, and restoration was completed in 1996."
@@ -5477,8 +5477,8 @@
     "country": "India",
     "emoji": "🇮🇳",
     "loc": {
-      "lat": 25.305,
-      "lng": 83.013
+      "lat": 25.3069,
+      "lng": 83.0106
     },
     "name": "Dashashwamedh Ghat",
     "description": "One of the oldest and most prominent riverside ghats, famous for its elaborate Ganga Aarti ceremony performed nightly. According to legend, Brahma performed a sacrifice here to welcome Shiva to the city. The stepped stone banks descend to one of the holiest rivers in Hinduism."
@@ -5489,8 +5489,8 @@
     "country": "India",
     "emoji": "🇮🇳",
     "loc": {
-      "lat": 15.5009,
-      "lng": 73.9121
+      "lat": 15.5011,
+      "lng": 73.9114
     },
     "name": "Basilica of Bom Jesus",
     "description": "This 16th-century Baroque church contains the mortal remains of St. Francis Xavier in an ornate silver casket. The UNESCO World Heritage Site features intricate gilded altars and is the oldest church in the subcontinent. It represents the finest example of Baroque architecture in Asia."
@@ -5501,8 +5501,8 @@
     "country": "Pakistan",
     "emoji": "🇵🇰",
     "loc": {
-      "lat": 34.0083,
-      "lng": 71.5575
+      "lat": 34.0134,
+      "lng": 71.5698
     },
     "name": "Bala Hisar Fort",
     "description": "This ancient fortress has stood at the entrance to the Khyber Pass for over two millennia, guarding a crucial gateway. The massive mud-brick walls have been rebuilt numerous times by various rulers from the Mughals to the Sikhs to the British. It remains an active military installation visible from the surrounding city."
@@ -5621,8 +5621,8 @@
     "country": "United States",
     "emoji": "🇺🇸",
     "loc": {
-      "lat": 25.7825,
-      "lng": -80.134
+      "lat": 25.781,
+      "lng": -80.1305
     },
     "name": "South Beach Art Deco District",
     "description": "This historic neighborhood contains the largest collection of Art Deco architecture in the world, with over 800 preserved buildings. The pastel-colored hotels and apartment buildings were constructed during the 1930s and 1940s. The neon-lit Ocean Drive has become an iconic backdrop of American beach culture."
@@ -5633,8 +5633,8 @@
     "country": "United States",
     "emoji": "🇺🇸",
     "loc": {
-      "lat": 32.7341,
-      "lng": -117.1446
+      "lat": 32.7314,
+      "lng": -117.1524
     },
     "name": "California Building",
     "description": "This ornate Spanish Colonial Revival building was constructed for the 1915 Panama-California Exposition. Its elaborate dome and bell tower have become an iconic symbol of the sprawling urban park that surrounds it. The structure now houses a museum of anthropology and local history."
