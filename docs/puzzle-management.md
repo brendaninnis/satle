@@ -141,12 +141,16 @@ node scripts/add-puzzles.mjs <new-puzzles.json> [--deploy-date YYYY-MM-DD]
 Rebuilds the schedule for a different deploy date without changing the pool.
 
 ```bash
-node scripts/rebuild-schedule.mjs --deploy-date YYYY-MM-DD --new-puzzles <file.json>
+# Deploy today — just run it right before deploying:
+node scripts/rebuild-schedule.mjs --new-puzzles <file.json>
+
+# Or specify a future deploy date:
+node scripts/rebuild-schedule.mjs --new-puzzles <file.json> --deploy-date YYYY-MM-DD
 ```
 
-- `--new-puzzles` tells the script which IDs to place first in the schedule
+- `--new-puzzles` (required) tells the script which IDs to place first in the schedule
+- `--deploy-date` (optional) defaults to today if not provided
 - Past entries (before deploy date) are always preserved
-- Both flags are required
 
 ## Data Fixes
 

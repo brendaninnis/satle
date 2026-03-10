@@ -11,10 +11,10 @@
  * Past schedule entries (before the deploy date) are always preserved.
  *
  * Usage:
- *   node scripts/rebuild-schedule.mjs --deploy-date YYYY-MM-DD --new-puzzles <file.json>
+ *   node scripts/rebuild-schedule.mjs --new-puzzles <file.json> [--deploy-date YYYY-MM-DD]
  *
  * Options:
- *   --deploy-date   (required) The date the update will go live.
+ *   --deploy-date   (optional) The date the update will go live. Defaults to today.
  *   --new-puzzles   (required) Path to JSON file containing new puzzle entries.
  *                   Only the "id" field is read from each entry.
  */
@@ -44,12 +44,21 @@ for (let i = 0; i < args.length; i++) {
     }
 }
 
-if (!deployDate || !newPuzzlesFile) {
-    console.error('Usage: node scripts/rebuild-schedule.mjs --deploy-date YYYY-MM-DD --new-puzzles <file.json>')
+if (!newPuzzlesFile) {
+    console.error('Usage: node scripts/rebuild-schedule.mjs --new-puzzles <file.json> [--deploy-date YYYY-MM-DD]')
     console.error('')
     console.error('Rebuilds the schedule so that puzzles from <file.json> start on the deploy date,')
     console.error('followed by remaining old puzzles. Past schedule entries are preserved.')
+    console.error('If --deploy-date is omitted, defaults to today.')
     process.exit(1)
+}
+
+if (!deployDate) {
+    const today = new Date()
+    deployDate = today.getFullYear() + '-' +
+        String(today.getMonth() + 1).padStart(2, '0') + '-' +
+        String(today.getDate()).padStart(2, '0')
+    console.log(`No --deploy-date specified, using today: ${deployDate}`)
 }
 
 // Fisher-Yates shuffle
