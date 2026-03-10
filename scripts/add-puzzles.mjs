@@ -104,8 +104,18 @@ const dayIndex = daysSinceStart(deployDate)
 console.log(`Deploy day index: ${dayIndex} (${deployDate || 'today'})`)
 
 // Build new schedule
-// 1. Preserve schedule entries for days already played (0 to dayIndex-1)
-const preservedSchedule = existingSchedule.slice(0, dayIndex)
+// 1. Preserve schedule entries for days already played
+// The game uses schedule[dayIndex % schedule.length], so when the schedule
+// has wrapped we use the effective position, not the raw dayIndex.
+const effectiveIndex = existingSchedule.length > 0
+    ? dayIndex % existingSchedule.length
+    : 0
+
+if (dayIndex !== effectiveIndex) {
+    console.log(`Schedule has wrapped (day ${dayIndex} % ${existingSchedule.length} = position ${effectiveIndex})`)
+}
+
+const preservedSchedule = existingSchedule.slice(0, effectiveIndex)
 console.log(`Preserving ${preservedSchedule.length} past schedule entries`)
 
 // 2. Collect IDs already used in preserved portion
