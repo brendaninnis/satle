@@ -57,7 +57,7 @@ const UPDATES = [
 <p>🆕 <strong>86 new daily puzzles</strong> have been added featuring new cities and landmarks from around the world.</p>
 <p>This update includes:</p>
 <ul>
-    <li>New countries across Central Asia, the Carribean, West Africa and beyond.</li>
+    <li>New countries across Central Asia, the Caribbean, West Africa and beyond.</li>
     <li>Iconic landmarks you will definitely recognize. Can you guess the city?</li>
     <li>New cities that are home to some Satle guessers</li>
 </ul>
