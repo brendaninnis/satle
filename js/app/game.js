@@ -86,7 +86,7 @@ function getLatestUnseenUpdate() {
     const now = new Date()
     const eligible = UPDATES.filter(u => {
         if (seen.has(u.id)) return false
-        if (u.startDate && new Date(u.startDate) > now) return false
+        if (u.startDate && new Date(u.startDate + "T00:00:00") > now) return false
         return true
     })
     return eligible.length > 0 ? eligible[eligible.length - 1] : null
