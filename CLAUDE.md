@@ -1,98 +1,114 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Project Overview
 
-Satle is a Wordle-like geography game where players have 6 attempts to guess a city based on satellite images. A new puzzle is available each day. Built with vanilla JavaScript and Vite.
+Satle is a daily geography puzzle game (like Wordle but with maps). Players get 6 attempts to guess a city from satellite imagery, starting zoomed in and zooming out with each wrong guess. Live at https://satle.ca.
 
-There is also a Compose Multiplatform mobile app at `../SatleCompose/`.
+Companion Compose Multiplatform mobile app lives at `../SatleCompose/`.
 
-## Development Commands
+## Commands
 
 ```bash
-npm install              # Install dependencies
-npm run dev              # Start dev server on port 3000 (auto-opens browser)
-npm run build            # Production build to dist/
-npm run build:dev        # Development build with source maps
-npm run preview          # Preview production build
+npm run dev        # Dev server on port 3000 (auto-opens browser)
+npm run build      # Production build to dist/
+npm run deploy     # Build + rsync to VPS (barbarosa@172.105.4.199)
 ```
 
-## Environment Setup
+Puzzle management scripts (all `.mjs` — project has no `"type": "module"` in package.json):
+```bash
+node scripts/build-satles.mjs                                           # Regenerate .lz files from data/
+node scripts/add-puzzles.mjs <new-puzzles.json> [--deploy-date DATE]    # Add puzzles to pool + rebuild
+node scripts/rebuild-schedule.mjs --new-puzzles <file> [--deploy-date]  # Adjust schedule timing (defaults to today)
+```
 
-Requires a Mapbox API token. Copy `.env.example` to `.env.development` and `.env.production` with your `VITE_MAPBOX_TOKEN`.
+## Environment
+
+Requires `VITE_MAPBOX_TOKEN` in `.env.development` and `.env.production` (see `.env.example`). These files are gitignored.
 
 ## Architecture
 
-### Module Loading Order
-All modules in `js/app/` are loaded via script tags in `index.html` in this specific order:
-1. `util.js` - Data loading, decompression, and shuffle utilities
-2. `clipboard.js` - Share functionality
-3. `map.js` - GameMap class wrapping Mapbox GL
-4. `storage.js` - Storage class managing localStorage persistence
-5. `time.js` - Daily puzzle scheduling and countdown timer
-6. `geolocation.js` - Distance and bearing calculations
-7. `settings.js` - User preferences (distance display, units)
-8. `game.js` - Main orchestrator, game logic, DOM interactions
+**No framework, no bundler magic.** Vanilla JS with ES module imports, loaded via script tags in `index.html`. Vite is used only for dev server and production bundling.
 
-### Key Data Flow
-- Puzzle data is stored in two compressed formats in `public/`:
-  - `satles-v2.lz` — new format: `{ puzzles: [...], schedule: [...] }` (used by web app and new mobile apps)
-  - `satles-encoded.lz` — legacy v1 format: array of puzzles in schedule order (used by old mobile apps)
-- Both are generated from `data/puzzles.json` and `data/schedule.json` by `scripts/build-satles.mjs`
-- Each puzzle object: `{ id, city, country, loc: {lat, lng}, emoji, name, description }`
-- At runtime, `util.js` decompresses v2 data and builds a `puzzlesById` dictionary for O(1) lookup
-- Game state is persisted to localStorage (guesses, stats, streaks)
+### File Structure
 
-### Daily Puzzle System
-- `time.js`: `todaysSatle()` returns a day index (days elapsed since Aug 1, 2025)
-- Start date is hardcoded: `startYear = 2025, startDay = 213` in `time.js`, `LocalDate(2025, 8, 1)` in mobile's `DateTimeProvider.kt`
-- `game.js` uses the day index to look up the puzzle: `puzzlesById[schedule[dayIndex % schedule.length]]`
-- The start date never needs to change. The schedule controls which puzzle appears on which day.
+```
+js/app/
+├── util.js          # Data loading, lz-string decompression, shuffle
+├── clipboard.js     # Share/copy functionality
+├── map.js           # GameMap class (wraps Mapbox GL)
+├── storage.js       # Storage class (localStorage persistence)
+├── time.js          # todaysSatle() day index calc, countdown timer
+├── geolocation.js   # Distance/bearing calculations between coordinates
+├── settings.js      # User preferences (units, distance display)
+└── game.js          # Main orchestrator — game logic, DOM, state machine
+
+data/                # Source of truth (committed)
+├── puzzles.json     # All puzzle objects (the pool)
+└── schedule.json    # Ordered array of puzzle IDs (day index → puzzle)
+
+public/              # Generated compressed files (committed)
+├── satles-v2.lz     # { puzzles, schedule } — used by web + new mobile
+└── satles-encoded.lz # [puzzles...] in schedule order — legacy mobile compat
+
+scripts/             # Maintenance scripts (committed)
+workspace/           # Throwaway/one-time scripts (gitignored)
+docs/                # Deployment and puzzle management guides
+```
+
+### How the Daily Puzzle Works
+
+1. `time.js` → `todaysSatle()` returns days elapsed since **Aug 1, 2025** (hardcoded: `startYear=2025, startDay=213`)
+2. `game.js` → `data.puzzlesById[data.schedule[dayIndex % data.schedule.length]]`
+3. The start date never changes. The schedule array controls which puzzle appears on which day.
+
+Mobile equivalent: `DateTimeProvider.kt` uses `LocalDate(2025, 8, 1)`.
+
+### Puzzle Data Format
+
+```json
+{ "id": 1, "city": "Paris", "country": "France", "emoji": "🇫🇷",
+  "loc": { "lat": 48.8584, "lng": 2.2945 },
+  "name": "Eiffel Tower", "description": "..." }
+```
 
 ### Zoom Mechanic
-The map uses 6 zoom levels `[18, 16, 14, 11, 8, 4]`. Players start at maximum zoom (closest satellite view) and zoom out with each wrong guess, revealing more context.
 
-## Puzzle Management
+6 zoom levels: `[18, 16, 14, 11, 8, 4]`. Guess 1 is most zoomed in (hardest), each wrong guess zooms out.
 
-Full documentation: `docs/puzzle-management.md`
+### Data Loading
 
-### Source Data (committed to repo)
-- `data/puzzles.json` — all puzzle objects (the pool, currently 470)
-- `data/schedule.json` — ordered array of puzzle IDs determining which puzzle appears on each day
+`util.js` fetches `satles-v2.lz`, decompresses with lz-string, builds a `puzzlesById` dictionary (O(1) lookup). Falls back to localStorage cache if fetch fails.
 
-### Scripts (committed to repo)
-- `scripts/build-satles.mjs` — generates both `.lz` files from source data, copies to SatleCompose if present
-- `scripts/add-puzzles.mjs` — adds new puzzles to pool, rebuilds schedule and `.lz` files
-- `scripts/rebuild-schedule.mjs` — adjusts deploy date without changing the pool; defaults to today if no `--deploy-date` given
+## Key Conventions
 
-### Workspace (gitignored)
-- `workspace/` — contains one-time scripts and working files, gitignored
-- `workspace/new-satles.json` — the latest batch of new puzzle entries (used with `--new-puzzles` flag)
+- **Two `.lz` files** are always generated together by `build-satles.mjs` for backwards compatibility with old mobile apps that use the v1 array format
+- **Schedule is separate from puzzles.** `data/schedule.json` maps day positions to puzzle IDs. `data/puzzles.json` is the unordered pool. Never modify the schedule by hand — use the scripts.
+- **Preserved schedule positions** (days already played) must match the live site. When verifying, compare against `https://satle.ca/satles-encoded.lz`
+- **The start date (Aug 1, 2025) must not change.** It's hardcoded in both web (`time.js`) and mobile (`DateTimeProvider.kt`). The schedule handles everything.
+- **`workspace/` is gitignored.** Use it for one-time scripts, temp files, and working data like `new-satles.json`.
+- **Scripts use `.mjs` extension** because the project doesn't set `"type": "module"` in package.json. Use `import LZString from 'lz-string'` (default import), not named imports.
 
-### Adding New Puzzles Workflow
-1. Create a JSON file with new puzzle entries (see `docs/puzzle-management.md` for format)
-2. Run `node scripts/add-puzzles.mjs <file.json>` to add to pool and build
-3. Run `node scripts/rebuild-schedule.mjs --new-puzzles <file.json>` right before deploying to set the correct start position
-4. The script prints a full preview of the new puzzle schedule for verification
-5. Deploy website, then release mobile apps (or vice versa — both are backwards compatible)
+## Common Tasks
 
-### Backwards Compatibility
-- Old mobile apps fetch `satles-encoded.lz` (v1 array format) and use index-based lookup
-- New apps fetch `satles-v2.lz` (object with puzzles + schedule) and use schedule-based lookup
-- Mobile app's `SatleNetworkService.kt` tries v2 first, falls back to v1
-- Both formats are always generated together by `build-satles.mjs`
+**Fix puzzle data (typo, coordinates):** Edit `data/puzzles.json` directly, then run `node scripts/build-satles.mjs`.
+
+**Add new puzzles:** See `docs/puzzle-management.md`. Short version: create JSON file with new entries → `add-puzzles.mjs` → `rebuild-schedule.mjs` right before deploy → `npm run deploy`.
+
+**Deploy:** See `docs/deployment.md`. Short version: `npm run deploy` (builds + rsyncs to VPS).
+
+**Test a specific puzzle:** In `game.js`, temporarily replace `todaysSatle()` with a day index number. New puzzles start at whatever position `rebuild-schedule.mjs` last set them to (printed in its output).
 
 ## External Dependencies
-- Mapbox GL 3.9.1 - Satellite map rendering
-- Bootstrap 5.2 (CDN) - UI components
-- Twemoji (CDN) - Emoji rendering
-- lz-string - Puzzle data compression/decompression
 
-## Notes
-- No test framework or linting configured
-- Single-page app with no backend required
-- Builds to `dist/` for static hosting deployment
-- Live site: https://satle.ca
-- Scripts use `.mjs` extension because the project doesn't have `"type": "module"` in package.json
-- When verifying schedule changes, compare against live data at `https://satle.ca/satles-encoded.lz`
+- **Mapbox GL 3.9.1** — Satellite map tiles (requires API token)
+- **Bootstrap 5.2** — UI components (CDN)
+- **Twemoji** — Cross-platform emoji rendering (CDN)
+- **lz-string** — Compress/decompress puzzle data (npm)
+
+## Gotchas
+
+- No test framework or linter. Verify changes manually with `npm run dev`.
+- `time.js` contains obfuscated anti-theft code at the bottom — don't touch it.
+- The `game.js` file is large (~700 lines) and handles all DOM interaction, game state, modals, and autocomplete. Most game logic changes happen here.
+- `populateSatles()` (v1 loader) still exists in `util.js` but is unused by the web app. Keep it for reference.
+- When running `rebuild-schedule.mjs` multiple times, each run reshuffles. The preserved section stays stable as long as the underlying schedule hasn't been corrupted by a previous run with wrong parameters.
