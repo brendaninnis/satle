@@ -1,5 +1,5 @@
 
-import { shuffle, populateSatles, getTextWidth, getChildIndex, formatCityCountry } from "./util.js"
+import { shuffle, populateSatlesV2, getTextWidth, getChildIndex, formatCityCountry } from "./util.js"
 import { copyTextToClipboard } from "./clipboard.js"
 import { getDistanceFromLatLon, getDirectionEmoji } from "./geolocation.js"
 import { todaysSatle } from "./time.js"
@@ -34,6 +34,74 @@ const queryParamKeys = [
 ]
 const queryParams = new URLSearchParams(window.location.search)
 
+const UPDATES = [
+    {
+        id: "update2",
+        title: "Satle Update 22/07/2025",
+        body: `<h6>New Satles and bug fixes!</h6>
+<p>☀️ New daily puzzles have been added for the summer, along with several new cities and countries. I hope you'll enjoy.</p>
+<p>I've also fixed a few bugs. Many players pointed out issues to me including:</p>
+<ul>
+    <li>'Tripoli, Lebanon' was mislabelled as 'Tripoli, Libya'</li>
+    <li>South Korean cities were mislabelled as 'Korea'</li>
+    <li>A delay has been added to prevent multiple guesses from being submitted at once</li>
+    <li>Duplicate guesses are now detected and will show a warning</li>
+</ul>
+<p>📱 Thanks for playing and check out the mobile app for a better experience on iOS and Android. Be well.</p>`,
+        startDate: "2025-07-22"
+    },
+    {
+        id: "2026-03-16",
+        title: "Satle Update 16/03/2026",
+        body: `<h6>Spring Satles 2026!</h6><br />
+<p>🆕 <strong>86 new daily puzzles</strong> have been added featuring new cities and landmarks from around the world.</p>
+<p>This update includes:</p>
+<ul>
+    <li><strong>New countries</strong> across the world.</li>
+    <li><strong>Iconic landmarks</strong> you will definitely recognize.</li>
+    <li><strong>New cities</strong> that are home to some Satle guessers</li>
+</ul>
+<br />
+<p>🕊️ I am deeply saddened and disturbed by the many wars and violence that devastate the people and places that inspire this game. I pray that the world will come to peace and I hope that you are safe wherever you are.</p> 
+<p>Be well,<br>Brendan.</p>`,
+        startDate: "2026-03-16"
+    }
+]
+
+function getSeenUpdates() {
+    try {
+        return JSON.parse(localStorage.getItem("seenUpdates") || "[]")
+    } catch {
+        return []
+    }
+}
+
+function markAllUpdatesSeen() {
+    const seen = new Set([...getSeenUpdates(), ...UPDATES.map(u => u.id)])
+    localStorage.setItem("seenUpdates", JSON.stringify([...seen]))
+}
+
+function getLatestUnseenUpdate() {
+    const seen = new Set(getSeenUpdates())
+    const now = new Date()
+    const eligible = UPDATES.filter(u => {
+        if (seen.has(u.id)) return false
+        if (u.startDate && new Date(u.startDate + "T00:00:00") > now) return false
+        return true
+    })
+    return eligible.length > 0 ? eligible[eligible.length - 1] : null
+}
+
+// Migrate legacy update2 localStorage flag to new system
+if (localStorage.update2Shown02 && !localStorage.getItem("seenUpdatesMigrated")) {
+    const seen = getSeenUpdates()
+    if (!seen.includes("update2")) {
+        seen.push("update2")
+        localStorage.setItem("seenUpdates", JSON.stringify(seen))
+    }
+    localStorage.setItem("seenUpdatesMigrated", "true")
+}
+
 /**
  * BOOTSTRAP
  */
@@ -43,7 +111,7 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 
 let helpModal = new bootstrap.Modal(document.getElementById("helpModal"), {})
 let update1Modal = new bootstrap.Modal(document.getElementById("update1Modal"), {})
-let update2Modal = new bootstrap.Modal(document.getElementById("update2Modal"), {})
+let updateModal = new bootstrap.Modal(document.getElementById("updateModal"), {})
 let androidModal = new bootstrap.Modal(document.getElementById("androidUpdate"), {})
 let iosModal = new bootstrap.Modal(document.getElementById("iosUpdate"), {})
 let gameEndModal = new bootstrap.Modal(document.getElementById("gameEndModal"), {})
@@ -102,7 +170,7 @@ if (window.location.hostname !== satleUrl) {
     update1Modal.show()
     localStorage.storagePorted = true
     localStorage.instructionsShown = true
-    localStorage.update2Shown = true
+    markAllUpdatesSeen()
 }
 
 // Check for Satle stolen in iFrame
@@ -145,14 +213,17 @@ console.log("Passed pre-game checks")
  */
 async function initializeGame() {
     let satles;
+    let data;
     try {
-        satles = await populateSatles();
+        data = await populateSatlesV2();
+        satles = data.puzzles;
     } catch (error) {
         console.error("Failed to load satellite data:", error);
         alert("An error occurred while loading the game. Please try again later.");
         return; // Exit the function to prevent further execution
     }
-    const answer = satles[todaysSatle() % satles.length];
+    const dayIndex = todaysSatle();
+    const answer = data.puzzlesById[data.schedule[dayIndex % data.schedule.length]];
     const id = answer.id;
     const loc = answer.loc;
 
@@ -705,11 +776,16 @@ async function initializeGame() {
         androidModal.show()
     } else if (!localStorage.instructionsShown) {
         helpModal.show()
-    } else if (!localStorage.update2Shown02) {
-        update2Modal.show()
+    } else {
+        const update = getLatestUnseenUpdate()
+        if (update) {
+            document.getElementById("updateModalTitle").textContent = update.title
+            document.getElementById("updateModalBody").innerHTML = update.body
+            updateModal.show()
+            markAllUpdatesSeen()
+        }
     }
     localStorage.instructionsShown = true
-    localStorage.update2Shown02 = true
 
     settings.bindSettings(rebuildGuesses)
 

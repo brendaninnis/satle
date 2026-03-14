@@ -48,6 +48,41 @@ function decompressSatles(text) {
     return JSON.parse(decompressed)
 }
 
+async function populateSatlesV2() {
+    try {
+        const response = await fetch("satles-v2.lz")
+        if (!response.ok) {
+            throw new Error(`Failed to fetch v2 satles data: ${response.status}`)
+        }
+        const text = await response.text()
+        localStorage.setItem('satles-v2-encoded', text)
+        return decompressSatlesV2(text)
+    } catch (error) {
+        let text = localStorage.getItem('satles-v2-encoded')
+        if (!text) {
+            throw new Error('Failed to load v2 satles data')
+        }
+        return decompressSatlesV2(text)
+    }
+}
+
+function decompressSatlesV2(text) {
+    const decompressed = decompressFromUTF16(text)
+    if (!decompressed) {
+        throw new Error('Failed to decompress v2 satles data')
+    }
+    const data = JSON.parse(decompressed)
+    const puzzlesById = {}
+    for (const puzzle of data.puzzles) {
+        puzzlesById[puzzle.id] = puzzle
+    }
+    return {
+        puzzles: data.puzzles,
+        schedule: data.schedule,
+        puzzlesById: puzzlesById
+    }
+}
+
 function getTextWidth(text) {
     let el = document.createElement("span")
     el.textContent = text
@@ -65,5 +100,5 @@ function formatCityCountry(satle) {
     return satle.city + ", " + satle.country
 }
 
-export { shuffle, populateSatles, getTextWidth, getChildIndex, formatCityCountry }
+export { shuffle, populateSatles, populateSatlesV2, getTextWidth, getChildIndex, formatCityCountry }
 

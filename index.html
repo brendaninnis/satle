@@ -88,6 +88,28 @@
             </div>
         </nav>
 
+        <!-- Promo Banner -->
+        <div id="promoBanner" class="promo-banner">
+            <a href="https://uncluttered.recipes" target="_blank" rel="noopener">
+                &#127859; I'm building a recipe app with no ads &mdash; looking for 50 early access testers.
+                <strong>Claim your spot &rarr;</strong>
+            </a>
+            <button id="promoBannerClose" class="promo-banner-close" aria-label="Dismiss">&times;</button>
+        </div>
+        <script>
+            (function() {
+                var banner = document.getElementById('promoBanner');
+                if (localStorage.getItem('promoBannerDismissed') === 'true' || !localStorage.instructionsShown) {
+                    banner.classList.add('hidden');
+                }
+                document.getElementById('promoBannerClose').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    banner.classList.add('hidden');
+                    localStorage.setItem('promoBannerDismissed', 'true');
+                });
+            })();
+        </script>
+
         <!-- Main Container -->
         <div id="container" class="container-fluid">
             <div id="map"></div>
@@ -175,25 +197,14 @@
             </div>
         </div>
 
-        <div class="modal fade" id="update2Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="update2ModalLabel" aria-hidden="true">
+        <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-dark text-light">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="update2ModalLabel">Satle Update 22/07/2025</h5>
+                        <h5 class="modal-title" id="updateModalTitle"></h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <h6>New Satles and bug fixes!</h6>
-                        <p>☀️ New daily puzzles have been added for the summer, along with several new cities and countries. I hope you'll enjoy.</p>
-                        <p>I've also fixed a few bugs. Many players pointed out issues to me including:</p>
-                        <ul>
-                            <li>'Tripoli, Lebanon' was mislabelled as 'Tripoli, Libya'</li>
-                            <li>South Korean cities were mislabelled as 'Korea'</li>
-                            <li>A delay has been added to prevent multiple guesses from being submitted at once</li>
-                            <li>Duplicate guesses are now detected and will show a warning</li> 
-                        </ul>
-                        <p>📱 Thanks for playing and check out the mobile app for a better experience on iOS and Android. Be well.</p>
-                    </div>
+                    <div class="modal-body" id="updateModalBody"></div>
                 </div>
             </div>
         </div>
@@ -294,7 +305,7 @@
                     <div id="settings-list" class="modal-body" style="padding-right: 0;">
                         <p class="h4 mb-3 text-muted">Show distance
                         <span class="me-3 form-check-reverse form-check form-switch" style="float:right;">
-                            <input id="show-distance-switch" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                            <input id="show-distance-switch" class="form-check-input" type="checkbox" role="switch">
                         </span>
                         </p>
                         <p class="h4 pt-3 mb-3 text-muted">Distance units
