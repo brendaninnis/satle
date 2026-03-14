@@ -105,7 +105,6 @@ async function main() {
     const newPuzzles = JSON.parse(readFileSync(newPuzzlesFile, 'utf-8'))
 
     const allIds = new Set(puzzles.map(p => p.id))
-    const localIds = new Set(puzzles.map(p => p.id))
     const newIds = new Set(newPuzzles.map(p => p.id))
     const dayIndex = daysSinceStart(deployDate)
 
@@ -137,7 +136,7 @@ async function main() {
     const skipped = []
     for (let i = 0; i < effectiveIndex; i++) {
         const liveId = liveSchedule[i % liveSchedule.length]
-        if (localIds.has(liveId)) {
+        if (allIds.has(liveId)) {
             preservedSchedule.push(liveId)
         } else {
             skipped.push(liveId)
