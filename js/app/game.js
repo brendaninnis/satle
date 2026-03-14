@@ -57,13 +57,13 @@ const UPDATES = [
 <p>🆕 <strong>86 new daily puzzles</strong> have been added featuring new cities and landmarks from around the world.</p>
 <p>This update includes:</p>
 <ul>
-    <li>New countries across Central Asia, the Caribbean, West Africa and beyond.</li>
-    <li>Iconic landmarks you will definitely recognize. Can you guess the city?</li>
-    <li>New cities that are home to some Satle guessers</li>
+    <li><strong>New countries</strong> across the world.</li>
+    <li><strong>Iconic landmarks</strong> you will definitely recognize.</li>
+    <li><strong>New cities</strong> that are home to some Satle guessers</li>
 </ul>
 <br />
 <p>🕊️ I am deeply saddened and disturbed by the many wars and violence that devastate the people and places that inspire this game. I pray that the world will come to peace and I hope that you are safe wherever you are.</p> 
-<p>Be well,\nBrendan.</p>`,
+<p>Be well,<br>Brendan.</p>`,
         startDate: "2026-03-16"
     }
 ]
