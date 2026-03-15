@@ -38,9 +38,13 @@ let UPDATES = []
 
 async function fetchUpdates() {
     try {
-        const response = await fetch("/config.json")
-        const config = await response.json()
-        UPDATES = config.updates || []
+        const timeout = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Config fetch timed out")), 2000)
+        )
+        const config = await Promise.race([window.__configPromise, timeout])
+        if (config) {
+            UPDATES = config.updates || []
+        }
     } catch (e) {
         console.error("Failed to fetch updates:", e)
     }

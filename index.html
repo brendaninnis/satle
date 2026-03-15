@@ -94,43 +94,57 @@
             <button id="promoBannerClose" class="promo-banner-close" aria-label="Dismiss">&times;</button>
         </div>
         <script>
+            // Fetch config once and share the promise with game.js
+            window.__configPromise = fetch('/config.json')
+                .then(function(r) { return r.json(); })
+                .then(function(config) {
+                    if (!config || typeof config !== 'object') {
+                        console.error('config.json: invalid format, expected an object');
+                        return null;
+                    }
+                    return config;
+                })
+                .catch(function(e) {
+                    console.error('Failed to fetch config.json:', e);
+                    return null;
+                });
+
             (function() {
                 var banner = document.getElementById('promoBanner');
                 var link = document.getElementById('promoBannerLink');
                 var closeBtn = document.getElementById('promoBannerClose');
 
-                fetch('/config.json')
-                    .then(function(r) { return r.json(); })
-                    .then(function(config) {
-                        var banners = config.banners || [];
-                        var active = null;
-                        for (var i = 0; i < banners.length; i++) {
-                            var b = banners[i];
-                            if (!b.active) continue;
-                            // Check per-id dismiss key, plus legacy key for backwards compat
-                            var dismissed = localStorage.getItem('promoBannerDismissed_' + b.id) === 'true';
-                            if (!dismissed && b.id === 'uncluttered-early-access') {
-                                dismissed = localStorage.getItem('promoBannerDismissed') === 'true';
-                            }
-                            if (!dismissed) { active = b; break; }
+                window.__configPromise.then(function(config) {
+                    if (!config) return;
+                    var banners = config.banners || [];
+                    var active = null;
+                    for (var i = 0; i < banners.length; i++) {
+                        var b = banners[i];
+                        if (!b.active) continue;
+                        // Check per-id dismiss key, plus legacy key for backwards compat
+                        var dismissed = localStorage.getItem('promoBannerDismissed_' + b.id) === 'true';
+                        // TODO: remove legacy compat check after 2026-06-01
+                        if (!dismissed && b.id === 'uncluttered-early-access') {
+                            dismissed = localStorage.getItem('promoBannerDismissed') === 'true';
                         }
-                        if (active && localStorage.instructionsShown) {
-                            link.href = active.url;
-                            link.innerHTML = active.text;
-                            banner.classList.remove('hidden');
+                        if (!dismissed) { active = b; break; }
+                    }
+                    if (active && localStorage.instructionsShown) {
+                        link.href = active.url;
+                        link.innerHTML = active.text;
+                        banner.classList.remove('hidden');
 
-                            closeBtn.addEventListener('click', function(e) {
-                                e.preventDefault();
-                                banner.classList.add('hidden');
-                                localStorage.setItem('promoBannerDismissed_' + active.id, 'true');
-                                // Also set legacy key for backwards compat
-                                if (active.id === 'uncluttered-early-access') {
-                                    localStorage.setItem('promoBannerDismissed', 'true');
-                                }
-                            });
-                        }
-                    })
-                    .catch(function() { /* banner stays hidden on failure */ });
+                        closeBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            banner.classList.add('hidden');
+                            localStorage.setItem('promoBannerDismissed_' + active.id, 'true');
+                            // TODO: remove legacy compat check after 2026-06-01
+                            if (active.id === 'uncluttered-early-access') {
+                                localStorage.setItem('promoBannerDismissed', 'true');
+                            }
+                        });
+                    }
+                });
             })();
         </script>
 
