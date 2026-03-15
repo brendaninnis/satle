@@ -767,7 +767,7 @@ async function initializeGame() {
     if (isReturningPlayer) {
         fetchUpdates().then(() => {
             const update = getLatestUnseenUpdate()
-            if (update) {
+            if (update && !document.querySelector('.modal.show')) {
                 document.getElementById("updateModalTitle").textContent = update.title
                 document.getElementById("updateModalBody").innerHTML = update.body
                 updateModal.show()
