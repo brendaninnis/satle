@@ -751,26 +751,30 @@ async function initializeGame() {
         androidModal.hide()
     })
 
-    // Fetch remote updates before showing update modal
-    await fetchUpdates()
-
     // Show instructions if the player has not seen them
+    const isReturningPlayer = !!localStorage.instructionsShown
     if (iOS() && !localStorage.ignoreIOSUpdate) {
         iosModal.show()
     } else if (isAndroid && !localStorage.ignoreAndroidUpdate) {
         androidModal.show()
-    } else if (!localStorage.instructionsShown) {
+    } else if (!isReturningPlayer) {
         helpModal.show()
-    } else {
-        const update = getLatestUnseenUpdate()
-        if (update) {
-            document.getElementById("updateModalTitle").textContent = update.title
-            document.getElementById("updateModalBody").innerHTML = update.body
-            updateModal.show()
-            markAllUpdatesSeen()
-        }
     }
     localStorage.instructionsShown = true
+
+    // Fetch remote updates non-blocking — show update modal when ready
+    // Only show to returning players (not on first visit)
+    if (isReturningPlayer) {
+        fetchUpdates().then(() => {
+            const update = getLatestUnseenUpdate()
+            if (update) {
+                document.getElementById("updateModalTitle").textContent = update.title
+                document.getElementById("updateModalBody").innerHTML = update.body
+                updateModal.show()
+                markAllUpdatesSeen()
+            }
+        })
+    }
 
     settings.bindSettings(rebuildGuesses)
 
