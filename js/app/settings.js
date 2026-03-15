@@ -35,7 +35,7 @@ class Settings {
             distanceSettingsDidChange()
         })
         this.emailButton.addEventListener("click", function() {
-            window.open('mailto:brendaninnis@icloud.com?subject=Satle%20Feedback&body=' + that.buildFeedbackBody())
+            window.open('mailto:brendan@realitywargames.ca?subject=Satle%20Feedback&body=' + that.buildFeedbackBody())
         })
     }
 

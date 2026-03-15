@@ -89,24 +89,48 @@
         </nav>
 
         <!-- Promo Banner -->
-        <div id="promoBanner" class="promo-banner">
-            <a href="https://uncluttered.recipes" target="_blank" rel="noopener">
-                &#127859; I'm building a recipe app with no ads &mdash; looking for 50 early access testers.
-                <strong>Claim your spot &rarr;</strong>
-            </a>
+        <div id="promoBanner" class="promo-banner hidden">
+            <a id="promoBannerLink" href="#" target="_blank" rel="noopener"></a>
             <button id="promoBannerClose" class="promo-banner-close" aria-label="Dismiss">&times;</button>
         </div>
         <script>
             (function() {
                 var banner = document.getElementById('promoBanner');
-                if (localStorage.getItem('promoBannerDismissed') === 'true' || !localStorage.instructionsShown) {
-                    banner.classList.add('hidden');
-                }
-                document.getElementById('promoBannerClose').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    banner.classList.add('hidden');
-                    localStorage.setItem('promoBannerDismissed', 'true');
-                });
+                var link = document.getElementById('promoBannerLink');
+                var closeBtn = document.getElementById('promoBannerClose');
+
+                fetch('/config.json')
+                    .then(function(r) { return r.json(); })
+                    .then(function(config) {
+                        var banners = config.banners || [];
+                        var active = null;
+                        for (var i = 0; i < banners.length; i++) {
+                            var b = banners[i];
+                            if (!b.active) continue;
+                            // Check per-id dismiss key, plus legacy key for backwards compat
+                            var dismissed = localStorage.getItem('promoBannerDismissed_' + b.id) === 'true';
+                            if (!dismissed && b.id === 'uncluttered-early-access') {
+                                dismissed = localStorage.getItem('promoBannerDismissed') === 'true';
+                            }
+                            if (!dismissed) { active = b; break; }
+                        }
+                        if (active && localStorage.instructionsShown) {
+                            link.href = active.url;
+                            link.innerHTML = active.text;
+                            banner.classList.remove('hidden');
+
+                            closeBtn.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                banner.classList.add('hidden');
+                                localStorage.setItem('promoBannerDismissed_' + active.id, 'true');
+                                // Also set legacy key for backwards compat
+                                if (active.id === 'uncluttered-early-access') {
+                                    localStorage.setItem('promoBannerDismissed', 'true');
+                                }
+                            });
+                        }
+                    })
+                    .catch(function() { /* banner stays hidden on failure */ });
             })();
         </script>
 

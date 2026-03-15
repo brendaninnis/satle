@@ -34,39 +34,17 @@ const queryParamKeys = [
 ]
 const queryParams = new URLSearchParams(window.location.search)
 
-const UPDATES = [
-    {
-        id: "update2",
-        title: "Satle Update 22/07/2025",
-        body: `<h6>New Satles and bug fixes!</h6>
-<p>☀️ New daily puzzles have been added for the summer, along with several new cities and countries. I hope you'll enjoy.</p>
-<p>I've also fixed a few bugs. Many players pointed out issues to me including:</p>
-<ul>
-    <li>'Tripoli, Lebanon' was mislabelled as 'Tripoli, Libya'</li>
-    <li>South Korean cities were mislabelled as 'Korea'</li>
-    <li>A delay has been added to prevent multiple guesses from being submitted at once</li>
-    <li>Duplicate guesses are now detected and will show a warning</li>
-</ul>
-<p>📱 Thanks for playing and check out the mobile app for a better experience on iOS and Android. Be well.</p>`,
-        startDate: "2025-07-22"
-    },
-    {
-        id: "2026-03-16",
-        title: "Satle Update 16/03/2026",
-        body: `<h6>Spring Satles 2026!</h6><br />
-<p>🆕 <strong>86 new daily puzzles</strong> have been added featuring new cities and landmarks from around the world.</p>
-<p>This update includes:</p>
-<ul>
-    <li><strong>New countries</strong> across the world.</li>
-    <li><strong>Iconic landmarks</strong> you will definitely recognize.</li>
-    <li><strong>New cities</strong> that are home to some Satle guessers</li>
-</ul>
-<br />
-<p>🕊️ I am deeply saddened and disturbed by the many wars and violence that devastate the people and places that inspire this game. I pray that the world will come to peace and I hope that you are safe wherever you are.</p> 
-<p>Be well,<br>Brendan.</p>`,
-        startDate: "2026-03-16"
+let UPDATES = []
+
+async function fetchUpdates() {
+    try {
+        const response = await fetch("/config.json")
+        const config = await response.json()
+        UPDATES = config.updates || []
+    } catch (e) {
+        console.error("Failed to fetch updates:", e)
     }
-]
+}
 
 function getSeenUpdates() {
     try {
@@ -768,6 +746,9 @@ async function initializeGame() {
         localStorage.ignoreAndroidUpdate = true
         androidModal.hide()
     })
+
+    // Fetch remote updates before showing update modal
+    await fetchUpdates()
 
     // Show instructions if the player has not seen them
     if (iOS() && !localStorage.ignoreIOSUpdate) {

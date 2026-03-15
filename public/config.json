@@ -1,0 +1,24 @@
+{
+  "banners": [
+    {
+      "id": "uncluttered-early-access",
+      "text": "🍳 I'm building a recipe app with no ads — looking for 50 early access testers. <strong>Claim your spot →</strong>",
+      "url": "https://uncluttered.recipes",
+      "active": true
+    }
+  ],
+  "updates": [
+    {
+      "id": "update2",
+      "title": "Satle Update 22/07/2025",
+      "body": "<h6>New Satles and bug fixes!</h6>\n<p>☀️ New daily puzzles have been added for the summer, along with several new cities and countries. I hope you'll enjoy.</p>\n<p>I've also fixed a few bugs. Many players pointed out issues to me including:</p>\n<ul>\n    <li>'Tripoli, Lebanon' was mislabelled as 'Tripoli, Libya'</li>\n    <li>South Korean cities were mislabelled as 'Korea'</li>\n    <li>A delay has been added to prevent multiple guesses from being submitted at once</li>\n    <li>Duplicate guesses are now detected and will show a warning</li>\n</ul>\n<p>📱 Thanks for playing and check out the mobile app for a better experience on iOS and Android. Be well.</p>",
+      "startDate": "2025-07-22"
+    },
+    {
+      "id": "2026-03-16",
+      "title": "Satle Update 16/03/2026",
+      "body": "<h6>Spring Satles 2026!</h6><br />\n<p>🆕 <strong>86 new daily puzzles</strong> have been added featuring new cities and landmarks from around the world.</p>\n<p>This update includes:</p>\n<ul>\n    <li><strong>New countries</strong> across the world.</li>\n    <li><strong>Iconic landmarks</strong> you will definitely recognize.</li>\n    <li><strong>New cities</strong> that are home to some Satle guessers</li>\n</ul>\n<br />\n<p>🕊️ I am deeply saddened and disturbed by the many wars and violence that devastate the people and places that inspire this game. I pray that the world will come to peace and I hope that you are safe wherever you are.</p> \n<p>Be well,<br>Brendan.</p>",
+      "startDate": "2026-03-16"
+    }
+  ]
+}
