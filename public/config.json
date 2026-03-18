@@ -2,7 +2,7 @@
   "banners": [
     {
       "id": "uncluttered-early-access",
-      "text": "🍳 I'm building a recipe app with no ads — looking for 50 early access testers. <strong>Claim your spot →</strong>",
+      "text": "🍳 I'm building a recipe app with no ads and I'm looking for 50 early access testers. <strong>Claim your spot →</strong>",
       "url": "https://uncluttered.recipes",
       "active": true
     }
